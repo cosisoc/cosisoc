@@ -1,0 +1,36 @@
+---
+import type { ImageMetadata } from 'astro';
+import Media from './Media.astro';
+import { useT, type Lang } from '../i18n/utils';
+
+// Kapitel im Projektdetail: Bild + ein Satz bleiben sichtbar, die Details klappen ein.
+// In der MDX-Datei: <Chapter title="…" teaser="…" image={importiertesBild} label="Alt-Text">Details</Chapter>
+interface Props { title: string; teaser: string; image?: ImageMetadata; video?: string; label?: string }
+const { title, teaser, image, video, label = `[Bild/Video: ${title}]` } = Astro.props;
+const t = useT((Astro.currentLocale ?? 'de') as Lang);
+---
+<section class="chapter">
+  <h3>{title}</h3>
+  <Media media={{ label, image, video }} class="chapter-media" />
+  <p class="chapter-teaser">{teaser}</p>
+  <details>
+    <summary>{t('project.more')}</summary>
+    <div class="chapter-body"><slot /></div>
+  </details>
+</section>
+
+<style>
+  .chapter { display: flex; flex-direction: column; gap: 16px; }
+  h3 { font-size: 28px; }
+  .chapter :global(.chapter-media) { aspect-ratio: 16 / 9; }
+  .chapter-teaser { font-size: 19px; max-width: 60ch; }
+  summary {
+    cursor: pointer;
+    width: fit-content;
+    font-family: var(--f-mono);
+    font-size: 13px;
+    color: var(--c-accent);
+  }
+  .chapter-body { padding-top: 12px; max-width: 65ch; color: var(--c-text-soft); }
+  .chapter-body :global(p + p) { margin-top: 12px; }
+</style>

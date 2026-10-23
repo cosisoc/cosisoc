@@ -1,0 +1,10 @@
+---
+import HomePage from '../../components/HomePage.astro';
+import { getProjects } from '../../lib/projects';
+
+export async function getStaticPaths() {
+  const projects = await getProjects('de');
+  return projects.map((p) => ({ params: { slug: p.slug } }));
+}
+---
+<HomePage lang="de" openSlug={Astro.params.slug} />

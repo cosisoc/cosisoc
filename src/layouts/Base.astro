@@ -1,0 +1,58 @@
+---
+import '@fontsource/schibsted-grotesk/400.css';
+import '@fontsource/schibsted-grotesk/500.css';
+import '@fontsource/schibsted-grotesk/600.css';
+import '@fontsource/ibm-plex-mono/400.css';
+import '@fontsource/ibm-plex-mono/500.css';
+import '../styles/tokens.css';
+import '../styles/global.css';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import { routes, otherLang, type Lang } from '../i18n/utils';
+
+interface Props {
+  lang: Lang;
+  title: string;
+  description: string;
+  /** URL derselben Seite in der anderen Sprache */
+  alternate: string;
+  /** Titel der Startseite (für panel.js, wenn ein Projekt geschlossen wird) */
+  homeTitle?: string;
+}
+
+const { lang, title, description, alternate, homeTitle = title } = Astro.props;
+const alt = otherLang(lang);
+---
+<!doctype html>
+<html
+  lang={lang}
+  data-home={routes.home[lang]}
+  data-home-title={homeTitle}
+  data-home-alt={routes.home[alt]}
+>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <link rel="alternate" hreflang={alt} href={alternate} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  </head>
+  <body>
+    <div data-page>
+      <Nav lang={lang} alternate={alternate} />
+      <main><slot /></main>
+      <Footer lang={lang} />
+    </div>
+    <slot name="panels" />
+    <script>
+      // „Bewegung reduzieren“ respektieren: Autoplay-Videos anhalten
+      if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        document.querySelectorAll<HTMLVideoElement>('video[autoplay]').forEach((v) => v.pause());
+      }
+    </script>
+  </body>
+</html>

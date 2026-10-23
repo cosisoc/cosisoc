@@ -1,0 +1,21 @@
+---
+import Media from './Media.astro';
+import type { Media as MediaData } from '../lib/projects';
+
+// 3D-Modell (.glb aus public/projects/<slug>/): erst Standbild, das Modell lädt beim Klick.
+interface Props { src: string; poster: MediaData; label: string }
+const { src, poster, label } = Astro.props;
+---
+<div class="model" data-model-src={src} data-model-alt={poster.label}>
+  <Media media={poster} class="model-poster" />
+  <button class="btn model-load" type="button">{label}</button>
+</div>
+
+<script src="../scripts/model.js"></script>
+
+<style>
+  .model { position: relative; }
+  .model :global(.model-poster) { aspect-ratio: 16 / 9; }
+  .model-load { position: absolute; left: 20px; bottom: 20px; border: 0; cursor: pointer; }
+  .model :global(model-viewer) { width: 100%; aspect-ratio: 16 / 9; border-radius: var(--radius); background: var(--c-surface-muted); }
+</style>

@@ -1,0 +1,58 @@
+---
+import Media from './Media.astro';
+import { projectUrl, useT, type Lang } from '../i18n/utils';
+import type { Project } from '../lib/projects';
+
+interface Props { lang: Lang; projects: Project[] }
+const { lang, projects } = Astro.props;
+const t = useT(lang);
+// TODO: Kartenstapel, der beim Scrollen auffächert. Bis dahin liegen die Karten leicht gedreht nebeneinander.
+---
+<section class="section" id="side-projects">
+  <div class="section-head">
+    <div>
+      <span class="eyebrow">{t('nav.side')}</span>
+      <h2>{t('side.title')}</h2>
+    </div>
+  </div>
+  <ul class="cards">
+    {projects.map((p) => (
+      <li class="card">
+        <a href={projectUrl(lang, p.slug)} data-panel-open={p.slug}>
+          <Media media={p.data.preview} class="card-media" sizes="400px" />
+          <h3>{p.data.title}</h3>
+          <p>{p.data.short}</p>
+          <ul class="tags">{p.data.tags.map((tag) => <li class="tag">{tag}</li>)}</ul>
+        </a>
+      </li>
+    ))}
+  </ul>
+</section>
+
+<style>
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 24px;
+  }
+  .card a {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    height: 100%;
+    padding: 20px;
+    border-radius: var(--radius-lg);
+    background: var(--c-surface);
+    border: 1px solid var(--c-border);
+    color: var(--c-text);
+    text-decoration: none;
+    transition: transform var(--dur) var(--ease);
+  }
+  .card:nth-child(3n + 1) a { transform: rotate(-1.5deg); }
+  .card:nth-child(3n + 2) a { transform: rotate(1deg); }
+  .card:nth-child(3n + 3) a { transform: rotate(-0.5deg); }
+  .card a:hover { transform: rotate(0) translateY(-4px); }
+  .card :global(.card-media) { aspect-ratio: 4 / 3; }
+  h3 { font-size: 24px; }
+  p { font-size: 15px; color: var(--c-text-soft); }
+</style>

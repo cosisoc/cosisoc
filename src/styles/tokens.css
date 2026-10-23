@@ -1,0 +1,36 @@
+/* Alle Design-Werte an einer Stelle. Vorläufig aus dem Akkordeon-Prototyp übernommen. */
+:root {
+  /* Farben */
+  --c-bg: #F6F7F3;
+  --c-surface: #FFFFFF;
+  --c-surface-muted: #ECEFE8;
+  --c-text: #141A14;
+  --c-text-soft: #2E3A2E;
+  --c-text-muted: #586157;
+  --c-border: #D5DDD2;
+  --c-border-soft: #E0E5DC;
+  --c-border-tag: #C9D3C6;
+  --c-placeholder: #E4EBE2;
+  --c-placeholder-border: #9FB39F;
+  --c-placeholder-text: #4A5A4A;
+  --c-accent: #1F7A4D;
+  --c-accent-strong: #14502F;
+  --c-on-accent: #FFFFFF;
+  --c-backdrop: rgb(20 26 20 / 0.35);
+
+  /* Schrift */
+  --f-sans: 'Schibsted Grotesk', system-ui, sans-serif;
+  --f-mono: 'IBM Plex Mono', ui-monospace, monospace;
+
+  /* Layout */
+  --gutter: clamp(16px, 5vw, 72px);
+  --nav-h: 64px;
+  --radius: 10px;
+  --radius-lg: 14px;
+  --content-max: 1280px;
+
+  /* Bewegung */
+  --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --dur: 300ms;
+  --dur-slow: 600ms;
+}

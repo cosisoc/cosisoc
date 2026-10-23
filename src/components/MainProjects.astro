@@ -1,0 +1,59 @@
+---
+import Media from './Media.astro';
+import { projectUrl, useT, type Lang } from '../i18n/utils';
+import { projectNumber, type Project } from '../lib/projects';
+import '../styles/accordion.css';
+
+interface Props { lang: Lang; projects: Project[] }
+const { lang, projects } = Astro.props;
+const t = useT(lang);
+---
+<section class="section" id="main-projects">
+  <div class="section-head">
+    <div>
+      <span class="eyebrow">{t('nav.main')}</span>
+      <h2>{t('main.title')}</h2>
+    </div>
+    <span class="hint">{t('main.hint')}</span>
+  </div>
+
+  <ul class="accordion" data-accordion>
+    {projects.map((p, i) => {
+      const num = projectNumber(p);
+      const facts = [
+        [t('project.when'), p.data.semester],
+        [t('project.duration'), p.data.duration],
+        [t('project.team'), p.data.team],
+      ];
+      return (
+        <li class:list={['strip', { 'is-active': i === 0 }]}>
+          <button class="strip-toggle" aria-expanded={i === 0 ? 'true' : 'false'} aria-label={`${num} ${p.data.title} ${t('main.expand')}`}>
+            <span class="strip-num">{num}</span>
+            <span class="strip-title-vertical">{p.data.title}</span>
+            <span class="strip-dot" />
+          </button>
+          <div class="strip-body">
+            <div class="strip-head">
+              <span class="strip-num-accent">{num}</span>
+              <h3>{p.data.title}</h3>
+            </div>
+            <Media media={p.data.preview} class="strip-media" />
+            <p class="strip-desc">{p.data.short}</p>
+            <div class="strip-row">
+              <dl class="strip-facts">
+                {facts.map(([k, v]) => <div><dt class="label">{k}</dt><dd>{v}</dd></div>)}
+              </dl>
+              <a class="btn" href={projectUrl(lang, p.slug)} data-panel-open={p.slug}>
+                {t('project.view')}
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" /></svg>
+              </a>
+            </div>
+            <ul class="tags">{p.data.tags.map((tag) => <li class="tag">{tag}</li>)}</ul>
+          </div>
+        </li>
+      );
+    })}
+  </ul>
+</section>
+
+<script src="../scripts/accordion.js"></script>

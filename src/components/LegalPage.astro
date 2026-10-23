@@ -1,0 +1,27 @@
+---
+import Base from '../layouts/Base.astro';
+import { copy } from '../i18n/copy';
+import { otherLang, routes, useT, type Lang } from '../i18n/utils';
+
+interface Props { lang: Lang; kind: 'imprint' | 'privacy' }
+const { lang, kind } = Astro.props;
+const t = useT(lang);
+const text = copy[lang].legal[kind];
+---
+<Base
+  lang={lang}
+  title={`${text.title} – ${copy[lang].name}`}
+  description={text.title}
+  alternate={routes[kind][otherLang(lang)]}
+>
+  <article class="section legal">
+    <a class="hint" href={routes.home[lang]}>← {t('legal.back')}</a>
+    <h1>{text.title}</h1>
+    <p>{text.body}</p>
+  </article>
+</Base>
+
+<style>
+  .legal { display: flex; flex-direction: column; gap: 24px; max-width: 760px; min-height: 60vh; }
+  h1 { font-size: 44px; }
+</style>

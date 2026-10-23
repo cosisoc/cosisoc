@@ -1,0 +1,66 @@
+---
+import { render } from 'astro:content';
+import Media from './Media.astro';
+import Chapter from './Chapter.astro';
+import Model3D from './Model3D.astro';
+import { projectUrl, otherLang, routes, useT, type Lang } from '../i18n/utils';
+import { projectNumber, type Project } from '../lib/projects';
+import { copy } from '../i18n/copy';
+import '../styles/panel.css';
+
+interface Props { lang: Lang; project: Project; next: Project; open: boolean }
+const { lang, project: p, next, open } = Astro.props;
+const t = useT(lang);
+const { Content } = await render(p);
+const d = p.data;
+const facts = [
+  [t('project.role'), d.role],
+  [t('project.team'), d.team],
+  [t('project.duration'), d.duration],
+  [t('project.when'), d.semester],
+  [t('project.tools'), d.tools.join(', ')],
+];
+---
+<div
+  class:list={['panel', { 'is-open': open }]}
+  id={`panel-${p.slug}`}
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby={`panel-title-${p.slug}`}
+  inert={!open}
+  data-slug={p.slug}
+  data-url={projectUrl(lang, p.slug)}
+  data-alt-url={projectUrl(otherLang(lang), p.slug)}
+  data-title={`${d.title} – ${copy[lang].name}`}
+>
+  <a class="panel-backdrop" href={routes.home[lang]} data-panel-close tabindex="-1" aria-hidden="true"></a>
+  <article class="panel-sheet" tabindex="-1">
+    <div class="panel-bar">
+      <span class="hint">{d.kind === 'main' ? `${projectNumber(p)} · Main Project` : 'Side Project'}</span>
+      <a class="panel-close" href={routes.home[lang]} data-panel-close aria-label={t('project.close')}>
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M5 5l10 10M15 5L5 15" /></svg>
+      </a>
+    </div>
+
+    <header class="panel-head">
+      <h2 id={`panel-title-${p.slug}`}>{d.title}</h2>
+      <p class="panel-short">{d.short}</p>
+      <dl class="panel-facts">
+        {facts.map(([k, v]) => <div><dt class="label">{k}</dt><dd>{v}</dd></div>)}
+      </dl>
+      <ul class="tags">{d.tags.map((tag) => <li class="tag">{tag}</li>)}</ul>
+    </header>
+
+    <Media media={d.hero} class="panel-hero" />
+    {d.model && <Model3D src={d.model.src} poster={d.model.poster} label={t('project.model')} />}
+
+    <div class="panel-chapters">
+      <Content components={{ Chapter }} />
+    </div>
+
+    <a class="panel-next" href={projectUrl(lang, next.slug)} data-panel-open={next.slug}>
+      <span class="label">{t('project.next')}</span>
+      <span class="panel-next-title">{next.data.title} →</span>
+    </a>
+  </article>
+</div>

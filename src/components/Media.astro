@@ -1,0 +1,44 @@
+---
+import { Image } from 'astro:assets';
+import type { Media } from '../lib/projects';
+
+// Zeigt Video, Bild oder – solange nichts gesetzt ist – eine Platzhalter-Box mit Label.
+interface Props { media: Media; class?: string; sizes?: string }
+const { media, class: className, sizes = '(min-width: 768px) 900px, 100vw' } = Astro.props;
+---
+{media.video ? (
+  <video
+    class:list={['media', className]}
+    src={media.video}
+    poster={media.poster?.src}
+    aria-label={media.label}
+    autoplay muted loop playsinline
+  />
+) : media.image ? (
+  <Image class:list={['media', className]} src={media.image} alt={media.label} sizes={sizes} widths={[480, 900, 1400]} />
+) : (
+  <div class:list={['media', 'media-placeholder', className]}>
+    <span>{media.label}</span>
+  </div>
+)}
+
+<style>
+  .media {
+    width: 100%;
+    border-radius: var(--radius);
+    object-fit: cover;
+  }
+  .media-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 160px;
+    padding: 16px;
+    background: var(--c-placeholder);
+    border: 1px dashed var(--c-placeholder-border);
+    font-family: var(--f-mono);
+    font-size: 13px;
+    color: var(--c-placeholder-text);
+    text-align: center;
+  }
+</style>

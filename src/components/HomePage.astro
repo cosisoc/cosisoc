@@ -1,0 +1,46 @@
+---
+import Base from '../layouts/Base.astro';
+import Loader from './Loader.astro';
+import Landing from './Landing.astro';
+import MainProjects from './MainProjects.astro';
+import SideProjects from './SideProjects.astro';
+import About from './About.astro';
+import ProjectPanel from './ProjectPanel.astro';
+import { copy } from '../i18n/copy';
+import { otherLang, projectUrl, routes, type Lang } from '../i18n/utils';
+import { getProjects } from '../lib/projects';
+
+// Die ganze One-Page. Mit `openSlug` ist ein Projekt beim Laden schon geöffnet
+// (so funktionieren direkte Links wie /projekte/konekt/).
+interface Props { lang: Lang; openSlug?: string }
+const { lang, openSlug } = Astro.props;
+
+const projects = await getProjects(lang);
+const main = projects.filter((p) => p.data.kind === 'main');
+const side = projects.filter((p) => p.data.kind === 'side');
+const open = projects.find((p) => p.slug === openSlug);
+
+const c = copy[lang];
+const homeTitle = `${c.name} – Interaction Design`;
+const alt = otherLang(lang);
+---
+<Base
+  lang={lang}
+  title={open ? `${open.data.title} – ${c.name}` : homeTitle}
+  description={open ? open.data.short : c.claim}
+  alternate={open ? projectUrl(alt, open.slug) : routes.home[alt]}
+  homeTitle={homeTitle}
+>
+  {!open && <Loader />}
+  <Landing lang={lang} />
+  <MainProjects lang={lang} projects={main} />
+  <SideProjects lang={lang} projects={side} />
+  <About lang={lang} />
+
+  <Fragment slot="panels">
+    {projects.map((p, i) => (
+      <ProjectPanel lang={lang} project={p} next={projects[(i + 1) % projects.length]} open={p === open} />
+    ))}
+    <script src="../scripts/panel.js"></script>
+  </Fragment>
+</Base>

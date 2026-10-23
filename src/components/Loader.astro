@@ -1,0 +1,26 @@
+---
+// Platzhalter für die Ladeanimation: blendet nach kurzer Zeit per CSS aus.
+// TODO: handgezeichnetes Logo, nur beim ersten Besuch zeigen.
+---
+<div class="loader" aria-hidden="true">
+  <span>[Logo]</span>
+</div>
+
+<style>
+  .loader {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--c-bg);
+    font-family: var(--f-mono);
+    color: var(--c-accent);
+    pointer-events: none;
+    animation: loader-out 250ms ease 550ms forwards;
+  }
+  @keyframes loader-out {
+    to { opacity: 0; visibility: hidden; }
+  }
+</style>
