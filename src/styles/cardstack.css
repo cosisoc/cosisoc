@@ -15,14 +15,22 @@
   transform: translateY(calc((1 - var(--p)) * 32px));
 }
 .stack-col {
+  --card-w: min(31vw, 468px, calc((100vh - 430px) * 0.78));
+  --col: calc((100vw - 2 * var(--gutter) - 11 * var(--col-gap)) / 12);
+  /* Mitte des Stapels: im Raster (Spalten 5–12), am Start links bündig, am Ende rechts bündig.
+     Die Faktoren sind die Ausdehnung der gedrehten Nachbarkarte ab Stapelmitte (Start in 0,84-Größe). */
+  --c-grid: calc(var(--gutter) + 8 * var(--col) + 7.5 * var(--col-gap));
+  --c-start: calc(var(--gutter) + 0.842 * var(--card-w));
+  --c-end: calc(100vw - var(--gutter) - 1.0 * var(--card-w));
   grid-column: 5 / 13;
-  transform: translateX(calc((1 - var(--p)) * -16.5vw)) scale(calc(0.84 + 0.16 * var(--p)));
+  transform:
+    translateX(calc((1 - var(--p)) * (var(--c-start) - var(--c-grid)) + var(--p) * (var(--c-end) - var(--c-grid))))
+    scale(calc(0.84 + 0.16 * var(--p)));
   transform-origin: 50% 0;
 }
 
 /* Stapel */
 .stack {
-  --card-w: min(31vw, 468px, calc((100vh - 430px) * 0.78));
   position: relative;
   height: calc(var(--card-w) / 0.78);
   perspective: 1200px;

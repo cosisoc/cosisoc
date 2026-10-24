@@ -1,10 +1,9 @@
 // Arbeiten: Kartenstapel. Setzt nur Positionsklassen, das Aussehen steht in cardstack.css.
-// Steuerung: Hover-Scrubbing (Zonen), Klick, Pfeiltasten + Enter, Wischen (Touch); dazu leichte Parallaxe.
+// Steuerung: Hover oder Klick auf eine Nachbarkarte, Punkte, Pfeiltasten + Enter, Wischen (Touch).
 const POSITIONS = ['is-active', 'is-next', 'is-hidden', 'is-prev'];
 const calm = matchMedia('(prefers-reduced-motion: reduce)');
 
 for (const root of document.querySelectorAll('[data-cardstack]')) {
-  const area = root.querySelector('.stack-area');
   const stack = root.querySelector('.stack');
   const cards = [...root.querySelectorAll('.stack-card')];
   const details = [...root.querySelectorAll('[data-info]')];
@@ -61,12 +60,20 @@ for (const root of document.querySelectorAll('[data-cardstack]')) {
   // Punkte unter dem Stapel springen direkt zum Projekt
   dots.forEach((dot, i) => dot.addEventListener('click', () => show(i)));
 
-  // Hover-Scrubbing: Breite in n Zonen, linke Zone = 01 … rechte Zone = 0n; beim Verlassen bleibt die Karte stehen
-  area.addEventListener('pointermove', (e) => {
+  // Hover auf eine Nachbarkarte holt genau diese nach vorn. Danach erst wieder reagieren, wenn sich die
+  // Maus ein Stück bewegt hat – sonst würde die nachrutschende Karte unter der Maus sofort mitspringen.
+  let lock = null;
+  stack.addEventListener('pointermove', (e) => {
     if (e.pointerType !== 'mouse' || innerWidth < 768) return;
-    const r = area.getBoundingClientRect();
-    show(Math.min(n - 1, Math.floor(((e.clientX - r.left) / r.width) * n)));
+    if (lock && Math.hypot(e.clientX - lock.x, e.clientY - lock.y) < 60) return;
+    lock = null;
+    const i = cards.indexOf(e.target.closest('.stack-card'));
+    if (i >= 0 && i !== active) {
+      show(i);
+      lock = { x: e.clientX, y: e.clientY };
+    }
   });
+  stack.addEventListener('pointerleave', () => { lock = null; });
 
   // Wischen auf Touch-Geräten
   let startX = null;
@@ -77,26 +84,4 @@ for (const root of document.querySelectorAll('[data-cardstack]')) {
     startX = null;
     if (Math.abs(dx) > 40) show(active + (dx < 0 ? 1 : -1));
   });
-
-  // Parallaxe: der Stapel kippt mit der Maus um max. ±4°, weich nachgezogen
-  const tilt = { x: 0, y: 0, tx: 0, ty: 0 };
-  let ticking = false;
-  const step = () => {
-    tilt.x += (tilt.tx - tilt.x) * 0.1;
-    tilt.y += (tilt.ty - tilt.y) * 0.1;
-    stack.style.transform = `rotateX(${tilt.x.toFixed(2)}deg) rotateY(${tilt.y.toFixed(2)}deg)`;
-    ticking = Math.abs(tilt.tx - tilt.x) > 0.01 || Math.abs(tilt.ty - tilt.y) > 0.01;
-    if (ticking) requestAnimationFrame(step);
-  };
-  const aim = (tx, ty) => {
-    tilt.tx = tx;
-    tilt.ty = ty;
-    if (!ticking) { ticking = true; requestAnimationFrame(step); }
-  };
-  root.addEventListener('pointermove', (e) => {
-    if (e.pointerType !== 'mouse' || calm.matches || innerWidth < 768) return;
-    const r = root.getBoundingClientRect();
-    aim(-((e.clientY - r.top) / r.height - 0.5) * 8, ((e.clientX - r.left) / r.width - 0.5) * 8);
-  });
-  root.addEventListener('pointerleave', () => aim(0, 0));
 }
