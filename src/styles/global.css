@@ -55,6 +55,47 @@ a:hover { color: var(--c-accent); }
   border: 1.5px solid var(--c-text);
 }
 
+/* Einblenden beim Reinscrollen (reveal.js). Mit Ladeanimation warten die Landing-Elemente kurz. */
+@media (prefers-reduced-motion: no-preference) {
+  .reveal-ready [data-reveal]:not(.is-revealed) { opacity: 0; }
+  .reveal-ready [data-reveal].is-revealed {
+    animation: reveal var(--dur-slow) var(--ease) backwards;
+    animation-delay: calc(var(--reveal-wait, 0ms) + var(--i, 0) * 90ms);
+  }
+  body:has(.loader) .landing { --reveal-wait: 700ms; }
+}
+@keyframes reveal { from { opacity: 0; transform: translateY(24px); } }
+
+/* Grüner Punkt als Mauszeiger (cursor.js) */
+.has-cursor, .has-cursor * { cursor: none !important; }
+.cursor {
+  position: fixed;
+  top: -7px;
+  left: -7px;
+  z-index: 200;
+  width: 14px;
+  height: 14px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 200ms ease;
+}
+.cursor.is-visible { opacity: 1; }
+.cursor::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: var(--c-accent);
+  box-shadow: 0 0 0 1.5px var(--c-on-accent);
+  transition: transform var(--dur) var(--ease), background var(--dur) ease, box-shadow var(--dur) ease;
+}
+/* Über Klickbarem: Ring statt Punkt, damit der Text darunter lesbar bleibt */
+.cursor.is-hover::after {
+  transform: scale(2.6);
+  background: transparent;
+  box-shadow: inset 0 0 0 0.8px var(--c-accent);
+}
+
 @media (max-width: 767px) {
   .section { padding-bottom: 64px; }
   .grid { grid-template-columns: minmax(0, 1fr); }

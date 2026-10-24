@@ -11,10 +11,10 @@ const perspectives = [1, 2, 3];
 ---
 <section class="landing grid" id="top" data-nav-section="top">
   <div class="intro">
-    <h1>{c.headline.map((line) => <span>{line}</span>)}</h1>
-    <p class="subline">{c.subline}</p>
+    <h1 data-reveal>{c.headline.map((line) => <span>{line}</span>)}</h1>
+    <p class="subline" data-reveal style="--i:1">{c.subline}</p>
   </div>
-  <div class="photo" data-perspectives>
+  <div class="photo" data-perspectives data-reveal style="--i:2">
     {perspectives.map((n) => (
       <div class="perspective" data-perspective={n} hidden={n !== 1}>
         <Media media={{ label: `${c.photo} ${n}` }} class="photo-media" sizes="(min-width: 768px) 40vw, 100vw" />

@@ -10,8 +10,8 @@ const a = copy[lang].about;
 <section class="section about" id="about" data-nav-section="about">
   <SectionHead label={a.label} title={a.title} />
   <div class="grid about-body">
-    <p class="intro">{a.intro}</p>
-    <div class="lists">
+    <p class="intro" data-reveal>{a.intro}</p>
+    <div class="lists" data-reveal style="--i:1">
       <div>
         <h3>{a.skillsTitle}</h3>
         <ul class="tags">{a.skills.map((s) => <li class="tag">{s}</li>)}</ul>

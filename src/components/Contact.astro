@@ -11,7 +11,7 @@ const c = copy[lang].contact;
 ---
 <section class="section dotted contact" id="contact" data-nav-section="contact">
   <SectionHead label={c.label} title={c.title} />
-  <a class="mail" href={`mailto:${c.mail}`}>{c.mail}</a>
+  <a class="mail" data-reveal href={`mailto:${c.mail}`}>{c.mail}</a>
   <footer class="legal">
     <span>{t('contact.legal')}</span>
     <a href={routes.imprint[lang]}>{t('footer.imprint')}</a>
