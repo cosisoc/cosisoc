@@ -39,6 +39,16 @@ a:hover { color: var(--c-accent); }
   column-gap: var(--col-gap);
 }
 
+/* Nur für Screenreader sichtbar */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
 /* Hellgrauer Hintergrund mit Punktraster */
 .dotted {
   background-color: var(--c-dotted-bg);

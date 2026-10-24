@@ -61,6 +61,9 @@
 /* Infos links: Kurzbeschreibung + Kasten mit Specs */
 .stack-detail { display: flex; flex-direction: column; gap: 28px; }
 .stack-detail[hidden] { display: none; }
+/* Wechsel: neue Infos kommen kurz von unten */
+.stack-detail:not([hidden]) { animation: detail-in 150ms var(--ease); }
+@keyframes detail-in { from { opacity: 0; transform: translateY(8px); } }
 .stack-name { font-weight: 700; color: var(--c-accent); }
 .stack-desc { font-size: var(--fs-l); font-weight: 700; line-height: 1.25; }
 .stack-specs {
@@ -80,4 +83,12 @@
   .stack-area { order: -1; margin-bottom: 40px; }
   .stack { --card-w: 70vw; overflow-x: clip; }
   .work-info { padding-left: 0; }
+}
+
+.stack { touch-action: pan-y; }
+
+/* Bewegung reduzieren: keine Drehung, keine Parallaxe, nur Überblenden */
+@media (prefers-reduced-motion: reduce) {
+  .stack-card.is-next { transform: translateX(55%) scale(0.84); }
+  .stack-card.is-prev { transform: translateX(-55%) scale(0.84); }
 }
