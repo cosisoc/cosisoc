@@ -4,7 +4,6 @@ import '@fontsource/schibsted-grotesk/700.css';
 import '../styles/tokens.css';
 import '../styles/global.css';
 import Nav from '../components/Nav.astro';
-import Footer from '../components/Footer.astro';
 import { routes, otherLang, type Lang } from '../i18n/utils';
 
 interface Props {
@@ -42,7 +41,6 @@ const alt = otherLang(lang);
     <div data-page>
       <Nav lang={lang} alternate={alternate} />
       <main><slot /></main>
-      <Footer lang={lang} />
     </div>
     <slot name="panels" />
     <script>

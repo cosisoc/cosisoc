@@ -1,47 +1,33 @@
 ---
+import SectionHead from './SectionHead.astro';
 import { copy } from '../i18n/copy';
-import { useT, type Lang } from '../i18n/utils';
+import type { Lang } from '../i18n/utils';
 
 interface Props { lang: Lang }
 const { lang } = Astro.props;
-const t = useT(lang);
 const a = copy[lang].about;
 ---
-<section class="section" id="about" data-nav-section="about">
-  <div class="section-head">
-    <div>
-      <span class="eyebrow">{t('nav.about')}</span>
-      <h2>{t('about.title')}</h2>
-    </div>
-  </div>
-  <div class="grid">
+<section class="section about" id="about" data-nav-section="about">
+  <SectionHead label={a.label} title={a.title} />
+  <div class="grid about-body">
     <p class="intro">{a.intro}</p>
-    <div>
-      <span class="label">{a.skillsTitle}</span>
-      <ul class="tags">{a.skills.map((s) => <li class="tag">{s}</li>)}</ul>
-    </div>
-    <div>
-      <span class="label">{a.toolsTitle}</span>
-      <ul class="tags">{a.tools.map((s) => <li class="tag">{s}</li>)}</ul>
-    </div>
-    <div>
-      <span class="label">{a.contactTitle}</span>
-      <a class="mail" href={`mailto:${a.mail}`}>{a.mail}</a>
+    <div class="lists">
+      <div>
+        <h3>{a.skillsTitle}</h3>
+        <ul class="tags">{a.skills.map((s) => <li class="tag">{s}</li>)}</ul>
+      </div>
+      <div>
+        <h3>{a.toolsTitle}</h3>
+        <ul class="tags">{a.tools.map((s) => <li class="tag">{s}</li>)}</ul>
+      </div>
     </div>
   </div>
 </section>
 
 <style>
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 40px 32px;
-  }
-  .intro { grid-column: 1 / -1; font-size: clamp(20px, 2.2vw, 28px); line-height: 1.3; max-width: 40ch; }
-  .label { display: block; margin-bottom: 10px; }
-  .mail { font-size: 20px; font-weight: 500; }
-
-  @media (max-width: 767px) {
-    .grid { grid-template-columns: 1fr; }
-  }
+  .about { min-height: 100vh; padding-top: calc(var(--section-top) + 160px); }
+  .about-body { margin-top: 40px; row-gap: 48px; }
+  .intro { grid-column: 1 / 6; font-size: var(--fs-l); font-weight: 700; line-height: 1.25; }
+  .lists { grid-column: 1 / 6; display: flex; flex-direction: column; gap: 24px; }
+  h3 { font-size: var(--fs-m); margin-bottom: 12px; }
 </style>

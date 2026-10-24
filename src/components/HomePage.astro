@@ -5,6 +5,7 @@ import Landing from './Landing.astro';
 import MainProjects from './MainProjects.astro';
 import SideProjects from './SideProjects.astro';
 import About from './About.astro';
+import Contact from './Contact.astro';
 import ProjectPanel from './ProjectPanel.astro';
 import { copy } from '../i18n/copy';
 import { otherLang, projectUrl, routes, type Lang } from '../i18n/utils';
@@ -36,6 +37,7 @@ const alt = otherLang(lang);
   <MainProjects lang={lang} projects={main} />
   <SideProjects lang={lang} projects={side} />
   <About lang={lang} />
+  <Contact lang={lang} />
 
   <Fragment slot="panels">
     {projects.map((p, i) => (

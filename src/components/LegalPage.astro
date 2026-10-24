@@ -15,13 +15,14 @@ const text = copy[lang].legal[kind];
   alternate={routes[kind][otherLang(lang)]}
 >
   <article class="section legal">
-    <a class="hint" href={routes.home[lang]}>← {t('legal.back')}</a>
+    <a class="back" href={routes.home[lang]}>← {t('legal.back')}</a>
     <h1>{text.title}</h1>
     <p>{text.body}</p>
   </article>
 </Base>
 
 <style>
-  .legal { display: flex; flex-direction: column; gap: 24px; max-width: 760px; min-height: 60vh; }
-  h1 { font-size: 44px; }
+  .legal { display: flex; flex-direction: column; gap: 24px; max-width: 860px; min-height: 100vh; padding-top: calc(var(--nav-h) + 40px); }
+  h1 { font-size: var(--fs-display); }
+  .back { font-weight: 700; text-decoration: none; }
 </style>
