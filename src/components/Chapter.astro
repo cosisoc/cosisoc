@@ -5,9 +5,8 @@ import Media from './Media.astro';
 // Kapitel im Projektdetail: zugeklappt nur Nummer + Titel, „+“ klappt Text und Bild auf.
 // Die Nummer zählt CSS automatisch hoch (panel.css), das Bild wechselt von Kapitel zu Kapitel die Seite.
 // In der MDX-Datei: <Chapter title="…" teaser="…" image={importiertesBild} label="Alt-Text">Details</Chapter>
-// Video (läuft stumm in Schleife): <Chapter … video="/projects/<slug>/film.mp4" poster="/projects/<slug>/film.jpg">
-interface Props { title: string; teaser: string; image?: ImageMetadata; video?: string; poster?: string; label?: string }
-const { title, teaser, image, video, poster, label = `[Bild/Video: ${title}]` } = Astro.props;
+interface Props { title: string; teaser: string; image?: ImageMetadata; video?: string; label?: string }
+const { title, teaser, image, video, label = `[Bild/Video: ${title}]` } = Astro.props;
 ---
 <details class="chapter">
   <summary class="chapter-row">
@@ -20,6 +19,6 @@ const { title, teaser, image, video, poster, label = `[Bild/Video: ${title}]` } 
       <p class="chapter-teaser">{teaser}</p>
       <div class="chapter-more"><slot /></div>
     </div>
-    <Media media={{ label, image, video, poster }} class="chapter-media" />
+    <Media media={{ label, image, video }} class="chapter-media" />
   </div>
 </details>
