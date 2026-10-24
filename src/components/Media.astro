@@ -3,14 +3,15 @@ import { Image } from 'astro:assets';
 import type { Media } from '../lib/projects';
 
 // Zeigt Video, Bild oder – solange nichts gesetzt ist – eine Platzhalter-Box mit Label.
-interface Props { media: Media; class?: string; sizes?: string }
+// Das Vorschaubild eines Videos kann ein importiertes Bild oder ein Pfad aus public/ sein.
+interface Props { media: Omit<Media, 'poster'> & { poster?: Media['poster'] | string }; class?: string; sizes?: string }
 const { media, class: className, sizes = '(min-width: 768px) 900px, 100vw' } = Astro.props;
 ---
 {media.video ? (
   <video
     class:list={['media', className]}
     src={media.video}
-    poster={media.poster?.src}
+    poster={typeof media.poster === 'string' ? media.poster : media.poster?.src}
     aria-label={media.label}
     autoplay muted loop playsinline
   />
