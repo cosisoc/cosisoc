@@ -2,11 +2,16 @@
 import Media from './Media.astro';
 import { projectUrl, useT, type Lang } from '../i18n/utils';
 import { projectNumber, type Project } from '../lib/projects';
-import '../styles/accordion.css';
+import '../styles/cardstack.css';
 
 interface Props { lang: Lang; projects: Project[] }
 const { lang, projects } = Astro.props;
 const t = useT(lang);
+const n = projects.length;
+// Position relativ zur aktiven Karte (zirkulär): 0 = aktiv, 1 = rechts, n-1 = links, sonst verdeckt
+const position = (i: number) => (i === 0 ? 'is-active' : i === 1 ? 'is-next' : i === n - 1 ? 'is-prev' : 'is-hidden');
+const cardLabel = (num: string, title: string) =>
+  lang === 'de' ? `Projekt ${num}: ${title} öffnen` : `Project ${num}: open ${title}`;
 ---
 <section class="section" id="main-projects">
   <div class="section-head">
@@ -17,43 +22,46 @@ const t = useT(lang);
     <span class="hint">{t('main.hint')}</span>
   </div>
 
-  <ul class="accordion" data-accordion>
-    {projects.map((p, i) => {
-      const num = projectNumber(p);
-      const facts = [
-        [t('project.when'), p.data.semester],
-        [t('project.duration'), p.data.duration],
-        [t('project.team'), p.data.team],
-      ];
-      return (
-        <li class:list={['strip', { 'is-active': i === 0 }]}>
-          <button class="strip-toggle" aria-expanded={i === 0 ? 'true' : 'false'} aria-label={`${num} ${p.data.title} ${t('main.expand')}`}>
-            <span class="strip-num">{num}</span>
-            <span class="strip-title-vertical">{p.data.title}</span>
-            <span class="strip-dot" />
-          </button>
-          <div class="strip-body">
-            <div class="strip-head">
-              <span class="strip-num-accent">{num}</span>
-              <h3>{p.data.title}</h3>
-            </div>
-            <Media media={p.data.preview} class="strip-media" />
-            <p class="strip-desc">{p.data.short}</p>
-            <div class="strip-row">
-              <dl class="strip-facts">
-                {facts.map(([k, v]) => <div><dt class="label">{k}</dt><dd>{v}</dd></div>)}
-              </dl>
-              <a class="btn" href={projectUrl(lang, p.slug)} data-panel-open={p.slug}>
-                {t('project.view')}
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" /></svg>
-              </a>
-            </div>
+  <div class="cardstack" data-cardstack tabindex="0" aria-roledescription="carousel" aria-label={t('main.title')}>
+    <div class="stack">
+      {projects.map((p, i) => (
+        <a
+          class:list={['stack-card', position(i)]}
+          href={projectUrl(lang, p.slug)}
+          data-panel-open={i === 0 ? p.slug : undefined}
+          data-slug={p.slug}
+          aria-label={cardLabel(projectNumber(p), p.data.title)}
+          inert={position(i) === 'is-hidden'}
+          tabindex="-1"
+        >
+          <Media media={p.data.preview} class="stack-media" sizes="340px" />
+        </a>
+      ))}
+    </div>
+
+    <div class="stack-info">
+      {projects.map((p, i) => {
+        const facts = [
+          [t('project.when'), p.data.semester],
+          [t('project.duration'), p.data.duration],
+          [t('project.team'), p.data.team],
+        ];
+        return (
+          <div class="stack-detail" data-info hidden={i !== 0}>
+            <p class="stack-pill"><span class="stack-pill-num">{projectNumber(p)}</span>{p.data.title}</p>
             <ul class="tags">{p.data.tags.map((tag) => <li class="tag">{tag}</li>)}</ul>
+            <p class="stack-desc">{p.data.short}</p>
+            <dl class="stack-facts">
+              {facts.map(([k, v]) => <div><dt class="label">{k}</dt><dd>{v}</dd></div>)}
+            </dl>
           </div>
-        </li>
-      );
-    })}
-  </ul>
+        );
+      })}
+      <div class="stack-dots" aria-hidden="true">
+        {projects.map((_, i) => <span class:list={['stack-dot', { 'is-current': i === 0 }]} />)}
+      </div>
+    </div>
+  </div>
 </section>
 
-<script src="../scripts/accordion.js"></script>
+<script src="../scripts/cardstack.js"></script>

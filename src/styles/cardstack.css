@@ -1,0 +1,96 @@
+/* Main Projects: Kartenstapel mit hervorlugenden Nachbarkarten.
+   Alle Positionen stehen hier als Klassen; cardstack.js setzt nur die Klassen. */
+.cardstack {
+  --card-w: 340px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  padding-block: 24px;
+  border-radius: var(--radius-lg);
+}
+.cardstack:focus-visible { outline: 2px solid var(--c-accent); outline-offset: 8px; }
+
+.stack {
+  position: relative;
+  width: 100%;
+  height: calc(var(--card-w) * 4 / 3);
+  perspective: 1200px;
+  transform-style: preserve-3d;
+  overflow-x: clip; /* Nachbarkarten nicht über den Bildschirmrand ragen lassen (clip erhält 3D) */
+}
+
+.stack-card {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: var(--card-w);
+  aspect-ratio: 3 / 4;
+  margin-left: calc(var(--card-w) / -2);
+  overflow: hidden;
+  border-radius: var(--radius-card);
+  text-decoration: none;
+  transform-style: preserve-3d;
+  transition: transform var(--dur) var(--ease), opacity var(--dur) var(--ease);
+}
+.stack .stack-card .stack-media {
+  height: 100%;
+  min-height: 0;
+  border-radius: 0;
+  object-fit: cover;
+}
+/* Abdunkeln der Nachbarn über ein Overlay, damit nur opacity animiert wird */
+.stack-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: #000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--dur) var(--ease);
+}
+
+.stack-card.is-active { z-index: 3; transform: none; }
+.stack-card.is-next { z-index: 2; transform: translateX(55%) scale(0.9) rotateY(-25deg); }
+.stack-card.is-prev { z-index: 2; transform: translateX(-55%) scale(0.9) rotateY(25deg); }
+.stack-card.is-next::after,
+.stack-card.is-prev::after { opacity: 0.15; }
+.stack-card.is-hidden { z-index: 1; transform: scale(0.8); opacity: 0; }
+
+/* Info unter dem Stapel */
+.stack-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  max-width: 560px;
+  text-align: center;
+}
+.stack-detail { display: flex; flex-direction: column; align-items: center; gap: 14px; }
+.stack-detail[hidden] { display: none; }
+.stack-pill {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 10px;
+  padding: 8px 18px;
+  border-radius: 999px;
+  background: var(--c-surface-muted);
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+.stack-pill-num { font-family: var(--f-mono); font-size: 13px; font-weight: 500; color: var(--c-accent); }
+.stack-detail .tags { justify-content: center; }
+.stack-desc { font-size: 16px; color: var(--c-text-soft); }
+.stack-facts { display: flex; flex-wrap: wrap; justify-content: center; gap: 24px; }
+.stack-facts div { display: flex; flex-direction: column; gap: 2px; }
+.stack-facts dd { font-size: 15px; font-weight: 500; }
+
+.stack-dots { display: flex; gap: 8px; }
+.stack-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--c-border-tag); }
+.stack-dot.is-current { background: var(--c-accent); }
+
+/* Mobile: nur Grundgerüst */
+@media (max-width: 767px) {
+  .cardstack { --card-w: 70vw; }
+}
