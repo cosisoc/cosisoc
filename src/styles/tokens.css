@@ -1,34 +1,34 @@
-/* Alle Design-Werte an einer Stelle. Vorläufig aus dem Akkordeon-Prototyp übernommen. */
+/* Alle Design-Werte an einer Stelle. Quelle: Figma „portfolio-design“. */
 :root {
   /* Farben */
-  --c-bg: #F6F7F3;
-  --c-surface: #FFFFFF;
-  --c-surface-muted: #ECEFE8;
-  --c-text: #141A14;
-  --c-text-soft: #2E3A2E;
-  --c-text-muted: #586157;
-  --c-border: #D5DDD2;
-  --c-border-soft: #E0E5DC;
-  --c-border-tag: #C9D3C6;
-  --c-placeholder: #E4EBE2;
-  --c-placeholder-border: #9FB39F;
-  --c-placeholder-text: #4A5A4A;
-  --c-accent: #1F7A4D;
-  --c-accent-strong: #14502F;
+  --c-bg: #FFFFFF;
+  --c-text: #000000;
+  --c-text-muted: rgb(0 0 0 / 0.5);
+  --c-line: rgb(0 0 0 / 0.25);
+  --c-accent: #1D9D55;
   --c-on-accent: #FFFFFF;
-  --c-backdrop: rgb(20 26 20 / 0.35);
+  --c-placeholder: #D9D9D9;
+  --c-placeholder-text: #8A8A8A;
+  --c-dotted-bg: #F4F4F4;
+  --c-dot: #C8C8C8;
+  --c-card: #FFFFFF;
 
-  /* Schrift */
+  /* Schrift: Schibsted Grotesk, Größen aus Figma (bei 1512 px Breite) */
   --f-sans: 'Schibsted Grotesk', system-ui, sans-serif;
-  --f-mono: 'IBM Plex Mono', ui-monospace, monospace;
+  --fs-display: clamp(40px, 4.25vw, 64px);
+  --fs-xl: clamp(30px, 3.2vw, 48px);
+  --fs-l: clamp(22px, 2.1vw, 32px);
+  --fs-body: clamp(18px, 1.5vw, 24px);
+  --fs-m: 20px;
+  --fs-s: 16px;
 
-  /* Layout */
-  --gutter: clamp(16px, 5vw, 72px);
-  --nav-h: 64px;
-  --radius: 10px;
-  --radius-lg: 14px;
-  --radius-card: 16px;
-  --content-max: 1280px;
+  /* Layout: 12-Spalten-Raster */
+  --gutter: clamp(16px, 2vw, 30px);
+  --col-gap: clamp(16px, 1.6vw, 24px);
+  --nav-h: 81px;
+  --section-top: 104px;
+  --radius: 14px;
+  --radius-tab: 30px;
 
   /* Bewegung */
   --ease: cubic-bezier(0.2, 0.8, 0.2, 1);

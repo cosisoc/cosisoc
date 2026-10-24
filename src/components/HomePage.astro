@@ -27,7 +27,7 @@ const alt = otherLang(lang);
 <Base
   lang={lang}
   title={open ? `${open.data.title} – ${c.name}` : homeTitle}
-  description={open ? open.data.short : c.claim}
+  description={open ? open.data.short : c.subline}
   alternate={open ? projectUrl(alt, open.slug) : routes.home[alt]}
   homeTitle={homeTitle}
 >

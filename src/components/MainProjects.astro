@@ -13,7 +13,7 @@ const position = (i: number) => (i === 0 ? 'is-active' : i === 1 ? 'is-next' : i
 const cardLabel = (num: string, title: string) =>
   lang === 'de' ? `Projekt ${num}: ${title} öffnen` : `Project ${num}: open ${title}`;
 ---
-<section class="section" id="main-projects">
+<section class="section" id="work" data-nav-section="work">
   <div class="section-head">
     <div>
       <span class="eyebrow">{t('nav.main')}</span>

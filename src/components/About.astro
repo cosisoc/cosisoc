@@ -7,7 +7,7 @@ const { lang } = Astro.props;
 const t = useT(lang);
 const a = copy[lang].about;
 ---
-<section class="section" id="about">
+<section class="section" id="about" data-nav-section="about">
   <div class="section-head">
     <div>
       <span class="eyebrow">{t('nav.about')}</span>
