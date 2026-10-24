@@ -1,9 +1,12 @@
 ---
 import Media from './Media.astro';
+import SectionHead from './SectionHead.astro';
+import { copy } from '../i18n/copy';
 import { projectUrl, useT, type Lang } from '../i18n/utils';
 import { projectNumber, type Project } from '../lib/projects';
 import '../styles/cardstack.css';
 
+// Arbeiten: beim Reinscrollen gleitet der Kartenstapel von der Mitte nach rechts, links blenden die Infos ein.
 interface Props { lang: Lang; projects: Project[] }
 const { lang, projects } = Astro.props;
 const t = useT(lang);
@@ -13,55 +16,52 @@ const position = (i: number) => (i === 0 ? 'is-active' : i === 1 ? 'is-next' : i
 const cardLabel = (num: string, title: string) =>
   lang === 'de' ? `Projekt ${num}: ${title} öffnen` : `Project ${num}: open ${title}`;
 ---
-<section class="section" id="work" data-nav-section="work">
-  <div class="section-head">
-    <div>
-      <span class="eyebrow">{t('nav.main')}</span>
-      <h2>{t('main.title')}</h2>
-    </div>
-    <span class="hint">{t('main.hint')}</span>
-  </div>
+<section id="work" data-nav-section="work">
+  <div class="work-track" data-pin data-pin-end="0.7">
+    <div class="work-sticky section">
+      <div class="work-move">
+        <SectionHead label={copy[lang].work.label} title={copy[lang].work.title} />
 
-  <div class="cardstack" data-cardstack tabindex="0" aria-roledescription="carousel" aria-label={t('main.title')}>
-    <div class="stack">
-      {projects.map((p, i) => (
-        <a
-          class:list={['stack-card', position(i)]}
-          href={projectUrl(lang, p.slug)}
-          data-panel-open={i === 0 ? p.slug : undefined}
-          data-slug={p.slug}
-          aria-label={cardLabel(projectNumber(p), p.data.title)}
-          inert={position(i) === 'is-hidden'}
-          tabindex="-1"
-        >
-          <Media media={p.data.preview} class="stack-media" sizes="340px" />
-        </a>
-      ))}
-    </div>
-
-    <div class="stack-info">
-      {projects.map((p, i) => {
-        const facts = [
-          [t('project.when'), p.data.semester],
-          [t('project.duration'), p.data.duration],
-          [t('project.team'), p.data.team],
-        ];
-        return (
-          <div class="stack-detail" data-info hidden={i !== 0}>
-            <p class="stack-pill"><span class="stack-pill-num">{projectNumber(p)}</span>{p.data.title}</p>
-            <ul class="tags">{p.data.tags.map((tag) => <li class="tag">{tag}</li>)}</ul>
-            <p class="stack-desc">{p.data.short}</p>
-            <dl class="stack-facts">
-              {facts.map(([k, v]) => <div><dt class="label">{k}</dt><dd>{v}</dd></div>)}
-            </dl>
+        <div class="work-body grid" data-cardstack tabindex="0" aria-roledescription="carousel" aria-label={copy[lang].work.title}>
+          <div class="work-info">
+            {projects.map((p, i) => (
+              <div class="stack-detail" data-info hidden={i !== 0}>
+                <p class="stack-name">{projectNumber(p)} · {p.data.title}</p>
+                <p class="stack-desc">{p.data.short}</p>
+                <div class="stack-specs">
+                  <dl>
+                    <div><dt>{t('project.when')}</dt><dd>{p.data.semester}</dd></div>
+                    <div><dt>{t('project.duration')}</dt><dd>{p.data.duration}</dd></div>
+                    <div><dt>{t('project.team')}</dt><dd>{p.data.team}</dd></div>
+                  </dl>
+                  <ul class="tags">{p.data.tags.map((tag) => <li class="tag">{tag}</li>)}</ul>
+                </div>
+              </div>
+            ))}
           </div>
-        );
-      })}
-      <div class="stack-dots" aria-hidden="true">
-        {projects.map((_, i) => <span class:list={['stack-dot', { 'is-current': i === 0 }]} />)}
+
+          <div class="stack-area">
+            <div class="stack">
+              {projects.map((p, i) => (
+                <a
+                  class:list={['stack-card', position(i)]}
+                  href={projectUrl(lang, p.slug)}
+                  data-panel-open={i === 0 ? p.slug : undefined}
+                  data-slug={p.slug}
+                  aria-label={cardLabel(projectNumber(p), p.data.title)}
+                  inert={position(i) === 'is-hidden'}
+                  tabindex="-1"
+                >
+                  <Media media={p.data.preview} class="stack-media" sizes="470px" />
+                </a>
+              ))}
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
 <script src="../scripts/cardstack.js"></script>
+<script src="../scripts/scrollpin.js"></script>
