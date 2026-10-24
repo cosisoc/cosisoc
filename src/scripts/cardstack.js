@@ -9,6 +9,7 @@ for (const root of document.querySelectorAll('[data-cardstack]')) {
   const cards = [...root.querySelectorAll('.stack-card')];
   const details = [...root.querySelectorAll('[data-info]')];
   const live = root.querySelector('[data-live]');
+  const dots = [...root.querySelectorAll('.stack-dot')];
   const n = cards.length;
   let active = -1;
 
@@ -36,6 +37,11 @@ for (const root of document.querySelectorAll('[data-cardstack]')) {
       else video?.pause();
     });
     details.forEach((detail, i) => { detail.hidden = i !== active; });
+    dots.forEach((dot, i) => {
+      dot.classList.toggle('is-current', i === active);
+      if (i === active) dot.setAttribute('aria-current', 'true');
+      else dot.removeAttribute('aria-current');
+    });
     live.textContent = cards[active].getAttribute('aria-label');
   };
   show(0);
@@ -51,6 +57,9 @@ for (const root of document.querySelectorAll('[data-cardstack]')) {
   cards.forEach((card, i) => card.addEventListener('click', (e) => {
     if (i !== active) { e.preventDefault(); e.stopPropagation(); show(i); }
   }));
+
+  // Punkte unter dem Stapel springen direkt zum Projekt
+  dots.forEach((dot, i) => dot.addEventListener('click', () => show(i)));
 
   // Hover-Scrubbing: Breite in n Zonen, linke Zone = 01 … rechte Zone = 0n; beim Verlassen bleibt die Karte stehen
   area.addEventListener('pointermove', (e) => {

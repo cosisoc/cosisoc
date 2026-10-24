@@ -9,8 +9,8 @@ import type { Project } from '../lib/projects';
 interface Props { lang: Lang; projects: Project[] }
 const { lang, projects } = Astro.props;
 
-// Endpositionen aus Figma (Frame 5) in % der Bühne; der Stapel (Frame 4) liegt bei 36 % / 70 %.
-const PILE = { x: 36, y: 70 };
+// Endpositionen aus Figma (Frame 5) in % der Bühne; der Stapel liegt direkt unter der Überschrift (36 % / 34 %).
+const PILE = { x: 36, y: 34 };
 const SPOTS = [
   { x: 7, y: 39, r: -7 },
   { x: 38.5, y: 47, r: 8 },

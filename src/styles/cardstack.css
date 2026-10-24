@@ -14,7 +14,7 @@
   opacity: var(--p);
   transform: translateY(calc((1 - var(--p)) * 32px));
 }
-.stack-area {
+.stack-col {
   grid-column: 5 / 13;
   transform: translateX(calc((1 - var(--p)) * -16.5vw)) scale(calc(0.84 + 0.16 * var(--p)));
   transform-origin: 50% 0;
@@ -22,7 +22,7 @@
 
 /* Stapel */
 .stack {
-  --card-w: min(31vw, 468px, calc((100vh - 380px) * 0.78));
+  --card-w: min(31vw, 468px, calc((100vh - 430px) * 0.78));
   position: relative;
   height: calc(var(--card-w) / 0.78);
   perspective: 1200px;
@@ -78,9 +78,32 @@
 .stack-specs dt { font-size: var(--fs-s); color: var(--c-text-muted); font-weight: 700; }
 .stack-specs dd { font-weight: 700; }
 
+/* Punkte unter dem Stapel: zeigen, welches Projekt aktiv ist */
+.stack-dots { display: flex; justify-content: center; gap: 4px; margin-top: 24px; }
+.stack-dot {
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+.stack-dot::before {
+  content: '';
+  display: block;
+  width: 10px;
+  height: 10px;
+  margin: auto;
+  border-radius: 50%;
+  background: var(--c-placeholder);
+  transition: background var(--dur) ease, transform var(--dur) var(--ease);
+}
+.stack-dot:hover::before { background: var(--c-text-muted); }
+.stack-dot.is-current::before { background: var(--c-accent); transform: scale(1.2); }
+
 /* Mobile: nur Grundgerüst */
 @media (max-width: 767px) {
-  .stack-area { order: -1; margin-bottom: 40px; }
+  .stack-col { order: -1; margin-bottom: 40px; }
   .stack { --card-w: 70vw; overflow-x: clip; }
   .work-info { padding-left: 0; }
 }

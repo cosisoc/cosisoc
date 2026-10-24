@@ -41,6 +41,7 @@ const cardLabel = (num: string, title: string) =>
           </div>
 
           <p class="sr-only" aria-live="polite" data-live></p>
+          <div class="stack-col">
           <div class="stack-area">
             <div class="stack">
               {projects.map((p, i) => (
@@ -57,6 +58,18 @@ const cardLabel = (num: string, title: string) =>
                 </a>
               ))}
             </div>
+          </div>
+          <!-- Orientierung: ein Punkt pro Projekt, der aktive ist grün -->
+          <div class="stack-dots">
+            {projects.map((p, i) => (
+              <button
+                type="button"
+                class:list={['stack-dot', { 'is-current': i === 0 }]}
+                aria-label={`${projectNumber(p)} ${p.data.title}`}
+                aria-current={i === 0 ? 'true' : undefined}
+              />
+            ))}
+          </div>
           </div>
         </div>
       </div>
