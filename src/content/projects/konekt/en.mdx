@@ -1,13 +1,13 @@
 ---
 title: "Konekt"
-short: "A device with a stone interface that makes social contact easier for senior citizens, accompanied by the AI character Kaius."
+short: "A home station that helps people find local connections again as they enter retirement – operated not by touch, but with a stone."
 kind: main
 order: 1
-role: "[MY TASK]"
-team: "[TEAM]"
-duration: "[DURATION]"
-semester: "[SEMESTER]"
-tools: ["[TOOLS]"]
+role: "Research, concept, interaction principle, technical implementation"
+team: "Ajana Windisch, Mei Fornefeld, Paula Grimm, Cosima Bühler"
+duration: "1 semester"
+semester: "Summer 26 · Invention 1"
+tools: ["Figma", "VS Code + Claude Code", "Arduino", "Raspberry Pi", "ESP32"]
 tags: ["Tangible Interface", "UI Design", "AI Concept", "Prototyping"]
 preview:
   label: "[Preview video functional prototype]"
@@ -17,38 +17,76 @@ hero:
   poster: ./stopmotion.jpg
 ---
 
-<Chapter title="Overview" teaser="[EN] [Short text: what is this chapter about?]">
-  [EN] [Longer text: how we approached it, what mattered.]
+<Chapter title="Overview" teaser="Loneliness is rising – not for lack of opportunities, but because the first step is hard. Konekt lowers exactly that barrier.">
+
+Retirement often removes several anchors at once: the working day, routines, sometimes a partner or friends. Konekt suggests suitable meetups nearby, shows which acquaintances have already said yes, and makes organising your own meetup a matter of a few moves.
+
+The goal is not to keep people at the device, but to get them back among people as quickly as possible. Created in the course Invention 1 with Prof. Michael Schuster, together with product design.
+
 </Chapter>
 
-<Chapter title="Concept" teaser="[EN] [Short text: what is this chapter about?]">
-  [EN] [Longer text: how we approached it, what mattered.]
+<Chapter title="Concept" teaser="Instead of interviewing retirees, we questioned AI personas – and derived three requirements.">
+
+A market analysis (KOMP, Familink, ElliQ, GrandPad) showed that no product tackles loneliness directly – they replace missing contacts with family or technology. We deliberately skipped real interviews: the topic is sensitive and access was difficult. Instead, we built four detailed personas, including a relative, and questioned them as AI characters in simulated interviews.
+
+Two insights shaped the concept: people are reluctant to go somewhere when they don't know who will be there. And information is scattered – in the newspaper, the local bulletin, the club calendar. This led to three requirements: **lower the threshold, real connection instead of attachment to the device, suggestions based on interests.**
+
+*Thought further, but not built:* voice input modelled on an answering machine, texts read aloud, an AI that summarises group chats and picks up appointments (with a local AI as fallback), and a key-ring tag – hold two together at a meetup and you're connected.
+
 </Chapter>
 
-<Chapter title="Interaction Concept" teaser="[EN] [Short text: what is this chapter about?]">
-  [EN] [Longer text: how we approached it, what mattered.]
+<Chapter title="Interaction Concept" teaser="Three gestures with a stone replace the touchscreen: place, slide, press.">
+
+Placing highlights an element – like a hover. Sliding scrolls, along a line or in a circle. Pressing confirms. A magnetic track around the display guides the stone across 8 contact points that change meaning from screen to screen. Picking a day works as a spiral: each circular movement moves one day ahead.
+
+The character Kaius shows when the device is listening – and without its face, it isn't.
+
 </Chapter>
 
-<Chapter title="Screen Design" teaser="[EN] [Short text: what is this chapter about?]">
-  [EN] [Longer text: how we approached it, what mattered.]
+<Chapter title="Screen Design" teaser="A round display, few elements, large type – with soft shadows that echo the physical interaction.">
+
+The interface uses neumorphism, muted greens and violets, and Poppins at deliberately large sizes. Recurring elements – confirm, decline, placement arrow – make the interaction predictable.
+
+From the sleep mode with a clock to the greeting with the weather to the event overview ("Manfred and Birgit are joining too"), every screen shows only what's needed. The screens were designed by the team; my part was turning them into code.
+
 </Chapter>
 
-<Chapter title="System Architecture" teaser="[EN] [Short text: what is this chapter about?]">
-  [EN] [Longer text: how we approached it, what mattered.]
+<Chapter title="System Architecture" teaser="Sensors detect the stone, a web app shows what happens – cleanly separated.">
+
+An Arduino reads 8 reed sensors and reports the stone's position. An ESP32 inside the stone detects the press and sends it via the Raspberry Pi's hotspot. A central input manager merges all signals, including keyboard input for testing.
+
+The app runs in the browser. Events are generated for each day from 22 templates, so the prototype always feels current. An interface for AI is prepared.
+
 </Chapter>
 
-<Chapter title="Prototyping" teaser="[EN] [Short text: what is this chapter about?]">
-  [EN] [Longer text: how we approached it, what mattered.]
+<Chapter title="Prototyping" teaser="Three attempts to a stable solution. Our principle: the hardware must not dictate the interaction.">
+
+First a rectangular display under a wooden board with a round cut-out, screws in the rim as contact points. Then a round display with a 3D-printed rim and a large voltage divider – the analogue reading was too unstable. The solution: 8 reed sensors and a magnet in the stone, stable and precise.
+
+In parallel, the design prototype took shape: a wooden station (320 × 230 mm) whose track recalls the ripples of a stone dropped in water, and an elliptical stone found through sketches and foam models. Tests with fellow students improved the interaction once more.
+
 </Chapter>
 
-<Chapter title="Technical Implementation" teaser="[EN] [Short text: what is this chapter about?]">
-  [EN] [Longer text: how we approached it, what mattered.]
+<Chapter title="Technical Implementation" teaser="I coded with Claude Code in VS Code – the only way this scope was possible in one semester.">
+
+I built the app, the sensor integration, the Raspberry Pi with its own Wi-Fi and the wireless link to the stone.
+
+AI-assisted coding delivers real results fast, but demands a lot of thinking along: without a structured approach it's easy to lose track.
+
 </Chapter>
 
-<Chapter title="Result" teaser="[EN] [Short text: what is this chapter about?]">
-  [EN] [Longer text: how we approached it, what mattered.]
+<Chapter title="Result" teaser="Two days of exhibition where visitors used Konekt themselves – including people from the target group who said they'd buy it.">
+
+The outcome: a functional prototype, a design prototype, a presentation and a documentation. We deliberately focused on device, stone and interaction and worked them out in depth instead of touching on everything.
+
+The principle reaches beyond retirement: many younger people find their phone use draining, too. A device that only lets through what really matters could help them as well.
+
 </Chapter>
 
-<Chapter title="My Role" teaser="[EN] [Short text: what is this chapter about?]">
-  [EN] [Longer text: how we approached it, what mattered.]
+<Chapter title="My Role" teaser="Research, concept, interaction principle and the entire technical implementation.">
+
+I co-built the research and the AI personas, co-developed the interaction principle and implemented all of the technology: app, sensors, Raspberry Pi and system architecture.
+
+Above all, I learned how to approach concept work in a structured way and keep a large team project organised. Next time I would decide earlier what really needs to be built for the vision: I enjoyed going deep and refining details – time that could have made more of the concept visible elsewhere. After all, a prototype should above all show what you set out to do.
+
 </Chapter>
