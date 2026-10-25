@@ -10,12 +10,13 @@ interface Props { lang: Lang; projects: Project[] }
 const { lang, projects } = Astro.props;
 const t = useT(lang);
 
-// Endpositionen aus Figma (Frame 5) in % der Bühne; der Stapel liegt direkt unter der Überschrift (36 % / 34 %).
-const PILE = { x: 36, y: 34 };
+// Endpositionen (angelehnt an Figma, Frame 5) in % der Bühne, für Karten mit 27 % Breite;
+// der Stapel liegt direkt unter der Überschrift (36,5 % / 30 %).
+const PILE = { x: 36.5, y: 30 };
 const SPOTS = [
-  { x: 7, y: 39, r: -7 },
-  { x: 38.5, y: 47, r: 8 },
-  { x: 69, y: 22, r: -2 },
+  { x: 7, y: 30, r: -7 },
+  { x: 37, y: 44, r: 8 },
+  { x: 66, y: 24, r: -2 },
 ];
 const style = (i: number) => {
   const s = SPOTS[i % SPOTS.length];
@@ -23,14 +24,14 @@ const style = (i: number) => {
 };
 ---
 <section id="side" class="dotted" data-nav-section="side">
-  <div class="side-track" data-pin data-pin-end="0.75">
+  <div class="side-track" data-pin data-pin-start="0.5" data-pin-end="0.6">
     <div class="side-sticky section">
       <SectionHead label={copy[lang].side.label} title={copy[lang].side.title} />
       <ul class="side-stage">
         {projects.map((p, i) => (
           <li class="side-card" style={style(i)}>
             <a href={projectUrl(lang, p.slug)} data-panel-open={p.slug} data-cursor-label={t('project.cursor')}>
-              <Media media={p.data.preview} class="side-media" sizes="320px" />
+              <Media media={p.data.preview} class="side-media" sizes="440px" />
               <h3>{p.data.title}</h3>
               <p>{p.data.short}</p>
             </a>
@@ -80,7 +81,7 @@ const style = (i: number) => {
     position: absolute;
     left: calc(var(--x) * 1%);
     top: calc(var(--y) * 1%);
-    width: min(21cqw, 34cqh);
+    width: min(27cqw, 44cqh);
     margin: 0;
     pointer-events: auto;
     transform:

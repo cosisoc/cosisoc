@@ -13,9 +13,11 @@ function update() {
     let p = 1;
     if (enabled.matches) {
       const distance = track.offsetHeight - innerHeight;
+      // data-pin-start: schon so viele Bildschirmhöhen vor dem Anhalten loslegen (0,5 = Abschnitt halb im Bild)
       // data-pin-end: Anteil der Strecke, nach dem die Animation fertig ist (danach kurz Ruhe)
+      const lead = Number(track.dataset.pinStart ?? 0) * innerHeight;
       const end = Number(track.dataset.pinEnd ?? 1);
-      p = Math.min(1, Math.max(0, -track.getBoundingClientRect().top / (distance * end)));
+      p = Math.min(1, Math.max(0, (lead - track.getBoundingClientRect().top) / (lead + distance * end)));
     }
     track.style.setProperty('--p', smooth(p).toFixed(4));
   }
