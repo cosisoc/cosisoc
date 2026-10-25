@@ -2,12 +2,13 @@
 import Media from './Media.astro';
 import SectionHead from './SectionHead.astro';
 import { copy } from '../i18n/copy';
-import { projectUrl, type Lang } from '../i18n/utils';
+import { projectUrl, useT, type Lang } from '../i18n/utils';
 import type { Project } from '../lib/projects';
 
 // Nebenprojekte: Karten liegen als gedrehter Stapel und fächern beim Scrollen ungeordnet auf.
 interface Props { lang: Lang; projects: Project[] }
 const { lang, projects } = Astro.props;
+const t = useT(lang);
 
 // Endpositionen aus Figma (Frame 5) in % der Bühne; der Stapel liegt direkt unter der Überschrift (36 % / 34 %).
 const PILE = { x: 36, y: 34 };
@@ -28,7 +29,7 @@ const style = (i: number) => {
       <ul class="side-stage">
         {projects.map((p, i) => (
           <li class="side-card" style={style(i)}>
-            <a href={projectUrl(lang, p.slug)} data-panel-open={p.slug}>
+            <a href={projectUrl(lang, p.slug)} data-panel-open={p.slug} data-cursor-label={t('project.cursor')}>
               <Media media={p.data.preview} class="side-media" sizes="320px" />
               <h3>{p.data.title}</h3>
               <p>{p.data.short}</p>

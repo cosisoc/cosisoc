@@ -45,6 +45,7 @@ const openLabel = (num: string, title: string) =>
           class:list={['work-slide', { 'is-active': i === 0 }]}
           href={projectUrl(lang, p.slug)}
           data-panel-open={p.slug}
+          data-cursor-label={t('project.cursor')}
           aria-label={openLabel(num, d.title)}
           tabindex={i === 0 ? 0 : -1}
         >
