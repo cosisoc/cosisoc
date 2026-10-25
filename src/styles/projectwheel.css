@@ -1,0 +1,117 @@
+/* Arbeiten: Infos | große Bühne | kleines Rad am rechten Bildschirmrand.
+   projectwheel.js setzt .is-active, --rel (Platz am Rad) und .is-in (Scroll-Animation). */
+.work { min-height: 100vh; overflow: clip; }
+.work-body {
+  position: relative;
+  height: max(540px, calc(100vh - 270px));
+  margin-top: 24px;
+  align-items: center;
+  border-radius: var(--radius);
+  outline-offset: 8px;
+}
+
+/* Infos zum aktiven Projekt */
+.work-info { grid-column: 1 / 4; position: relative; z-index: 3; }
+.work-detail { display: flex; flex-direction: column; gap: 20px; animation: work-in 200ms var(--ease); }
+.work-detail[hidden] { display: none; }
+.work-name { font-size: var(--fs-xl); font-weight: 700; line-height: 1.1; }
+.work-name span { color: var(--c-accent); }
+.work-short { font-size: var(--fs-body); font-weight: 700; line-height: 1.3; }
+.work-specs { display: flex; flex-wrap: wrap; gap: 12px 24px; }
+.work-specs dt { font-size: var(--fs-s); font-weight: 700; color: var(--c-text-muted); }
+.work-specs dd { font-weight: 700; }
+@keyframes work-in { from { opacity: 0; transform: translateY(8px); } }
+
+/* Bühne: das aktive Projekt groß */
+.work-stage {
+  grid-column: 4 / 11;
+  position: relative;
+  aspect-ratio: 4 / 3;
+  max-height: calc(100vh - 330px);
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition: opacity 900ms ease 150ms, transform 900ms var(--ease) 150ms;
+}
+.work-slide {
+  position: absolute;
+  inset: 0;
+  text-decoration: none;
+  opacity: 0;
+  transform: translateX(6%) scale(0.97);
+  pointer-events: none;
+  transition: opacity 450ms ease, transform 700ms var(--ease);
+}
+.work-slide.is-active { opacity: 1; transform: none; pointer-events: auto; }
+.work-stage .work-slide .work-media { width: 100%; height: 100%; min-height: 0; border-radius: 0; object-fit: cover; }
+
+/* Kleines Rad: Mitte genau am rechten Bildschirmrand, Miniaturen auf dem Kreis */
+.wheel {
+  --R: clamp(150px, 14vw, 230px);
+  position: absolute;
+  top: 50%;
+  right: calc(-1 * var(--gutter));
+  width: calc(var(--R) * 2);
+  height: calc(var(--R) * 2);
+  transform: translate(50%, -50%);
+  touch-action: none;
+  cursor: grab;
+}
+.wheel:active { cursor: grabbing; }
+.wheel-spin { position: absolute; inset: 0; transition: transform 1100ms var(--ease), opacity 600ms ease; }
+.wheel-ring { position: absolute; inset: 0; border: 1.5px dashed var(--c-line); border-radius: 50%; }
+.wheel-thumb {
+  --rel: 0;
+  all: unset;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: clamp(110px, 9vw, 150px);
+  aspect-ratio: 4 / 3;
+  border-radius: 10px;
+  overflow: hidden;
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgb(0 0 0 / 0.12);
+  outline: 3px solid transparent;
+  outline-offset: 3px;
+  opacity: 0.75;
+  transform: translate(-50%, -50%) rotate(calc(var(--rel) * -42deg)) translateX(calc(-1 * var(--R))) scale(0.82);
+  transition: transform 650ms var(--ease), opacity 300ms ease, outline-color 300ms ease;
+}
+.wheel-thumb.is-active {
+  z-index: 2;
+  opacity: 1;
+  outline-color: var(--c-accent);
+  transform: translate(-50%, -50%) translateX(calc(-1 * var(--R)));
+}
+.wheel-thumb:hover { opacity: 1; }
+.wheel-thumb:focus-visible { outline-color: var(--c-text); }
+.wheel-thumb.is-jumping { transition: none; opacity: 0; }
+.wheel .wheel-thumb .wheel-media { width: 100%; height: 100%; min-height: 0; border-radius: 0; object-fit: cover; font-size: 0; }
+.wheel-num {
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  padding: 0 8px;
+  border-radius: 999px;
+  background: var(--c-bg);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+/* Scroll-Animation (projectwheel.js): Rad rollt vom Rand herein, Bühne blendet auf */
+@media (prefers-reduced-motion: no-preference) {
+  .is-waiting:not(.is-in) .wheel-spin { transform: translateX(40%) rotate(-80deg); opacity: 0; }
+  .is-waiting:not(.is-in) .work-stage { transform: translateX(48px); opacity: 0; }
+}
+
+/* Mobile: großes Bild, darunter die Miniaturen als wischbare Reihe, dann die Infos */
+@media (max-width: 767px) {
+  .work-body { height: auto; row-gap: 24px; }
+  .work-stage { order: 1; max-height: none; }
+  .wheel { order: 2; position: static; width: auto; height: auto; transform: none; cursor: auto; touch-action: auto; }
+  .wheel-spin { position: static; display: flex; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 6px 4px; }
+  .wheel-ring { display: none; }
+  .wheel-thumb { position: relative; left: auto; top: auto; flex: 0 0 120px; opacity: 1; scroll-snap-align: start; transform: none; }
+  .wheel-thumb.is-active { transform: none; }
+  .work-info { order: 3; }
+}

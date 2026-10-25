@@ -23,7 +23,7 @@
   --fs-s: 16px;
 
   /* Layout: 12-Spalten-Raster */
-  --gutter: clamp(16px, 2vw, 30px);
+  --gutter: clamp(24px, 7vw, 128px);
   --col-gap: clamp(16px, 1.6vw, 24px);
   --nav-h: 81px;
   --section-top: 104px;
