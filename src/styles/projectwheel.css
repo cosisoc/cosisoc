@@ -3,9 +3,7 @@
 .work { min-height: 100vh; overflow: clip; }
 .work-body {
   position: relative;
-  height: max(540px, calc(100vh - 270px));
-  margin-top: 24px;
-  align-items: center;
+  align-items: start; /* Titel → Inhalt 48 px; Höhe = Bühne, das Rad sitzt mittig daneben */
   border-radius: var(--radius);
   outline-offset: 8px;
 }
@@ -16,9 +14,9 @@
 .work-detail[hidden] { display: none; }
 .work-name { font-size: var(--fs-xl); font-weight: 700; line-height: 1.1; }
 .work-name span { color: var(--c-accent); }
-.work-short { font-size: var(--fs-body); font-weight: 700; line-height: 1.3; }
+.work-short { font-size: var(--fs-l); font-weight: 700; line-height: var(--lh-lead); }
 .work-specs { display: flex; flex-wrap: wrap; gap: 12px 24px; }
-.work-specs dt { font-size: var(--fs-s); font-weight: 700; color: var(--c-text-muted); }
+.work-specs dt { font-size: var(--fs-s); font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: var(--c-text-muted); }
 .work-specs dd { font-weight: 700; }
 @keyframes work-in { from { opacity: 0; transform: translateY(8px); } }
 
@@ -102,6 +100,11 @@
 @media (prefers-reduced-motion: no-preference) {
   .is-waiting:not(.is-in) .wheel-spin { transform: translateX(40%) rotate(-80deg); opacity: 0; }
   .is-waiting:not(.is-in) .work-stage { transform: translateX(48px); opacity: 0; }
+}
+/* Auf dem Handy von unten statt von rechts, sonst ragt die Bühne über den Bildschirmrand */
+@media (prefers-reduced-motion: no-preference) and (max-width: 767px) {
+  .is-waiting:not(.is-in) .wheel-spin,
+  .is-waiting:not(.is-in) .work-stage { transform: translateY(32px); }
 }
 
 /* Mobile: großes Bild, darunter die Miniaturen als wischbare Reihe, dann die Infos */

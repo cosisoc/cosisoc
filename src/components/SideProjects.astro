@@ -10,17 +10,17 @@ interface Props { lang: Lang; projects: Project[] }
 const { lang, projects } = Astro.props;
 const t = useT(lang);
 
-// Endpositionen (angelehnt an Figma, Frame 5) in % der Bühne, für Karten mit 27 % Breite;
-// der Stapel liegt direkt unter der Überschrift (36,5 % / 30 %).
-const PILE = { x: 36.5, y: 30 };
+// Endpositionen im 12-Spalten-Raster: Karten à 4 Spalten ab Spalte 1, 5 und 9 (c = Startspalte ab 0),
+// in der Höhe versetzt (y in % der Bühne). Der Stapel liegt mittig direkt unter der Überschrift.
+const PILE = { c: 4, y: 30 };
 const SPOTS = [
-  { x: 7, y: 30, r: -7 },
-  { x: 37, y: 44, r: 8 },
-  { x: 66, y: 24, r: -2 },
+  { c: 0, y: 30, r: -7 },
+  { c: 4, y: 42, r: 8 },
+  { c: 8, y: 26, r: -2 },
 ];
 const style = (i: number) => {
   const s = SPOTS[i % SPOTS.length];
-  return `--x:${s.x}; --y:${s.y}; --dx:${PILE.x - s.x}; --dy:${PILE.y - s.y}; --r:${s.r}; --i:${i}; z-index:${projects.length - i}`;
+  return `--c:${s.c}; --y:${s.y}; --dc:${PILE.c - s.c}; --dy:${PILE.y - s.y}; --r:${s.r}; --i:${i}; z-index:${projects.length - i}`;
 };
 ---
 <section id="side" class="dotted" data-nav-section="side">
@@ -46,7 +46,7 @@ const style = (i: number) => {
 
 <style>
   .side-track { --p: 1; }
-  .side-stage { display: flex; flex-wrap: wrap; gap: 32px; margin-top: 48px; }
+  .side-stage { display: flex; flex-wrap: wrap; gap: 32px; }
   .side-card { width: min(318px, 100%); }
   .side-card:nth-child(even) { margin-top: 64px; }
   .side-card a {
@@ -62,8 +62,8 @@ const style = (i: number) => {
   }
   .side-card a:hover { transform: translateY(-6px); }
   .side-card :global(.side-media) { aspect-ratio: 4 / 3; border-radius: 0; }
-  h3 { font-size: var(--fs-m); }
-  p { font-size: var(--fs-s); line-height: 1.35; }
+  h3 { font-size: var(--fs-body); }
+  p { font-size: var(--fs-m); line-height: var(--lh-body); }
 
   /* Gepinnt: Bühne füllt den Bildschirm, Karten wandern vom Stapel an ihre Plätze */
   :global(.pins) .side-track { height: 220vh; }
@@ -78,14 +78,17 @@ const style = (i: number) => {
   :global(.pins) .side-card {
     /* jede Karte startet etwas später → natürliches Auffächern */
     --q: clamp(0, (var(--p) - var(--i) * 0.12) / 0.76, 1);
+    /* Spaltenbreite des 12er-Rasters innerhalb der Bühne (volle Breite inkl. Rand) */
+    --col: calc((100cqw - 2 * var(--gutter) - 11 * var(--col-gap)) / 12);
+    --step: calc(var(--col) + var(--col-gap));
     position: absolute;
-    left: calc(var(--x) * 1%);
+    left: calc(var(--gutter) + var(--c) * var(--step));
     top: calc(var(--y) * 1%);
-    width: min(27cqw, 44cqh);
+    width: min(4 * var(--col) + 3 * var(--col-gap), 44cqh);
     margin: 0;
     pointer-events: auto;
     transform:
-      translate(calc((1 - var(--q)) * var(--dx) * 1cqw), calc((1 - var(--q)) * var(--dy) * 1cqh))
+      translate(calc((1 - var(--q)) * var(--dc) * var(--step)), calc((1 - var(--q)) * var(--dy) * 1cqh))
       rotate(calc((1 - var(--q)) * var(--r) * 1deg));
   }
 </style>

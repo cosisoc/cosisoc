@@ -7,15 +7,15 @@ body {
   background: var(--c-bg);
   color: var(--c-text);
   font-family: var(--f-sans);
-  font-size: var(--fs-m);
-  line-height: 1.3;
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
   -webkit-font-smoothing: antialiased;
 }
 
 body.panel-open { overflow: hidden; }
 
 h1, h2, h3, p, ul, dl, dd { margin: 0; }
-h1, h2, h3 { font-weight: 700; letter-spacing: -0.01em; line-height: 1.1; }
+h1, h2, h3 { font-weight: 700; letter-spacing: -0.01em; line-height: var(--lh-display); }
 ul { padding: 0; list-style: none; }
 img, video { display: block; max-width: 100%; }
 
@@ -29,8 +29,9 @@ a:hover { color: var(--c-accent); }
   position: relative;
   padding: var(--section-top) var(--gutter) 96px;
 }
-.section-label { font-size: var(--fs-m); font-weight: 700; }
-.section-title { font-size: var(--fs-display); margin-top: 8px; }
+.section-label, .label { font-size: var(--fs-s); line-height: 16px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; }
+.section-title { font-size: var(--fs-display); margin-top: 16px; }
+.section-head { margin-bottom: var(--head-gap); }
 
 /* 12-Spalten-Raster */
 .grid {
