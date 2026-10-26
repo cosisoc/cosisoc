@@ -103,7 +103,7 @@
 .chapter[open] .chapter-icon::after { transform: translate(-50%, -50%) rotate(0deg); }
 .chapter-row:hover .chapter-icon { border-color: var(--c-accent); color: var(--c-accent); }
 
-/* Aufgeklappt: immer gleiches Muster wie der Kopf – Text 5 Spalten links, Bild 6 Spalten rechts (4:3) */
+/* Aufgeklappt: Text 5 Spalten links, Bild 6 Spalten rechts (4:3) – bei jedem zweiten Kapitel gespiegelt */
 .chapter-body { row-gap: 32px; padding: 16px 0 72px; animation: chapter-in var(--dur-slow) var(--ease); }
 .chapter-text { grid-column: 1 / 6; display: flex; flex-direction: column; gap: 24px; max-width: 560px; }
 .chapter-teaser { font-size: var(--fs-l); font-weight: 700; line-height: var(--lh-lead); }
@@ -111,6 +111,9 @@
 .chapter-more p + p { margin-top: 24px; }
 .chapters .chapter-body .chapter-media { grid-column: 7 / 13; aspect-ratio: 4 / 3; height: auto; border-radius: var(--radius); }
 .chapters .chapter-body .chapter-media.is-contain { object-fit: contain; }
+/* Abwechselnd: gerade Kapitel mit Bild links (6 Spalten), Text rechts (5 Spalten) */
+.chapter:nth-of-type(even) .chapter-text { grid-column: 8 / 13; order: 2; }
+.chapters .chapter:nth-of-type(even) .chapter-body .chapter-media { grid-column: 1 / 7; }
 @keyframes chapter-in { from { opacity: 0; transform: translateY(16px); } }
 
 /* Nächstes Projekt: Label und Titel linksbündig auf einer Linie mit dem Rand */
@@ -129,4 +132,5 @@
 @media (max-width: 767px) {
   .bar-crumbs .bar-item:first-child { display: none; }
   .chapter-row { grid-template-columns: 56px 1fr auto; }
+  .chapter:nth-of-type(even) .chapter-text { order: 0; } /* Handy: Text immer zuerst */
 }
