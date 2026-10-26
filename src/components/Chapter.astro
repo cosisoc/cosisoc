@@ -5,8 +5,9 @@ import Media from './Media.astro';
 // Kapitel im Projektdetail: zugeklappt nur Nummer + Titel, „+“ klappt Text und Bild auf.
 // Die Nummer zählt CSS automatisch hoch (panel.css), das Bild wechselt von Kapitel zu Kapitel die Seite.
 // In der MDX-Datei: <Chapter title="…" teaser="…" image={importiertesBild} label="Alt-Text">Details</Chapter>
-interface Props { title: string; teaser: string; image?: ImageMetadata; video?: string; label?: string }
-const { title, teaser, image, video, label = `[Bild/Video: ${title}]` } = Astro.props;
+// Grafiken mit fit="contain" werden ganz gezeigt statt auf 4:3 beschnitten.
+interface Props { title: string; teaser: string; image?: ImageMetadata; video?: string; label?: string; fit?: 'cover' | 'contain' }
+const { title, teaser, image, video, label = `[Bild/Video: ${title}]`, fit = 'cover' } = Astro.props;
 ---
 <details class="chapter">
   <summary class="chapter-row">
@@ -19,6 +20,6 @@ const { title, teaser, image, video, label = `[Bild/Video: ${title}]` } = Astro.
       <p class="chapter-teaser">{teaser}</p>
       <div class="chapter-more"><slot /></div>
     </div>
-    <Media media={{ label, image, video }} class="chapter-media" />
+    <Media media={{ label, image, video }} class={`chapter-media is-${fit}`} />
   </div>
 </details>

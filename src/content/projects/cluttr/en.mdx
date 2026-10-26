@@ -1,46 +1,83 @@
 ---
 title: "Cluttr"
-short: "A controller that lets children playfully steer a tidying robot, tested with a 5th grade class."
+short: "A controller that lets children steer a robot – turning tidying up into a game. Tested with an entire school class."
 kind: main
 order: 2
-role: "[MY TASK]"
-team: "[TEAM]"
-duration: "[DURATION]"
-semester: "[SEMESTER]"
-tools: ["[TOOLS]"]
-tags: ["Interface Design", "Hardware", "User Testing"]
+role: "Design, sketching, prototyping, user tests, 3D modelling"
+team: "Paula Grimm, Yannik Stegmaier, Cosima Bühler"
+duration: "1 semester"
+semester: "Winter 24/25 · Interface Design"
+tools: ["Blender", "Sketching", "Laser cutter", "3D printing", "Arduino"]
+tags: ["Interface Design", "Hardware", "User Testing", "Prototyping"]
 preview:
-  label: "Rendering of the Cluttr controllers"
+  label: "Cluttr controller, rendering with project title"
   image: ./cover.png
 hero:
-  label: "Rendering of the Cluttr controllers"
+  label: "Cluttr controller, rendering with project title"
   image: ./cover.png
 ---
 
-<Chapter title="Intro / Brief" teaser="[EN] [Short text: what is this chapter about?]">
-  [EN] [Longer text: how we approached it, what mattered.]
+import concept from './concept.png';
+import interaction from './interaction.png';
+import prototype from './prototype.png';
+import wiring from './wiring.png';
+
+<Chapter title="Overview" teaser="The brief: a controller for a given robot. Our idea: children use it to tidy up their room.">
+
+The robot from the Interface Design course was set: mecanum wheels that let it drive in every direction – including sideways – and a gripper that opens, closes and moves up and down. Use case and target group were up to us.
+
+We chose children aged 8 to 11: an unloved chore should become a game. The focus was deliberately on the controller itself, not on an app or game mechanics around it.
+
 </Chapter>
 
-<Chapter title="Concept" teaser="[EN] [Short text: what is this chapter about?]">
-  [EN] [Longer text: how we approached it, what mattered.]
+<Chapter title="Concept" teaser="Drive on the left, grab on the right – splitting the functions shapes both form and colour." image={concept} fit="contain" label="Graphic: opening, closing and raising the gripper">
+
+We started from controllers children already know – Nintendo Switch Joy-Cons, the toy Bop It – and lots of shape sketches. This led to a clear split: the left hand steers the robot, the right hand works the gripper. The split also shows in the colours.
+
+*Thought further, but not built:* a display in the middle showing the robot's camera feed.
+
 </Chapter>
 
-<Chapter title="Interaction Concept" teaser="[EN] [Short text: what is this chapter about?]">
-  [EN] [Longer text: how we approached it, what mattered.]
+<Chapter title="Interaction Concept" teaser="Every movement of the robot has its own tangible control." image={interaction} fit="contain" label="Graphic: driving, crab walk and slow mode on the controller">
+
+Left: the joystick drives, a button moves the robot sideways (crab walk), and a switch turns on slow mode for precise work.
+
+Right: squeezing the grip closes the gripper – the hand's natural grasping motion carries straight over. A thumb wheel adjusts the height.
+
 </Chapter>
 
-<Chapter title="Prototyping / Testing" teaser="[EN] [Short text: what is this chapter about?]">
-  [EN] [Longer text: how we approached it, what mattered.]
+<Chapter title="Prototyping" teaser="From a laser-cut wooden board to a clay model to a design prototype in Blender." image={prototype} label="First functional prototype made of laser-cut wood">
+
+The first functional prototype consisted of two laser-cut wooden plates with spacers, its shape fitted to the components beforehand. In parallel, a clay model let us test how the controller sits in the hand.
+
+After testing, all controls moved to the front. The final design was modelled in Blender – including several colour variants.
+
 </Chapter>
 
-<Chapter title="Technical Implementation" teaser="[EN] [Short text: what is this chapter about?]">
-  [EN] [Longer text: how we approached it, what mattered.]
+<Chapter title="User Testing" teaser="Two rounds of testing: first with students, then with an entire fifth-grade class.">
+
+Testing with HfG students showed that the tilted joystick and the thumb wheel on the back didn't work – while the ergonomic shape and the split of functions did.
+
+We then tested with about 25 fifth graders. They understood the joystick steering instantly and became faster and more confident within minutes. It was fascinating to see how differently confident the children were. We sketched and visualised their design ideas right there.
+
 </Chapter>
 
-<Chapter title="Result / Impact" teaser="[EN] [Short text: what is this chapter about?]">
-  [EN] [Longer text: how we approached it, what mattered.]
+<Chapter title="Technical Implementation" teaser="The functional prototype controls the real robot wirelessly." image={wiring} label="Wiring inside the functional prototype">
+
+A joystick, two crab-walk buttons in a 3D-printed housing, a slow-mode switch, a limit switch for the grasping motion and a potentiometer with a 3D-printed thumb wheel – connected via an Arduino and a shared power hub that saves cables.
+
 </Chapter>
 
-<Chapter title="My Role" teaser="[EN] [Short text: what is this chapter about?]">
-  [EN] [Longer text: how we approached it, what mattered.]
+<Chapter title="Result" teaser="An ergonomic controller that children could use without much explanation.">
+
+The outcome: a functional prototype that controls the robot, a form prototype and a design prototype in Blender. The camera display remained a concept.
+
+</Chapter>
+
+<Chapter title="My Role" teaser="Design, sketching, prototyping, user tests and the 3D model in Blender.">
+
+I co-designed and sketched the form, built the prototypes with the team, co-ran the user tests and modelled the design prototype in Blender.
+
+My biggest takeaway: how much testing with the real target group adds. The children reacted differently from students – more directly, more playfully – and gave us new design ideas at the same time.
+
 </Chapter>
