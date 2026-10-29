@@ -1,4 +1,7 @@
 /* Alle Design-Werte an einer Stelle. Quelle: Figma „portfolio-design“. */
+/* Registriert, damit die Verlaufsfarbe der Navigation weich überblenden kann */
+@property --nav-fade { syntax: '<color>'; inherits: true; initial-value: #fff; }
+
 :root {
   /* Farben */
   --c-bg: #FFFFFF;
@@ -16,6 +19,7 @@
   /* Schrift: Satoshi. Drei Stufen (bei 1512 px Breite): Überschrift 64 Bold / Zwischenüberschrift 28 Medium / Text 20 Regular.
      Hero 112 nur auf der Landing. Labels = Text in Bold, Nebeninfos = Text in --c-text-muted. */
   --f-sans: 'Satoshi', system-ui, sans-serif;
+  --f-hero: 'Clash Display', var(--f-sans); /* nur Landing-Headline */
   --fs-hero: clamp(32px, 7.4vw, 112px); /* Landing-Headline */
   --fs-display: clamp(40px, 4.25vw, 64px); /* Überschrift */
   --fs-sub: clamp(22px, 1.85vw, 28px); /* Zwischenüberschrift */

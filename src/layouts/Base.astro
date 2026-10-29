@@ -2,6 +2,7 @@
 import '../styles/tokens.css';
 import '../styles/global.css';
 import Nav from '../components/Nav.astro';
+import GridOverlay from '../components/GridOverlay.astro';
 import { routes, otherLang, type Lang } from '../i18n/utils';
 
 interface Props {
@@ -41,6 +42,7 @@ const alt = otherLang(lang);
       <main><slot /></main>
     </div>
     <slot name="panels" />
+    {import.meta.env.DEV && <GridOverlay />}
     <script>
       // „Bewegung reduzieren“ respektieren: Autoplay-Videos anhalten
       if (matchMedia('(prefers-reduced-motion: reduce)').matches) {

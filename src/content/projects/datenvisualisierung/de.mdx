@@ -10,10 +10,16 @@ semester: "[SEMESTER]"
 tools: ["[TOOLS]"]
 tags: ["Data Visualisation"]
 preview:
-  label: "[Vorschau Datenvisualisierung]"
+  label: "Video: Bedienung der Hilfsgelder-Visualisierung im Zeitverlauf"
+  video: "/projects/datenvisualisierung/aid-funds.mp4"
+  poster: ./aid-funds-poster.jpg
 hero:
-  label: "[Hero: Rendering, Foto oder Video des Endprodukts]"
+  label: "Video: Bedienung der Hilfsgelder-Visualisierung im Zeitverlauf"
+  video: "/projects/datenvisualisierung/aid-funds.mp4"
+  poster: ./aid-funds-poster.jpg
 ---
+
+import LiveEmbed from '../../../components/LiveEmbed.astro';
 
 <Chapter title="Übersicht" teaser="[Kurzer Text: worum geht es in diesem Kapitel?]">
   [Ausführlicher Text: so sind wir vorgegangen, das war wichtig.]
@@ -21,4 +27,5 @@ hero:
 
 <Chapter title="Technische Umsetzung" teaser="[Kurzer Text: worum geht es in diesem Kapitel?]">
   [Ausführlicher Text: so sind wir vorgegangen, das war wichtig.]
+  <LiveEmbed slot="media" src="/projects/datenvisualisierung/live/index.html" width={1512} height={945} label="Live-Visualisierung: Internationale Hilfsgelder 1960–2023" hint="Die Visualisierung ist für große Bildschirme gebaut – am Desktop live ausprobieren." />
 </Chapter>

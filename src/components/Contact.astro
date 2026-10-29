@@ -21,8 +21,10 @@ const c = copy[lang].contact;
 </section>
 
 <style>
+  /* Unten ist das Seitenende: Punkte nur oben weich einblenden */
+  .contact::before { mask-image: linear-gradient(transparent, #000 60px); }
   .contact {
-    min-height: 100vh;
+    min-height: 50vh;
     display: flex;
     flex-direction: column;
     padding-bottom: 32px;

@@ -1,0 +1,41 @@
+---
+// Live-Demo (eigene HTML-Seite aus public/) im iframe, auf die Breite skaliert.
+// Die Seite ist für eine feste Größe gebaut (width × height). Auf dem Handy steht statt der Demo ein Hinweis.
+// In der MDX-Datei: <LiveEmbed slot="media" src="/projects/…/index.html" width={1512} height={945} label="Titel" hint="Am Desktop ausprobieren" />
+interface Props { src: string; width: number; height: number; label: string; hint: string }
+const { src, width, height, label, hint } = Astro.props;
+---
+<div class="live" data-live-embed style={`--w:${width}; --h:${height}`}>
+  <div class="live-frame">
+    <iframe src={src} title={label} width={width} height={height}></iframe>
+  </div>
+  <p class="live-hint">{hint}</p>
+</div>
+
+<script>
+  // Skalierung = verfügbare Breite / Breite, für die die eingebettete Seite gebaut ist
+  for (const box of document.querySelectorAll<HTMLElement>('[data-live-embed]')) {
+    const frame = box.querySelector<HTMLElement>('.live-frame')!;
+    const width = Number(box.style.getPropertyValue('--w'));
+    new ResizeObserver(() => box.style.setProperty('--s', String(frame.clientWidth / width))).observe(frame);
+  }
+</script>
+
+<style>
+  .live { --s: 1; width: 100%; }
+  .live-frame {
+    position: relative;
+    width: 100%;
+    aspect-ratio: var(--w) / var(--h);
+    overflow: hidden;
+    border-radius: var(--radius);
+    border: 1px solid var(--c-line);
+  }
+  iframe { position: absolute; top: 0; left: 0; border: 0; transform: scale(var(--s)); transform-origin: 0 0; }
+  .live-hint { display: none; font-weight: 700; color: var(--c-text-muted); }
+
+  @media (max-width: 767px) {
+    .live-frame { display: none; }
+    .live-hint { display: block; }
+  }
+</style>

@@ -24,7 +24,7 @@ const style = (i: number) => {
 };
 ---
 <section id="side" class="dotted" data-nav-section="side">
-  <div class="side-track" data-pin data-pin-start="0.5" data-pin-end="0.6">
+  <div class="side-track" data-pin data-pin-start="0.5">
     <div class="side-sticky section">
       <SectionHead label={copy[lang].side.label} title={copy[lang].side.title} />
       <ul class="side-stage">
@@ -62,11 +62,14 @@ const style = (i: number) => {
   }
   .side-card a:hover { transform: translateY(-6px); }
   .side-card :global(.side-media) { aspect-ratio: 4 / 3; border-radius: 0; }
+  /* Videos nie beschneiden: ganz, im eigenen Format */
+  .side-card :global(video.side-media) { aspect-ratio: auto; object-fit: contain; }
   h3 { font-size: var(--fs-body); }
   p { line-height: var(--lh-body); }
 
   /* Gepinnt: Bühne füllt den Bildschirm, Karten wandern vom Stapel an ihre Plätze */
-  :global(.pins) .side-track { height: 220vh; }
+  /* Animation endet genau, wenn der Abschnitt weiterscrollt (keine Leerstrecke danach) */
+  :global(.pins) .side-track { height: 172vh; }
   :global(.pins) .side-sticky { position: sticky; top: 0; height: 100vh; overflow: clip; }
   :global(.pins) .side-stage {
     position: absolute;

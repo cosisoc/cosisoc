@@ -1,6 +1,7 @@
 @font-face { font-family: 'Satoshi'; src: url('/fonts/satoshi-400.woff2') format('woff2'); font-weight: 400; font-display: swap; }
 @font-face { font-family: 'Satoshi'; src: url('/fonts/satoshi-500.woff2') format('woff2'); font-weight: 500; font-display: swap; }
 @font-face { font-family: 'Satoshi'; src: url('/fonts/satoshi-700.woff2') format('woff2'); font-weight: 700; font-display: swap; }
+@font-face { font-family: 'Clash Display'; src: url('/fonts/clash-display-700.woff2') format('woff2'); font-weight: 700; font-display: swap; }
 
 *, *::before, *::after { box-sizing: border-box; }
 
@@ -37,7 +38,7 @@ a:hover { color: var(--c-accent); }
 .section-title { font-size: var(--fs-display); margin-top: 16px; }
 .section-head { margin-bottom: var(--head-gap); }
 
-/* 12-Spalten-Raster */
+/* 12-Spalten-Raster (Handy: 4 Spalten) */
 .grid {
   display: grid;
   grid-template-columns: repeat(12, minmax(0, 1fr));
@@ -54,11 +55,17 @@ a:hover { color: var(--c-accent); }
   white-space: nowrap;
 }
 
-/* Hellgrauer Hintergrund mit Punktraster */
-.dotted {
+/* Hellgrauer Hintergrund mit Punktraster; blendet an Ober- und Unterkante über 3 Reihen (60 px) aus Weiß ein */
+.dotted { position: relative; isolation: isolate; }
+.dotted::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
   background-color: var(--c-dotted-bg);
   background-image: radial-gradient(var(--c-dot) 1.2px, transparent 1.4px);
   background-size: 20px 20px;
+  mask-image: linear-gradient(transparent, #000 60px, #000 calc(100% - 60px), transparent);
 }
 
 .tags { display: flex; flex-wrap: wrap; gap: 8px; }
@@ -137,7 +144,7 @@ a:hover { color: var(--c-accent); }
 
 @media (max-width: 767px) {
   .section { padding-bottom: 64px; }
-  .grid { grid-template-columns: minmax(0, 1fr); }
+  .grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
   .grid > * { grid-column: 1 / -1 !important; }
 }
 

@@ -16,6 +16,8 @@ const items = [
 ---
 <header class="nav" data-nav>
   <!-- Grüner Tab: gleitet zum aktiven Abschnitt (navspy.js) -->
+  <!-- Verlauf hinter der Leiste: Inhalt verschwindet nach oben, ohne Balken (Farbe = Abschnitt darunter) -->
+  <span class="nav-fade" aria-hidden="true"></span>
   <span class="nav-tab" aria-hidden="true"></span>
   <!-- TODO: handgezeichnetes Logo statt Text -->
   <a class="nav-item nav-logo" href={`${home}#top`} data-nav-target="top">{copy[lang].logo}</a>
@@ -30,6 +32,17 @@ const items = [
 </header>
 
 <script src="../scripts/navspy.js"></script>
+<script>
+  // Liegt die Leiste über einem Punkt-Abschnitt, nimmt der Verlauf dessen Grau an
+  const nav = document.querySelector<HTMLElement>('[data-nav]')!;
+  const dotted = [...document.querySelectorAll<HTMLElement>('.dotted')];
+  const update = () => {
+    const over = dotted.some((s) => { const r = s.getBoundingClientRect(); return r.top < 0 && r.bottom > nav.offsetHeight; });
+    nav.classList.toggle('is-over-dotted', over);
+  };
+  addEventListener('scroll', update, { passive: true });
+  update();
+</script>
 
 <style>
   /* Header 80 px hoch; Logo, Nav (mittig) und DE/EN stehen auf einer Höhe in der 54 px hohen Pill-Zeile */
@@ -45,6 +58,17 @@ const items = [
     pointer-events: none;
   }
   .nav > * { pointer-events: auto; }
+  .nav > .nav-fade {
+    position: absolute;
+    inset: 0 0 auto;
+    z-index: -1;
+    height: calc(var(--nav-h) + 24px);
+    background: linear-gradient(var(--nav-fade) 45%, transparent);
+    pointer-events: none;
+    transition: --nav-fade var(--dur) ease;
+  }
+  .nav { --nav-fade: var(--c-bg); }
+  .nav:global(.is-over-dotted) { --nav-fade: var(--c-dotted-bg); }
   .nav-tab {
     position: absolute;
     top: 0;

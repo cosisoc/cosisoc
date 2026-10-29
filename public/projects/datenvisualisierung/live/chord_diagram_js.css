@@ -1,0 +1,457 @@
+/* Portfolio: helle Fassung (weißer Hintergrund, Satoshi). Farben abgedunkelt, damit alles auf Weiß lesbar bleibt. */
+@font-face { font-family: 'Satoshi'; src: url('/fonts/satoshi-400.woff2') format('woff2'); font-weight: 400; }
+@font-face { font-family: 'Satoshi'; src: url('/fonts/satoshi-500.woff2') format('woff2'); font-weight: 500; }
+@font-face { font-family: 'Satoshi'; src: url('/fonts/satoshi-700.woff2') format('woff2'); font-weight: 700; }
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Satoshi', 'Arial', sans-serif;
+    background-color: #ffffff;
+    color: #000000;
+    overflow: hidden;
+}
+
+#main-title {
+    position: absolute;
+    top: 15px;
+    left: 25px;
+    font-size: 32px;
+    font-weight: bold;
+    color: #2C7A7B;
+    margin: 0;
+    z-index: 10;
+    padding-left: 15px;
+}
+
+#title-year-display {
+    position: absolute;
+    top: 55px;
+    left: 25px;
+    font-size: 18px;
+    color: #2C7A7B;
+    z-index: 10;
+    padding-left: 15px;
+}
+
+#title-year {
+    color: #2C7A7B;
+    font-weight: bold;
+}
+
+#data-info {
+    position: absolute;
+    bottom: 110px;
+    left: 25px;
+    font-size: 16px;
+    color: #2C7A7B;
+    line-height: 1.6;
+    z-index: 10;
+    padding-left: 15px;
+}
+
+#container {
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    background: #ffffff;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#main-content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 60px;
+    flex: 1;
+    width: 100%;
+    padding-right: 30px;
+    /* allow children (svg labels) to overflow without shifting layout */
+    overflow: visible;
+}
+
+h1 {
+    text-align: center;
+    color: #000000;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    text-align: center;
+    color: #666666;
+    margin-bottom: 30px;
+    font-size: 14px;
+}
+
+#loading {
+    text-align: center;
+    padding: 50px;
+    font-size: 18px;
+    color: #000000;
+}
+
+#chart {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: visible; /* ensure labels drawn outside svg box are visible */
+}
+
+#chart svg {
+    overflow: visible;
+}
+
+#right-section {
+    display: flex;
+    flex-direction: column;
+    align-self: flex-start;
+    gap: 30px;
+    padding-top: 0;
+}
+
+#legend-section {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    align-items: flex-start;
+    padding-top: 40px;
+}
+
+.legend-item-inline {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    position: relative;
+    transition: margin-top 0.3s ease;
+}
+
+#donors-clickarea,
+#recipients-clickarea {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 340px;
+    height: 35px;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.legend-label {
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    align-self: flex-start;
+}
+
+.donor-legend {
+    color: #2C7A7B;
+}
+
+.recipient-legend {
+    color: #C2410C;
+}
+
+.legend-line-container {
+    position: relative;
+    width: 340px;
+}
+
+.legend-line {
+    width: 340px;
+    height: 3px;
+    display: block;
+}
+
+.donor-line {
+    background-color: #2C7A7B;
+}
+
+.recipient-line {
+    background-color: #C2410C;
+}
+
+.dropdown-indicator {
+    position: absolute;
+    right: 0;
+    top: -22px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.dropdown-indicator .indicator-line {
+    width: 16px;
+    height: 3px;
+    display: block;
+}
+
+.donor-indicator .indicator-line {
+    background-color: #2C7A7B;
+}
+
+.recipient-indicator .indicator-line {
+    background-color: #C2410C;
+}
+
+/* Dropdown Menu */
+.dropdown-list {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    margin-top: 10px;
+    width: 340px;
+    max-height: 180px;
+    overflow-y: auto;
+    padding: 0;
+    z-index: 100;
+}
+
+.dropdown-item {
+    padding: 8px 12px;
+    color: #000000;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+    border-bottom: 1px solid rgba(44, 122, 123, 0.15);
+}
+
+.dropdown-item:last-child {
+    border-bottom: none;
+}
+
+.dropdown-item:hover:not(.disabled) {
+    background-color: rgba(44, 122, 123, 0.15);
+}
+
+.dropdown-item.selected {
+    background-color: rgba(44, 122, 123, 0.2);
+    color: #2C7A7B;
+    font-weight: bold;
+}
+
+.dropdown-item.disabled {
+    color: #999999;
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+/* Custom Scrollbar */
+.dropdown-list::-webkit-scrollbar {
+    width: 8px;
+}
+
+.dropdown-list::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.08);
+    border-radius: 4px;
+}
+
+.dropdown-list::-webkit-scrollbar-thumb {
+    background: #2C7A7B;
+    border-radius: 4px;
+}
+
+.dropdown-list::-webkit-scrollbar-thumb:hover {
+    background: #234E52;
+}
+
+#small-charts {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    padding-bottom: 15px;
+    margin-top: 0;
+    position: relative;
+    padding-left: 0;
+}
+
+.small-chart-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.small-chart-title {
+    color: #2C7A7B;
+    font-size: 14px;
+    margin-bottom: 2px;
+}
+
+.small-chart {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.chord {
+    stroke: none;
+    transition: fill-opacity 0.3s;
+}
+
+.chord:hover {
+    fill-opacity: 0.9;
+}
+
+.group-arc {
+    stroke: #fff;
+    stroke-width: 1;
+}
+
+.group-tick line {
+    stroke: #999;
+}
+
+.group-label {
+    font-weight: bold;
+    font-size: 14px !important;
+}
+
+.donor-label {
+    fill: #2C7A7B; /* Türkis */
+}
+
+.recipient-label {
+    fill: #C2410C; /* Orange */
+}
+
+.recipient-bar {
+    stroke: #fff;
+    stroke-width: 0.5;
+}
+
+.legend {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 20px;
+    font-size: 14px;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.legend-color {
+    width: 20px;
+    height: 20px;
+    border-radius: 3px;
+}
+
+.tooltip {
+    position: absolute;
+    padding: 12px 16px !important;
+    background-color: rgba(0, 0, 0, 0.85);
+    color: white;
+    border-radius: 8px;
+    pointer-events: none;
+    font-size: 14px !important;
+    font-weight: 500;
+    line-height: 1.6;
+    opacity: 0;
+    transition: opacity 0.2s;
+    z-index: 1000;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+    white-space: nowrap;
+}
+
+.tooltip strong {
+    font-size: 16px !important;
+    font-weight: 700;
+    display: block;
+    margin-bottom: 6px;
+}
+
+/* Timeline Styles */
+#timeline-container {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+#timeline-label {
+    color: #2C7A7B;
+    font-size: 18px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    white-space: nowrap;
+}
+
+#timeline {
+    position: relative;
+    flex: 1;
+    height: 40px;
+}
+
+#timeline-track {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: #2C7A7B;
+    pointer-events: none;
+    z-index: 1;
+}
+
+#year-slider {
+    width: 100%;
+    height: 40px;
+    -webkit-appearance: none;
+    appearance: none;
+    background: transparent;
+    outline: none;
+    position: absolute;
+    bottom: -14px;
+    z-index: 2;
+    cursor: pointer;
+    margin: 0;
+}
+
+#year-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 40px;
+    height: 12px;
+    border-radius: 2px;
+    background: #C2410C;
+    cursor: pointer;
+    border: 1.5px solid #fff;
+    box-shadow: none;
+}
+
+#year-slider::-moz-range-thumb {
+    width: 40px;
+    height: 12px;
+    border-radius: 2px;
+    background: #C2410C;
+    cursor: pointer;
+    border: 1.5px solid #fff;
+    box-shadow: none;
+}
+
+#year-markers {
+    position: absolute;
+    bottom: -25px;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+    color: #666666;
+    font-size: 11px;
+}
+
+

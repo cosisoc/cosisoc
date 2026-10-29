@@ -11,7 +11,9 @@ const perspectives = [1, 2, 3];
 ---
 <section class="landing grid" id="top" data-nav-section="top">
   <div class="intro">
-    <h1 data-reveal>{c.headline.map((line) => <span>{line}</span>)}</h1>
+    <h1 data-reveal>{c.headline.map((line, i) => i === c.headline.length - 1 && line.endsWith('.')
+      ? <span>{line.slice(0, -1)}<span class="dot">.</span></span>
+      : <span>{line}</span>)}</h1>
     <p class="subline" data-reveal style="--i:1">{c.subline}</p>
   </div>
   <div class="photo" data-perspectives data-reveal style="--i:2">
@@ -30,8 +32,9 @@ const perspectives = [1, 2, 3];
     align-items: center;
   }
   .intro { grid-column: 1 / 9; display: flex; flex-direction: column; gap: 32px; }
-  h1 { font-size: var(--fs-hero); text-transform: uppercase; line-height: var(--lh-display); }
+  h1 { font-family: var(--f-hero); font-size: var(--fs-hero); text-transform: uppercase; line-height: var(--lh-display); }
   h1 span { display: block; }
+  h1 .dot { display: inline; color: var(--c-accent); }
   .subline { font-size: var(--fs-sub); line-height: var(--lh-lead); font-weight: var(--fw-sub); max-width: 560px; }
   .photo { grid-column: 9 / 13; align-self: end; }
   .photo :global(.photo-media) { aspect-ratio: 2 / 3; border-radius: 0; }

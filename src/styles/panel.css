@@ -64,6 +64,8 @@
 .head-media { grid-column: 7 / 13; }
 /* height: auto, sonst setzt die Höhenangabe echter Bilder das Seitenverhältnis außer Kraft */
 .panel-head .head-media .head-hero { aspect-ratio: 4 / 3; height: auto; border-radius: var(--radius); }
+/* Videos im Titelbild nie beschneiden: immer ganz, in ihrem eigenen Format */
+.panel-head .head-media video.head-hero { aspect-ratio: auto; object-fit: contain; }
 
 /* Mit 3D-Modell: das Fenster (4:3) steht rechts neben Titel und Text, oben bündig mit dem Titelblock */
 @media (min-width: 768px) {
@@ -124,6 +126,8 @@
 .chapters .chapter:nth-of-type(even) .chapter-body .chapter-media { grid-column: 1 / 7; }
 .chapters .chapter-body .chapter-custom { grid-column: 7 / 13; display: flex; justify-content: center; }
 .chapters .chapter:nth-of-type(even) .chapter-body .chapter-custom { grid-column: 1 / 7; }
+/* Live-Demo braucht Platz: volle Breite unter dem Text */
+.chapters .chapter .chapter-body .chapter-custom:has(.live) { grid-column: 1 / -1; order: 3; }
 @keyframes chapter-in { from { opacity: 0; transform: translateY(16px); } }
 
 /* Nächstes Projekt: Label und Titel linksbündig auf einer Linie mit dem Rand */

@@ -10,10 +10,16 @@ semester: "[SEMESTER]"
 tools: ["[TOOLS]"]
 tags: ["Data Visualisation"]
 preview:
-  label: "[Preview data visualisation]"
+  label: "Video: using the aid funds visualisation over time"
+  video: "/projects/datenvisualisierung/aid-funds.mp4"
+  poster: ./aid-funds-poster.jpg
 hero:
-  label: "[Hero: rendering, photo or video of the final product]"
+  label: "Video: using the aid funds visualisation over time"
+  video: "/projects/datenvisualisierung/aid-funds.mp4"
+  poster: ./aid-funds-poster.jpg
 ---
+
+import LiveEmbed from '../../../components/LiveEmbed.astro';
 
 <Chapter title="Overview" teaser="[EN] [Short text: what is this chapter about?]">
   [EN] [Longer text: how we approached it, what mattered.]
@@ -21,4 +27,5 @@ hero:
 
 <Chapter title="Technical Implementation" teaser="[EN] [Short text: what is this chapter about?]">
   [EN] [Longer text: how we approached it, what mattered.]
+  <LiveEmbed slot="media" src="/projects/datenvisualisierung/live/index.html" width={1512} height={945} label="Live visualisation: international aid funds 1960–2023" hint="This visualisation is built for large screens – try it live on desktop." />
 </Chapter>

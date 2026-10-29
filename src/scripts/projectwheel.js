@@ -25,6 +25,9 @@ for (const root of document.querySelectorAll('[data-wheel-root]')) {
       thumb.style.setProperty('--rel', String(rel));
       thumb.classList.toggle('is-active', rel === 0);
       thumb.setAttribute('aria-current', rel === 0 ? 'true' : 'false');
+      // Die aktive Miniatur führt ins Projekt, also auch derselbe Cursor wie über der Bühne
+      if (rel === 0) thumb.dataset.cursorLabel = slides[i].dataset.cursorLabel;
+      else delete thumb.dataset.cursorLabel;
       requestAnimationFrame(() => thumb.classList.remove('is-jumping'));
     });
     slides.forEach((slide, i) => {
@@ -63,7 +66,9 @@ for (const root of document.querySelectorAll('[data-wheel-root]')) {
     thumb.addEventListener('click', () => {
       if (dragged) return;
       clearTimeout(timer);
-      turnByPointer(i);
+      // Klick auf das schon gewählte Projekt öffnet es
+      if (i === active) slides[i].click();
+      else turnByPointer(i);
     });
   });
   // Beim ersten Bewegen nach der Drehung: liegt eine Miniatur unter der Maus → bis zum Verlassen gesperrt
