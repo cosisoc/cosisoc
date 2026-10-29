@@ -51,7 +51,7 @@ const facts = [
 
     <section class:list={['panel-head', 'grid', { 'has-model': d.model }]}>
       <div class="head-title">
-        <p class="section-label">{back.section}</p>
+        <a class="section-label head-back" href={back.href} data-panel-close><span aria-hidden="true">←</span> {back.section}</a>
         <h2 id={`panel-title-${p.slug}`}>{d.title}</h2>
       </div>
       <div class="head-text">

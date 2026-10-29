@@ -24,8 +24,18 @@ import concept from './concept.png';
 import interaction from './interaction.png';
 import prototype from './prototype.png';
 import wiring from './wiring.png';
+import Gallery from '../../../components/Gallery.astro';
+import renderFrontal from './render-frontal.jpg';
+import renderLinks from './render-links.jpg';
+import renderRechts from './render-rechts.jpg';
+import joystick from './detail-joystick.jpg';
+import crabwalk from './detail-crabwalk.jpg';
+import slow from './detail-slow.jpg';
+import greifhebel from './detail-greifhebel.jpg';
+import drehrad from './detail-drehrad.jpg';
+import rueckseite from './detail-rueckseite.jpg';
 
-<Chapter title="Overview" teaser="The brief: a controller for a given robot. Our idea: children use it to tidy up their room.">
+<Chapter title="Overview" teaser="The brief: a controller for a given robot. Our idea: children use it to tidy up their room." image={renderFrontal} fit="contain" label="Front view of the Cluttr controller, rendering">
 
 The robot from the Interface Design course was set: mecanum wheels that let it drive in every direction – including sideways – and a gripper that opens, closes and moves up and down. Use case and target group were up to us.
 
@@ -46,6 +56,21 @@ We started from controllers children already know – Nintendo Switch Joy-Cons, 
 Left: the joystick drives, a button moves the robot sideways (crab walk), and a switch turns on slow mode for precise work.
 
 Right: squeezing the grip closes the gripper – the hand's natural grasping motion carries straight over. A thumb wheel adjusts the height.
+
+</Chapter>
+
+<Chapter title="Controls in Detail" teaser="Joystick, crab walk button, slow switch, grip lever and dial – rendered in Blender.">
+
+Driving controls on the left, gripping controls on the right. The back has a line texture.
+
+  <Gallery slot="media" images={[
+    { image: joystick, label: 'Joystick for driving' },
+    { image: crabwalk, label: 'Arrow button for the crab walk' },
+    { image: slow, label: 'Slow mode switch with turtle symbol' },
+    { image: greifhebel, label: 'Grip lever: squeezing closes the gripper' },
+    { image: drehrad, label: 'Dial for the gripper height' },
+    { image: rueckseite, label: 'Back with line texture' },
+  ]} />
 
 </Chapter>
 
@@ -71,13 +96,13 @@ A joystick, two crab-walk buttons in a 3D-printed housing, a slow-mode switch, a
 
 </Chapter>
 
-<Chapter title="Result" teaser="An ergonomic controller that children could use without much explanation.">
+<Chapter title="Result" teaser="An ergonomic controller that children could use without much explanation." image={renderLinks} fit="contain" label="Cluttr controller from the left, rendering">
 
 The outcome: a functional prototype that controls the robot, a form prototype and a design prototype in Blender. The camera display remained a concept.
 
 </Chapter>
 
-<Chapter title="My Role" teaser="Design, sketching, prototyping, user tests and the 3D model in Blender.">
+<Chapter title="My Role" teaser="Design, sketching, prototyping, user tests and the 3D model in Blender." image={renderRechts} fit="contain" label="Cluttr controller from the right, rendering">
 
 I co-designed and sketched the form, built the prototypes with the team, co-ran the user tests and modelled the design prototype in Blender.
 

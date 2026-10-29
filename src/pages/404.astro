@@ -1,0 +1,32 @@
+---
+// Eine 404-Seite für beide Sprachen: Deutsch zuerst, Englisch darunter
+import Base from '../layouts/Base.astro';
+import { copy } from '../i18n/copy';
+import { routes, useT } from '../i18n/utils';
+
+const de = useT('de');
+const en = useT('en');
+---
+<Base
+  lang="de"
+  title={`404 – ${copy.de.name}`}
+  description={de('notFound.title')}
+  alternate={routes.home.en}
+>
+  <section class="section not-found">
+    <p class="label">404</p>
+    <h1>{de('notFound.title')}</h1>
+    <p>{de('notFound.text')}</p>
+    <a class="back" href={routes.home.de}>← {de('legal.back')}</a>
+    <p class="en" lang="en">
+      {en('notFound.title')}. <a href={routes.home.en}>{en('legal.back')}</a>
+    </p>
+  </section>
+</Base>
+
+<style>
+  .not-found { display: flex; flex-direction: column; gap: 24px; min-height: 100vh; padding-top: calc(var(--nav-h) + 40px); }
+  h1 { font-size: var(--fs-display); }
+  .back { font-weight: 700; text-decoration: none; }
+  .en { margin-top: 40px; color: var(--c-text-muted); }
+</style>

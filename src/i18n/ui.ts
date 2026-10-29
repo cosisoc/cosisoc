@@ -18,6 +18,10 @@ export const ui = {
     'footer.imprint': 'Impressum',
     'footer.privacy': 'Datenschutz',
     'legal.back': 'Zurück zur Startseite',
+    'contact.copy': 'E-Mail-Adresse kopieren',
+    'notFound.title': 'Seite nicht gefunden',
+    'notFound.text': 'Diese Seite gibt es nicht (mehr).',
+    'console.hello': '👋 Hi! Neugierig? Schreib mir:',
   },
   en: {
     'nav.work': 'Work',
@@ -37,5 +41,9 @@ export const ui = {
     'footer.imprint': 'Imprint',
     'footer.privacy': 'Privacy',
     'legal.back': 'Back to home',
+    'contact.copy': 'Copy email address',
+    'notFound.title': 'Page not found',
+    'notFound.text': 'This page doesn’t exist (anymore).',
+    'console.hello': '👋 Hi! Curious? Write me:',
   },
 } as const;

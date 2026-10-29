@@ -3,11 +3,11 @@ title: "Anatomy of Minds"
 short: "Ein interaktiver Tisch, an dem NFC-Figuren die Gehirne von Mensch und Ameise vergleichen."
 kind: main
 order: 3
-role: "[MEINE AUFGABE]"
-team: "3 Personen"
-duration: "[DAUER]"
-semester: "WS 25/26"
-tools: ["[TOOLS]"]
+role: "Interaktionskonzept, Programmierung der Webseite"
+team: "María Jesús Fonseca, Yannik Stegmaier, Cosima Bühler"
+duration: "1 Semester"
+semester: "WiSe 25/26 · Interaktive Kommunikationssysteme"
+tools: ["JavaScript", "Web Serial API", "Sketchfab", "Arduino", "NFC", "3D-Druck"]
 tags: ["Tangible Interface", "Projektion", "Creative Coding"]
 preview:
   label: "Anatomy of Minds: interaktiver Tisch mit Projektion"
@@ -17,26 +17,58 @@ hero:
   image: ./cover.png
 ---
 
-<Chapter title="Intro / Aufgabe" teaser="[Kurzer Text: worum geht es in diesem Kapitel?]">
-  [Ausführlicher Text: so sind wir vorgegangen, das war wichtig.]
+<Chapter title="Übersicht" teaser="Wie definiert man Intelligenz über Artgrenzen hinweg? Ein Ausstellungstisch, der die Gehirne von Ameise und Mensch spielerisch vergleichbar macht.">
+
+Zur Wahl standen zwei Themen: Überschalljets und der menschliche Kopf. Wir haben uns für den Kopf entschieden – er bot mehr Möglichkeiten für ein interaktives Erlebnis, von den Sinnen über Emotionen bis zum Gehirn selbst.
+
+Die Schwierigkeit: Neurowissenschaft steckt voller Fachbegriffe und Daten. Unsere Leitfrage war deshalb, wie eine Museumsstation Unterschiede und Gemeinsamkeiten von Gehirnen so vermittelt, dass Kinder wie Erwachsene etwas mitnehmen – ohne überfordert zu werden.
+
 </Chapter>
 
-<Chapter title="Konzeption" teaser="[Kurzer Text: worum geht es in diesem Kapitel?]">
-  [Ausführlicher Text: so sind wir vorgegangen, das war wichtig.]
+<Chapter title="Recherche" teaser="Neun Arten, vier Kriterien – und am Ende die Ameise als stärkster Kontrast zum Menschen." label="[Bild: 3D-gedruckte Gehirnmodelle oder Mindmap]">
+
+Zuerst stand die Frage im Raum: Gehirn und Emotionen – oder Gehirne verschiedener Arten im Vergleich? Für den Vergleich gab es deutlich mehr verlässliche Quellen, und Emotionen ließen sich als ein Teilaspekt mitnehmen.
+
+Wir haben das menschliche Gehirn neben die von Biene, Ameise, Elefant, Oktopus, Fisch, Vogel, Maus und Schwein gestellt, entlang von Evolution, Umwelt, Intelligenz und Emotionen. 3D-gedruckte Gehirnmodelle und Mindmaps zeigten, welche Arten sich am stärksten unterscheiden.
+
+Die Wahl fiel auf die Ameise: ein winziges, ganz anders aufgebautes Gehirn – und eine Intelligenz, die nicht im einzelnen Tier liegt, sondern in der Kolonie. Erzählt wird der Vergleich entlang von drei Themen: Umwelt, Intelligenz und Emotionen.
+
 </Chapter>
 
-<Chapter title="Interaktionskonzept" teaser="[Kurzer Text: worum geht es in diesem Kapitel?]">
-  [Ausführlicher Text: so sind wir vorgegangen, das war wichtig.]
+<Chapter title="Interaktionskonzept" teaser="Figur aufsetzen, Figur drehen – wie bei einem Brettspiel." label="[Video: Figur aufsetzen und drehen, die Projektion reagiert]">
+
+Im Museum bleiben Besucher:innen nur wenige Minuten an einer Station und springen zwischen den Exponaten. Darum funktioniert unser Tisch wie ein Brettspiel: 3D-gedruckte Figuren von Ameise und Mensch werden auf Punkte gesetzt, die Inhalte werden von oben direkt auf den Tisch projiziert.
+
+Es gibt fünf Punkte. Auf den zwei Hauptpunkten erscheint das Gehirn der Figur als 3D-Modell – dreht man die Figur, dreht sich das Gehirn mit. Drei weitere Punkte stehen für Umwelt, Intelligenz und Emotionen. Dort zeigt jede Vierteldrehung eine neue Information, und die beteiligten Hirnregionen leuchten auf.
+
 </Chapter>
 
-<Chapter title="Technische Umsetzung" teaser="[Kurzer Text: worum geht es in diesem Kapitel?]">
-  [Ausführlicher Text: so sind wir vorgegangen, das war wichtig.]
+<Chapter title="Gestaltung" teaser="Vom abstrakten Farbverlauf zum freundlichen Cartoon-Stil." label="[Bild: Illustrationen und Screens]">
+
+Die Illustrationen tragen die Inhalte, deshalb haben wir mit Moodboards begonnen – für die Tiere und für die interaktiven Elemente. Dabei merkten wir, dass zwei Bildsprachen nebeneinander liefen. Die abstrakten Farbverläufe mochten wir, sind aber zugunsten eines verständlicheren Cartoon-Stils mit warmen, kräftigen Farben davon abgerückt.
+
+Als Schrift haben wir die freundliche, einfache Pacaembu gewählt. Aus Storyboards entstanden die Screens: Einstieg, Themenauswahl, Infoseiten und die Ansicht der Gehirne.
+
 </Chapter>
 
-<Chapter title="Ergebnis / Impact" teaser="[Kurzer Text: worum geht es in diesem Kapitel?]">
-  [Ausführlicher Text: so sind wir vorgegangen, das war wichtig.]
+<Chapter title="technische Umsetzung" teaser="NFC erkennt die Figur, Drehgeber messen die Drehung, Web Serial bringt beides in den Browser." label="[Bild: Figur mit Sockel und Technik unter dem Tisch]">
+
+Jede Figur steht auf einem achteckigen Sockel, der sich aus jeder Richtung auf einen Punkt schieben lässt. Darunter sitzen ein NFC-Reader, der die Figur am Chip erkennt („A“ für Ameise, „H“ für Mensch), und ein Drehgeber, der die Drehung misst. Ein Arduino (ESP32-S3) schickt den Zustand aller fünf Punkte als kurze Zeichenkette an den Rechner.
+
+Meine Webseite liest diese Daten über die Web Serial API und setzt sie in Bilder um: Sie dreht die 3D-Gehirne (Modelle von Sketchfab) auf den Grad genau und wechselt an den Themenpunkten die Inhalte. Die größte Herausforderung waren die Daten selbst – Drehgeber und NFC-Reader lieferten teils sehr ungenaue Werte. Mein Code musste daraus trotzdem ein ruhiges, verständliches Bild machen.
+
 </Chapter>
 
-<Chapter title="Meine Rolle" teaser="[Kurzer Text: worum geht es in diesem Kapitel?]">
-  [Ausführlicher Text: so sind wir vorgegangen, das war wichtig.]
+<Chapter title="Ausstellung" teaser="Semesterausstellung an der HfG: zum ersten Mal live sehen, wie Menschen mit unserem Tisch umgehen." label="[Bild/Video: Besucher:innen am Tisch]">
+
+Bei der Semesterausstellung haben Besucher:innen jeden Alters den Tisch ausprobiert – Figuren aufgesetzt, gedreht, verglichen. Live zu sehen, wie fremde Menschen mit etwas umgehen, das man selbst gebaut hat, war für mich der beste Moment des Projekts.
+
+</Chapter>
+
+<Chapter title="meine Rolle" teaser="Interaktionskonzept mitentwickelt und die komplette Webseite programmiert.">
+
+Ich habe das Interaktionskonzept mitentwickelt und die gesamte Webseite umgesetzt: die Screens, die 3D-Gehirne und die Verbindung zu den Daten des Arduino. Hardware und visuelles Design lagen bei meinem Team.
+
+Es war mein erstes großes Code-Projekt, im zweiten Semester. Erfahrung mit KI-Werkzeugen hatte ich noch keine, und sie waren damals auch noch nicht so weit – vieles habe ich mir selbst erarbeitet. Im Rückblick hat das manchmal lange gedauert, aber genau dadurch habe ich unglaublich viel gelernt. Das Projekt hat mir richtig Spaß gemacht.
+
 </Chapter>

@@ -1,0 +1,27 @@
+/* Verhalten der Seite: wie eine App, nicht wie ein Dokument.
+   Text nicht markierbar, Bilder nicht ziehbar (dragstart + Rechtsklick in Base.astro);
+   Mail und Rechtstexte bleiben kopierbar. */
+html {
+  scrollbar-gutter: stable; /* Seite springt nicht, wenn das Panel den Scrollbalken ausblendet */
+  overscroll-behavior: none; /* kein Gummiband-Effekt an Anfang und Ende */
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+img, video, a {
+  -webkit-user-drag: none;
+  -webkit-touch-callout: none; /* kein „Bild sichern“-Menü bei langem Tippen (iOS) */
+}
+
+.mail, article.legal { -webkit-user-select: text; user-select: text; }
+
+::selection { background: var(--c-accent); color: var(--c-on-accent); }
+
+/* Panel scrollt für sich, die Seite dahinter nicht mit */
+.panel-sheet { overscroll-behavior: contain; }
+
+h1, h2, h3 { text-wrap: balance; }

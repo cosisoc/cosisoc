@@ -70,6 +70,15 @@ const style = (i: number) => {
   /* Gepinnt: Bühne füllt den Bildschirm, Karten wandern vom Stapel an ihre Plätze */
   /* Animation endet genau, wenn der Abschnitt weiterscrollt (keine Leerstrecke danach) */
   :global(.pins) .side-track { height: 172vh; }
+  /* Oben wie bei Kontakt; unten 100 px Luft nach den Karten für die Ausdünnung */
+  :global(.pins) #side { padding-bottom: 100px; }
+  /* Punktraster bleibt stehen, solange die Karten angehalten sind (--pin-y aus scrollpin.js):
+     Ebene so hoch wie der Abschnitt ohne Anhaltestrecke, wandert um genau diese Strecke mit */
+  :global(.pins) #side::before, :global(.pins) #side::after {
+    height: calc(100% - var(--pin-distance, 0px));
+    height: round(down, 100% - var(--pin-distance, 0px), 20px);
+    transform: translateY(var(--pin-y, 0px));
+  }
   :global(.pins) .side-sticky { position: sticky; top: 0; height: 100vh; overflow: clip; }
   :global(.pins) .side-stage {
     position: absolute;

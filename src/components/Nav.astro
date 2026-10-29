@@ -16,7 +16,7 @@ const items = [
 ---
 <header class="nav" data-nav>
   <!-- Grüner Tab: gleitet zum aktiven Abschnitt (navspy.js) -->
-  <!-- Verlauf hinter der Leiste: Inhalt verschwindet nach oben, ohne Balken (Farbe = Abschnitt darunter) -->
+  <!-- Fläche hinter der Leiste: Inhalt verschwindet an der Unterkante der Pills hart dahinter (Farbe = Abschnitt darunter) -->
   <span class="nav-fade" aria-hidden="true"></span>
   <span class="nav-tab" aria-hidden="true"></span>
   <!-- TODO: handgezeichnetes Logo statt Text -->
@@ -62,8 +62,8 @@ const items = [
     position: absolute;
     inset: 0 0 auto;
     z-index: -1;
-    height: calc(var(--nav-h) + 24px);
-    background: linear-gradient(var(--nav-fade) 45%, transparent);
+    height: var(--pill-h);
+    background: var(--nav-fade);
     pointer-events: none;
     transition: --nav-fade var(--dur) ease;
   }

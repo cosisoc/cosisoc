@@ -55,17 +55,46 @@ a:hover { color: var(--c-accent); }
   white-space: nowrap;
 }
 
-/* Hellgrauer Hintergrund mit Punktraster; blendet an Ober- und Unterkante über 3 Reihen (60 px) aus Weiß ein */
-.dotted { position: relative; isolation: isolate; }
-.dotted::before {
+/* Punktraster (20 px). An Ober- und Unterkante dünnt es über 6 Reihen (120 px) aus:
+   3/4 → 1/2 → 1/2 versetzt → 1/4 → 1/4 versetzt → 1/8 der Punkte, dazu leicht transparenter.
+   ::before = volles Raster ohne die Ränder, ::after = die ausgedünnten Reihen.
+   Höhe auf ein Vielfaches von 20 px abgerundet, damit die unteren Reihen im Raster liegen. */
+.dotted {
+  position: relative;
+  isolation: isolate;
+  --dot: radial-gradient(circle at 10px 10px, var(--c-dot) 1.2px, transparent 1.4px);
+}
+.dotted::before, .dotted::after {
   content: '';
   position: absolute;
-  inset: 0;
+  inset: 0 0 auto;
+  height: 100%;
+  height: round(down, 100%, 20px);
   z-index: -1;
+}
+.dotted::before {
   background-color: var(--c-dotted-bg);
-  background-image: radial-gradient(var(--c-dot) 1.2px, transparent 1.4px);
+  background-image: var(--dot);
   background-size: 20px 20px;
-  mask-image: linear-gradient(transparent, #000 60px, #000 calc(100% - 60px), transparent);
+  mask-image: linear-gradient(transparent 120px, #000 120px, #000 calc(100% - 120px), transparent calc(100% - 120px));
+}
+.dotted::after {
+  background:
+    var(--dot) left 80px top 0 / 160px 20px repeat-x,
+    var(--dot) left 40px top 20px / 80px 20px repeat-x,
+    var(--dot) left 0 top 40px / 80px 20px repeat-x,
+    var(--dot) left 20px top 60px / 40px 20px repeat-x,
+    var(--dot) left 0 top 80px / 40px 20px repeat-x,
+    var(--dot) left 0 top 100px / 40px 20px repeat-x,
+    var(--dot) left 20px top 100px / 80px 20px repeat-x,
+    var(--dot) left 80px bottom 0 / 160px 20px repeat-x,
+    var(--dot) left 40px bottom 20px / 80px 20px repeat-x,
+    var(--dot) left 0 bottom 40px / 80px 20px repeat-x,
+    var(--dot) left 20px bottom 60px / 40px 20px repeat-x,
+    var(--dot) left 0 bottom 80px / 40px 20px repeat-x,
+    var(--dot) left 0 bottom 100px / 40px 20px repeat-x,
+    var(--dot) left 20px bottom 100px / 80px 20px repeat-x;
+  mask-image: linear-gradient(rgb(0 0 0 / 0.3), #000 120px, #000 calc(100% - 120px), rgb(0 0 0 / 0.3));
 }
 
 .tags { display: flex; flex-wrap: wrap; gap: 8px; }

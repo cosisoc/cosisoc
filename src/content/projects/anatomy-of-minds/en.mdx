@@ -3,11 +3,11 @@ title: "Anatomy of Minds"
 short: "An interactive table where NFC figures compare the brains of humans and ants."
 kind: main
 order: 3
-role: "[MY TASK]"
-team: "3 people"
-duration: "[DURATION]"
-semester: "WS 25/26"
-tools: ["[TOOLS]"]
+role: "Interaction concept, programming the website"
+team: "María Jesús Fonseca, Yannik Stegmaier, Cosima Bühler"
+duration: "1 semester"
+semester: "WS 25/26 · Interactive Communication Systems"
+tools: ["JavaScript", "Web Serial API", "Sketchfab", "Arduino", "NFC", "3D printing"]
 tags: ["Tangible Interface", "Projection", "Creative Coding"]
 preview:
   label: "Anatomy of Minds: interactive table with projection"
@@ -17,26 +17,58 @@ hero:
   image: ./cover.png
 ---
 
-<Chapter title="Intro / Brief" teaser="[EN] [Short text: what is this chapter about?]">
-  [EN] [Longer text: how we approached it, what mattered.]
+<Chapter title="Overview" teaser="How do we define intelligence across species? An exhibition table that makes the brains of ants and humans playfully comparable.">
+
+We could choose between two topics: supersonic jets and the human head. We chose the head – it offered more room for an interactive experience, from the senses to emotions to the brain itself.
+
+The difficulty: neuroscience is full of jargon and data. So our guiding question was how a museum exhibit could convey the differences and similarities between brains in a way that children and adults alike take something away – without feeling overwhelmed.
+
 </Chapter>
 
-<Chapter title="Concept" teaser="[EN] [Short text: what is this chapter about?]">
-  [EN] [Longer text: how we approached it, what mattered.]
+<Chapter title="Research" teaser="Nine species, four criteria – and in the end the ant as the strongest contrast to humans." label="[Image: 3D-printed brain models or mind map]">
+
+The first question was: the brain and emotions – or the brains of different species compared? For the comparison there were far more reliable sources, and emotions could be included as one aspect.
+
+We placed the human brain next to those of the bee, ant, elephant, octopus, fish, bird, mouse and pig, along evolution, environment, intelligence and emotions. 3D-printed brain models and mind maps showed which species differ most.
+
+We chose the ant: a tiny brain organised in a completely different way – and an intelligence that lies not in the individual but in the colony. The comparison is told through three topics: environment, intelligence and emotions.
+
 </Chapter>
 
-<Chapter title="Interaction Concept" teaser="[EN] [Short text: what is this chapter about?]">
-  [EN] [Longer text: how we approached it, what mattered.]
+<Chapter title="Interaction Concept" teaser="Place a figure, turn a figure – like a board game." label="[Video: placing and turning a figure, the projection responds]">
+
+In a museum, visitors spend only a few minutes at an exhibit and move between displays freely. That's why our table works like a board game: 3D-printed figures of an ant and a human are placed on points, and the content is projected onto the table from above.
+
+There are five points. On the two main points, the figure's brain appears as a 3D model – turn the figure and the brain turns with it. Three more points stand for environment, intelligence and emotions. There, every quarter turn shows a new piece of information, and the brain regions involved light up.
+
 </Chapter>
 
-<Chapter title="Technical Implementation" teaser="[EN] [Short text: what is this chapter about?]">
-  [EN] [Longer text: how we approached it, what mattered.]
+<Chapter title="Design" teaser="From abstract gradients to a friendly cartoon style." label="[Image: illustrations and screens]">
+
+The illustrations carry the content, so we started with moodboards – for the animals and for the interactive elements. Along the way we noticed two visual languages running side by side. We liked the abstract gradients, but moved away from them in favour of a clearer cartoon style with warm, vibrant colours.
+
+We chose the friendly, simple typeface Pacaembu. Storyboards turned into the screens: intro, topic selection, information pages and the brain view.
+
 </Chapter>
 
-<Chapter title="Result / Impact" teaser="[EN] [Short text: what is this chapter about?]">
-  [EN] [Longer text: how we approached it, what mattered.]
+<Chapter title="Technical Implementation" teaser="NFC recognises the figure, rotary encoders measure the rotation, Web Serial brings both into the browser." label="[Image: figure with base and the electronics under the table]">
+
+Each figure stands on an octagonal base that slides onto a point from any direction. Underneath sit an NFC reader that recognises the figure by its chip (“A” for ant, “H” for human) and a rotary encoder that measures the rotation. An Arduino (ESP32-S3) sends the state of all five points to the computer as a short string.
+
+My website reads this data via the Web Serial API and turns it into visuals: it rotates the 3D brains (models from Sketchfab) to the exact degree and switches the content on the topic points. The biggest challenge was the data itself – the encoders and NFC readers sometimes delivered very imprecise values. My code still had to turn them into a calm, understandable picture.
+
 </Chapter>
 
-<Chapter title="My Role" teaser="[EN] [Short text: what is this chapter about?]">
-  [EN] [Longer text: how we approached it, what mattered.]
+<Chapter title="Exhibition" teaser="Semester exhibition at the HfG: seeing live, for the first time, how people use our table." label="[Image/video: visitors at the table]">
+
+At the semester exhibition, visitors of all ages tried out the table – placing figures, turning them, comparing. Watching strangers use something you built yourself, live, was the best moment of the project for me.
+
+</Chapter>
+
+<Chapter title="My Role" teaser="Co-developed the interaction concept and programmed the entire website.">
+
+I co-developed the interaction concept and built the entire website: the screens, the 3D brains and the connection to the Arduino's data. Hardware and visual design were done by my team.
+
+It was my first big coding project, in my second semester. I had no experience with AI tools yet, and they weren't as far along back then – I worked out a lot on my own. Looking back, some things took a long time, but that's exactly how I learned an incredible amount. I really enjoyed the project.
+
 </Chapter>

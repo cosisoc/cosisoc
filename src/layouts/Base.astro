@@ -1,9 +1,11 @@
 ---
 import '../styles/tokens.css';
 import '../styles/global.css';
+import '../styles/interaction.css';
 import Nav from '../components/Nav.astro';
 import GridOverlay from '../components/GridOverlay.astro';
-import { routes, otherLang, type Lang } from '../i18n/utils';
+import { routes, otherLang, useT, type Lang } from '../i18n/utils';
+import { copy } from '../i18n/copy';
 
 interface Props {
   lang: Lang;
@@ -48,6 +50,17 @@ const alt = otherLang(lang);
       if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
         document.querySelectorAll<HTMLVideoElement>('video[autoplay]').forEach((v) => v.pause());
       }
+      // Bilder und Links nicht herausziehen (Firefox ignoriert -webkit-user-drag)
+      addEventListener('dragstart', (e) => e.preventDefault());
+      // Kein Rechtsklick-Menü, außer auf Mail und Rechtstexten (zum Kopieren)
+      addEventListener('contextmenu', (e) => {
+        if (!(e.target as Element).closest('.mail, article.legal')) e.preventDefault();
+      });
+    </script>
+    <!-- Gruß für alle, die die Entwicklertools öffnen -->
+    <script is:inline define:vars={{ hello: useT(lang)('console.hello'), mail: copy[lang].contact.mail }}>
+      const accent = getComputedStyle(document.documentElement).getPropertyValue('--c-accent');
+      console.log(`%c${hello} ${mail}`, `font: 700 20px sans-serif; color: ${accent}`);
     </script>
     <script src="../scripts/reveal.js"></script>
     <script src="../scripts/cursor.js"></script>

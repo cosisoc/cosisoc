@@ -24,8 +24,18 @@ import concept from './concept.png';
 import interaction from './interaction.png';
 import prototype from './prototype.png';
 import wiring from './wiring.png';
+import Gallery from '../../../components/Gallery.astro';
+import renderFrontal from './render-frontal.jpg';
+import renderLinks from './render-links.jpg';
+import renderRechts from './render-rechts.jpg';
+import joystick from './detail-joystick.jpg';
+import crabwalk from './detail-crabwalk.jpg';
+import slow from './detail-slow.jpg';
+import greifhebel from './detail-greifhebel.jpg';
+import drehrad from './detail-drehrad.jpg';
+import rueckseite from './detail-rueckseite.jpg';
 
-<Chapter title="Übersicht" teaser="Die Aufgabe: ein Controller für einen vorgegebenen Roboter. Unsere Idee: Kinder räumen mit ihm ihr Zimmer auf.">
+<Chapter title="Übersicht" teaser="Die Aufgabe: ein Controller für einen vorgegebenen Roboter. Unsere Idee: Kinder räumen mit ihm ihr Zimmer auf." image={renderFrontal} fit="contain" label="Frontalansicht des Cluttr-Controllers, Rendering">
 
 Der Roboter aus dem Kurs Interface Design war gesetzt: Mecanum-Räder, mit denen er in alle Richtungen fährt – auch seitwärts –, und ein Greifarm, der sich öffnen, schließen und in der Höhe verstellen lässt. Frei waren Einsatzbereich und Zielgruppe.
 
@@ -46,6 +56,21 @@ Ausgangspunkt waren Controller, die Kinder schon kennen – Joy-Cons der Nintend
 Links: Der Joystick fährt, eine Taste lässt den Roboter seitwärts fahren (Crabwalk), ein Schalter aktiviert den Slow-Modus für präzises Arbeiten.
 
 Rechts: Wer den Griff zudrückt, schließt den Greifarm – die natürliche Greifbewegung der Hand wird direkt übertragen. Ein Drehrad unter dem Daumen verstellt die Höhe.
+
+</Chapter>
+
+<Chapter title="Bedienelemente im Detail" teaser="Joystick, Crabwalk-Taste, Slow-Schalter, Greifhebel und Drehrad – gerendert in Blender.">
+
+Links die Elemente zum Fahren, rechts die zum Greifen. Auf der Rückseite liegt eine Linienstruktur.
+
+  <Gallery slot="media" images={[
+    { image: joystick, label: 'Joystick zum Fahren' },
+    { image: crabwalk, label: 'Taste mit Pfeilen für den Crabwalk' },
+    { image: slow, label: 'Schalter für den Slow-Modus mit Schildkröten-Symbol' },
+    { image: greifhebel, label: 'Greifhebel: Zudrücken schließt den Greifarm' },
+    { image: drehrad, label: 'Drehrad für die Höhe des Greifarms' },
+    { image: rueckseite, label: 'Rückseite mit Linienstruktur' },
+  ]} />
 
 </Chapter>
 
@@ -71,13 +96,13 @@ Joystick, zwei Tasten für den Crabwalk in einem 3D-gedruckten Gehäuse, ein Sch
 
 </Chapter>
 
-<Chapter title="Ergebnis" teaser="Ein ergonomischer Controller, den Kinder ohne lange Erklärung bedienen konnten.">
+<Chapter title="Ergebnis" teaser="Ein ergonomischer Controller, den Kinder ohne lange Erklärung bedienen konnten." image={renderLinks} fit="contain" label="Cluttr-Controller von links, Rendering">
 
 Am Ende standen ein Funktionsprototyp, der den Roboter steuert, ein Formprototyp und ein Designprototyp in Blender. Das Kamera-Display blieb Konzept.
 
 </Chapter>
 
-<Chapter title="meine Rolle" teaser="Entwurf, Skizzen, Prototyping, Usertests und das 3D-Modell in Blender.">
+<Chapter title="meine Rolle" teaser="Entwurf, Skizzen, Prototyping, Usertests und das 3D-Modell in Blender." image={renderRechts} fit="contain" label="Cluttr-Controller von rechts, Rendering">
 
 Ich habe die Form mit entworfen und skizziert, an den Prototypen gebaut, die Usertests mit durchgeführt und den Designprototyp in Blender modelliert.
 

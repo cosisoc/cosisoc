@@ -20,6 +20,16 @@ if (matchMedia('(pointer: fine) and (prefers-reduced-motion: no-preference)').ma
   document.documentElement.classList.add('has-cursor');
 
   let label = '';
+  // Solange der Projekt-Cursor über einer Vorschau steht, pausiert deren Video (sonst bewegt sich zu viel).
+  // Beim Verlassen läuft es weiter – außer es gehört zu einem Projekt, das im Rad nicht mehr aktiv ist.
+  let paused = null;
+  const pauseVideoIn = (preview) => {
+    const video = preview?.querySelector('video') ?? null;
+    if (video === paused) return;
+    if (paused && (!paused.closest('.work-slide') || paused.closest('.is-active'))) paused.play().catch(() => {});
+    paused = video && !video.paused ? video : null;
+    paused?.pause();
+  };
   addEventListener('pointermove', (e) => {
     if (e.pointerType !== 'mouse') return;
     dot.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
@@ -29,6 +39,7 @@ if (matchMedia('(pointer: fine) and (prefers-reduced-motion: no-preference)').ma
       label = preview.dataset.cursorLabel;
       textPath.textContent = `${label} • ${label} • `.toUpperCase();
     }
+    pauseVideoIn(preview);
     dot.classList.toggle('is-case', Boolean(preview));
     dot.classList.toggle('is-hover', !preview && Boolean(e.target.closest?.(HOVER)));
   }, { passive: true });
