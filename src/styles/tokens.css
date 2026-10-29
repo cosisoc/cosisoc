@@ -13,15 +13,14 @@
   --c-dot: #C8C8C8;
   --c-card: #FFFFFF;
 
-  /* Schrift: Schibsted Grotesk. Skala laut Design-Feedback (bei 1512 px Breite): 112 / 64 / 32 / 28 / 20 / 16 / 14 */
-  --f-sans: 'Schibsted Grotesk', system-ui, sans-serif;
+  /* Schrift: Satoshi. Drei Stufen (bei 1512 px Breite): Überschrift 64 Bold / Zwischenüberschrift 28 Medium / Text 20 Regular.
+     Hero 112 nur auf der Landing. Labels = Text in Bold, Nebeninfos = Text in --c-text-muted. */
+  --f-sans: 'Satoshi', system-ui, sans-serif;
   --fs-hero: clamp(32px, 7.4vw, 112px); /* Landing-Headline */
-  --fs-display: clamp(40px, 4.25vw, 64px); /* Seitentitel */
-  --fs-xl: clamp(24px, 2.1vw, 32px); /* Listentitel */
-  --fs-l: clamp(22px, 1.85vw, 28px); /* Lead-Text */
-  --fs-body: clamp(18px, 1.33vw, 20px); /* Fließtext */
-  --fs-m: 16px; /* Navigation */
-  --fs-s: 14px; /* Labels (Großbuchstaben) */
+  --fs-display: clamp(40px, 4.25vw, 64px); /* Überschrift */
+  --fs-sub: clamp(22px, 1.85vw, 28px); /* Zwischenüberschrift */
+  --fs-body: clamp(18px, 1.33vw, 20px); /* Text */
+  --fw-sub: 500;
   --lh-display: 1.05;
   --lh-lead: 1.3;
   --lh-body: 1.5;

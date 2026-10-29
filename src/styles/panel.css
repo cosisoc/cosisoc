@@ -39,7 +39,6 @@
   align-items: center;
   height: var(--pill-h);
   padding: 0 16px;
-  font-size: var(--fs-m);
   font-weight: 700;
   text-decoration: none;
   color: var(--c-text);
@@ -58,13 +57,21 @@
 .head-title { grid-column: 1 / -1; }
 .head-title h2 { font-size: var(--fs-display); text-transform: uppercase; margin-top: 16px; }
 .head-text { grid-column: 1 / 6; display: flex; flex-direction: column; gap: 48px; max-width: 560px; }
-.head-short { font-size: var(--fs-l); font-weight: 700; line-height: var(--lh-lead); }
+.head-short { font-size: var(--fs-sub); font-weight: var(--fw-sub); line-height: var(--lh-lead); }
 .head-facts { display: flex; flex-direction: column; gap: 4px; }
 .head-facts dt { font-weight: 700; }
 .head-facts dt, .head-facts dd { display: inline; }
 .head-media { grid-column: 7 / 13; }
 /* height: auto, sonst setzt die Höhenangabe echter Bilder das Seitenverhältnis außer Kraft */
 .panel-head .head-media .head-hero { aspect-ratio: 4 / 3; height: auto; border-radius: var(--radius); }
+
+/* Mit 3D-Modell: das Fenster (4:3) steht rechts neben Titel und Text, oben bündig mit dem Titelblock */
+@media (min-width: 768px) {
+  .has-model { grid-template-rows: auto 1fr; }
+  .has-model .head-title { grid-column: 1 / 6; grid-row: 1; }
+  .has-model .head-text { grid-row: 2; }
+  .has-model .head-media { grid-column: 1 / -1; grid-row: 1 / span 2; justify-self: end; width: 61%; margin-top: -78px; }
+}
 
 /* Kapitel: nummerierte Liste mit + / −; Zeilen 88 px, Nummer am Rand, Titel nach 80 px, Kreis 48 px rechts */
 .chapters { counter-reset: chapter; border-bottom: 1px solid var(--c-line); }
@@ -74,8 +81,9 @@
   grid-template-columns: 80px 1fr auto;
   align-items: center;
   min-height: 88px;
-  font-size: var(--fs-xl);
-  font-weight: 700;
+  font-size: var(--fs-sub);
+  font-weight: var(--fw-sub);
+  line-height: var(--lh-lead);
   cursor: pointer;
   list-style: none;
 }
@@ -106,7 +114,7 @@
 /* Aufgeklappt: Text 5 Spalten links, Bild 6 Spalten rechts (4:3) – bei jedem zweiten Kapitel gespiegelt */
 .chapter-body { row-gap: 32px; padding: 16px 0 72px; animation: chapter-in var(--dur-slow) var(--ease); }
 .chapter-text { grid-column: 1 / 6; display: flex; flex-direction: column; gap: 24px; max-width: 560px; }
-.chapter-teaser { font-size: var(--fs-l); font-weight: 700; line-height: var(--lh-lead); }
+.chapter-teaser { font-size: var(--fs-sub); font-weight: var(--fw-sub); line-height: var(--lh-lead); }
 .chapter-more { font-size: var(--fs-body); line-height: var(--lh-body); }
 .chapter-more p + p { margin-top: 24px; }
 .chapters .chapter-body .chapter-media { grid-column: 7 / 13; aspect-ratio: 4 / 3; height: auto; border-radius: var(--radius); }
@@ -114,6 +122,8 @@
 /* Abwechselnd: gerade Kapitel mit Bild links (6 Spalten), Text rechts (5 Spalten) */
 .chapter:nth-of-type(even) .chapter-text { grid-column: 8 / 13; order: 2; }
 .chapters .chapter:nth-of-type(even) .chapter-body .chapter-media { grid-column: 1 / 7; }
+.chapters .chapter-body .chapter-custom { grid-column: 7 / 13; display: flex; justify-content: center; }
+.chapters .chapter:nth-of-type(even) .chapter-body .chapter-custom { grid-column: 1 / 7; }
 @keyframes chapter-in { from { opacity: 0; transform: translateY(16px); } }
 
 /* Nächstes Projekt: Label und Titel linksbündig auf einer Linie mit dem Rand */

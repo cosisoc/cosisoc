@@ -49,7 +49,7 @@ const facts = [
       <LangSwitch lang={lang} alternate={projectUrl(otherLang(lang), p.slug)} />
     </header>
 
-    <section class="panel-head grid">
+    <section class:list={['panel-head', 'grid', { 'has-model': d.model }]}>
       <div class="head-title">
         <p class="section-label">{back.section}</p>
         <h2 id={`panel-title-${p.slug}`}>{d.title}</h2>
@@ -61,8 +61,9 @@ const facts = [
         </dl>
       </div>
       <div class="head-media">
-        <Media media={d.hero} class="head-hero" />
-        {d.model && <Model3D src={d.model.src} poster={d.model.poster} label={t('project.model')} />}
+        {d.model
+          ? <Model3D src={d.model.src} label={d.model.label} />
+          : <Media media={d.hero} class="head-hero" />}
       </div>
     </section>
 

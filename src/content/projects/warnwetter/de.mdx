@@ -17,6 +17,8 @@ hero:
   image: ./cover.png
 ---
 
+import Prototype from '../../../components/Prototype.astro';
+
 <Chapter title="Intro / Aufgabe" teaser="[Kurzer Text: worum geht es in diesem Kapitel?]">
   [Ausführlicher Text: so sind wir vorgegangen, das war wichtig.]
 </Chapter>
@@ -31,6 +33,11 @@ hero:
 
 <Chapter title="UI/UX / Screendesign" teaser="[Kurzer Text: worum geht es in diesem Kapitel?]">
   [Ausführlicher Text: so sind wir vorgegangen, das war wichtig.]
+</Chapter>
+
+<Chapter title="Klickdummy" teaser="[Kurzer Text: worum geht es in diesem Kapitel?]">
+  [Ausführlicher Text: so sind wir vorgegangen, das war wichtig.]
+  <Prototype slot="media" url="https://www.figma.com/proto/jyTRPkzlEqSaTn28gOMgnc/Application?node-id=1321-9593&page-id=955%3A2909&starting-point-node-id=1321%3A9593&scaling=scale-down&content-scaling=fixed&show-proto-sidebar=1&t=tfpfiboMyN0iZtLU-1" label="Klickdummy der WarnWetter-App" button="Prototyp starten" />
 </Chapter>
 
 <Chapter title="Prototyping / Testing" teaser="[Kurzer Text: worum geht es in diesem Kapitel?]">

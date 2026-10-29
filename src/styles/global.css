@@ -1,3 +1,7 @@
+@font-face { font-family: 'Satoshi'; src: url('/fonts/satoshi-400.woff2') format('woff2'); font-weight: 400; font-display: swap; }
+@font-face { font-family: 'Satoshi'; src: url('/fonts/satoshi-500.woff2') format('woff2'); font-weight: 500; font-display: swap; }
+@font-face { font-family: 'Satoshi'; src: url('/fonts/satoshi-700.woff2') format('woff2'); font-weight: 700; font-display: swap; }
+
 *, *::before, *::after { box-sizing: border-box; }
 
 html { scroll-behavior: smooth; }
@@ -29,7 +33,7 @@ a:hover { color: var(--c-accent); }
   position: relative;
   padding: var(--section-top) var(--gutter) 96px;
 }
-.section-label, .label { font-size: var(--fs-s); line-height: 16px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; }
+.section-label, .label { font-weight: 700; }
 .section-title { font-size: var(--fs-display); margin-top: 16px; }
 .section-head { margin-bottom: var(--head-gap); }
 
@@ -59,7 +63,6 @@ a:hover { color: var(--c-accent); }
 
 .tags { display: flex; flex-wrap: wrap; gap: 8px; }
 .tag {
-  font-size: var(--fs-s);
   font-weight: 700;
   padding: 4px 12px;
   border-radius: 999px;

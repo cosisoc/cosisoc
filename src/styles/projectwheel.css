@@ -12,11 +12,11 @@
 .work-info { grid-column: 1 / 4; position: relative; z-index: 3; }
 .work-detail { display: flex; flex-direction: column; gap: 20px; animation: work-in 200ms var(--ease); }
 .work-detail[hidden] { display: none; }
-.work-name { font-size: var(--fs-xl); font-weight: 700; line-height: 1.1; }
+.work-name { font-size: var(--fs-sub); font-weight: var(--fw-sub); line-height: var(--lh-lead); }
 .work-name span { color: var(--c-accent); }
-.work-short { font-size: var(--fs-l); font-weight: 700; line-height: var(--lh-lead); }
+.work-short { font-size: var(--fs-sub); font-weight: var(--fw-sub); line-height: var(--lh-lead); }
 .work-specs { display: flex; flex-wrap: wrap; gap: 12px 24px; }
-.work-specs dt { font-size: var(--fs-s); font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: var(--c-text-muted); }
+.work-specs dt { font-weight: 700; color: var(--c-text-muted); }
 .work-specs dd { font-weight: 700; }
 @keyframes work-in { from { opacity: 0; transform: translateY(8px); } }
 
