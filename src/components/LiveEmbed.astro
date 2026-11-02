@@ -7,7 +7,7 @@ const { src, width, height, label, hint } = Astro.props;
 ---
 <div class="live" data-live-embed style={`--w:${width}; --h:${height}`}>
   <div class="live-frame">
-    <iframe src={src} title={label} width={width} height={height}></iframe>
+    <iframe data-src={src} title={label} width={width} height={height}></iframe>
   </div>
   <p class="live-hint">{hint}</p>
 </div>
@@ -18,6 +18,21 @@ const { src, width, height, label, hint } = Astro.props;
     const frame = box.querySelector<HTMLElement>('.live-frame')!;
     const width = Number(box.style.getPropertyValue('--w'));
     new ResizeObserver(() => box.style.setProperty('--s', String(frame.clientWidth / width))).observe(frame);
+    // Erst laden, wenn das Kapitel offen und die Demo im Bild ist (alle Projekte liegen schon auf der Startseite).
+    const iframe = frame.querySelector('iframe')!;
+    const isLoaded = () => iframe.getAttribute('src') === iframe.dataset.src;
+    new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting && !isLoaded()) iframe.src = iframe.dataset.src!;
+    }).observe(frame);
+
+    // Kapitel oder Projekt zu: wieder entladen, sonst rechnet die Demo unsichtbar weiter. Vorbeiscrollen behält den Stand.
+    const panel = frame.closest('.panel')!;
+    const chapter = frame.closest('details')!;
+    const unloadIfClosed = () => {
+      if (isLoaded() && !(panel.classList.contains('is-open') && chapter.open)) iframe.src = 'about:blank';
+    };
+    chapter.addEventListener('toggle', unloadIfClosed);
+    new MutationObserver(unloadIfClosed).observe(panel, { attributes: true, attributeFilter: ['class'] });
   }
 </script>
 
@@ -29,7 +44,6 @@ const { src, width, height, label, hint } = Astro.props;
     aspect-ratio: var(--w) / var(--h);
     overflow: hidden;
     border-radius: var(--radius);
-    border: 1px solid var(--c-line);
   }
   iframe { position: absolute; top: 0; left: 0; border: 0; transform: scale(var(--s)); transform-origin: 0 0; }
   .live-hint { display: none; font-weight: 700; color: var(--c-text-muted); }

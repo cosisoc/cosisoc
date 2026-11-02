@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anatomy of Minds</title>
+    <!-- Eingebettet im Portfolio: Debug-Ausgaben nicht in die Konsole der Seite (Warnungen und Fehler bleiben) -->
+    <script>console.log = console.debug = () => {};</script>
+    <link rel="stylesheet" href="src/css/styles.css">
+    <link rel="stylesheet" href="src/css/table.css">
+    <link rel="stylesheet" href="src/css/figures.css">
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "./src/vendor/three/build/three.module.js",
+            "three/examples/jsm/": "./src/vendor/three/examples/jsm/"
+        }
+    }
+    </script>
+</head>
+<body>
+    <!-- Web-Version: der Tisch als Illustration, links das Podest mit den Figuren, rechts die Projektion -->
+    <div id="scene">
+        <div id="table">
+            <div id="podest" aria-hidden="true">
+                <div class="slot" data-animal="ameise"></div>
+                <div class="slot" data-animal="mensch"></div>
+                <div class="slot" data-animal="vogel"></div>
+            </div>
+
+            <div id="projection">
+                <!-- Screens (ohne ihren weißen Exportrand) -->
+                <div id="background-container"></div>
+
+                <!-- Ebene in voller Bildgröße inkl. Rand, damit die Gehirne wie in der Ausstellung sitzen -->
+                <div id="canvas">
+                    <div id="main-container">
+                        <div id="display-area-1" class="display-area hidden"></div>
+                        <div id="display-area-2" class="display-area hidden"></div>
+                        <div id="display-area-3" class="display-area hidden"></div>
+                    </div>
+                </div>
+
+                <!-- Kreise, auf die man die Figuren stellt (am Tisch 3D-gedruckt): zwei Hauptpunkte unten, drei Themen.
+                     Die Screens zeigen „Ant“ links und „Human“ rechts, deshalb hat jede Figur ihren festen Hauptkreis. -->
+                <div id="spots">
+                    <div class="spot" data-point="main" data-pos="left" data-only="ameise"></div>
+                    <div class="spot" data-point="main" data-pos="right" data-only="mensch"></div>
+                    <div class="spot spot-topic" data-point="3"><span>Intelligence</span></div>
+                    <div class="spot spot-topic" data-point="4"><span>Emotion</span></div>
+                    <div class="spot spot-topic" data-point="5"><span>Environment</span></div>
+                </div>
+            </div>
+
+            <button class="figure" type="button" data-animal="ameise" aria-label="Ant figure">
+                <span class="ring"><span class="knob"></span><span class="turn-arrow">↻</span></span>
+                <span class="face"><img src="assets/figuren/ameise.svg" alt="" draggable="false"></span>
+            </button>
+            <button class="figure" type="button" data-animal="mensch" aria-label="Human figure">
+                <span class="ring"><span class="knob"></span><span class="turn-arrow">↻</span></span>
+                <span class="face"><img src="assets/figuren/mensch.svg" alt="" draggable="false"></span>
+            </button>
+            <!-- Papagei: nur Gehirn auf dem Startscreen, keine eigenen Screens, deshalb nicht platzierbar -->
+            <button class="figure is-disabled" type="button" data-animal="vogel" aria-label="Parrot figure (not available)" disabled>
+                <span class="face"><img src="assets/figuren/vogel.png" alt="" draggable="false"></span>
+            </button>
+        </div>
+        <p id="hint" aria-live="polite"></p>
+    </div>
+
+    <script type="module" src="src/js/main.js"></script>
+</body>
+</html>

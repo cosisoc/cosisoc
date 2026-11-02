@@ -1,0 +1,11 @@
+Model Information:
+* title:	Scarlet Macaw endocast MOBILE - OUVC 10633
+* source:	https://sketchfab.com/3d-models/scarlet-macaw-endocast-mobile-ouvc-10633-4e0afebd1eb045b0b3eab231d66d71e6
+* author:	WitmerLab at Ohio University (https://sketchfab.com/witmerlab)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Scarlet Macaw endocast MOBILE - OUVC 10633" (https://sketchfab.com/3d-models/scarlet-macaw-endocast-mobile-ouvc-10633-4e0afebd1eb045b0b3eab231d66d71e6) by WitmerLab at Ohio University (https://sketchfab.com/witmerlab) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

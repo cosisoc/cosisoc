@@ -1,12 +1,13 @@
 ---
 import Base from '../layouts/Base.astro';
 import { copy } from '../i18n/copy';
+import { legal } from '../i18n/legal';
 import { otherLang, routes, useT, type Lang } from '../i18n/utils';
 
 interface Props { lang: Lang; kind: 'imprint' | 'privacy' }
 const { lang, kind } = Astro.props;
 const t = useT(lang);
-const text = copy[lang].legal[kind];
+const text = legal[lang][kind];
 ---
 <Base
   lang={lang}
@@ -17,12 +18,20 @@ const text = copy[lang].legal[kind];
   <article class="section legal">
     <a class="back" href={routes.home[lang]}>← {t('legal.back')}</a>
     <h1>{text.title}</h1>
-    <p>{text.body}</p>
+    {text.sections.map((section) => (
+      <section>
+        <h2>{section.heading}</h2>
+        {section.text.map((paragraph) => <p>{paragraph}</p>)}
+      </section>
+    ))}
   </article>
 </Base>
 
 <style>
   .legal { display: flex; flex-direction: column; gap: 24px; max-width: 860px; min-height: 100vh; padding-top: calc(var(--nav-h) + 40px); }
   h1 { font-size: var(--fs-display); }
+  section { display: flex; flex-direction: column; gap: 8px; }
+  h2 { font-size: var(--fs-sub); font-weight: var(--fw-sub); }
+  p { white-space: pre-line; overflow-wrap: anywhere; }
   .back { font-weight: 700; text-decoration: none; }
 </style>

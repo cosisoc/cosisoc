@@ -5,7 +5,7 @@ export const copy = {
     logo: 'COSI',
     headline: ['Hey, ich bin Cosima,', 'Interaktions-', 'gestalterin.'],
     subline: 'aktuell studiere ich im 4. Semester an der Hochschule für Gestaltung',
-    photo: '[Foto – Perspektive]',
+    photo: 'Porträt von Cosima Bühler',
     work: { label: '01 - Arbeiten', title: 'Projekte, auf die ich stolz bin' },
     side: { label: '02 - Sidequests', title: 'Nebenprojekte' },
     about: {
@@ -18,17 +18,13 @@ export const copy = {
       tools: ['Figma', '[weitere Tools]'],
     },
     contact: { label: '04 - Kontakt', title: 'Kontakt', mail: 'mail@example.com' },
-    legal: {
-      imprint: { title: 'Impressum', body: '[Impressum-Text hier einsetzen, z. B. aus einem Generator. Angaben nach § 5 DDG.]' },
-      privacy: { title: 'Datenschutz', body: '[Datenschutzerklärung hier einsetzen, z. B. aus einem Generator.]' },
-    },
   },
   en: {
     name: 'Cosima Bühler',
     logo: 'COSI',
     headline: ['Hey, I’m Cosima,', 'interaction', 'designer.'],
     subline: 'currently in my 4th semester at the University of Design',
-    photo: '[Photo – perspective]',
+    photo: 'Portrait of Cosima Bühler',
     work: { label: '01 - Work', title: 'Projects I’m proud of' },
     side: { label: '02 - Sidequests', title: 'Side projects' },
     about: {
@@ -41,9 +37,5 @@ export const copy = {
       tools: ['Figma', '[more tools]'],
     },
     contact: { label: '04 - Contact', title: 'Contact', mail: 'mail@example.com' },
-    legal: {
-      imprint: { title: 'Imprint', body: '[EN] [Insert imprint text here.]' },
-      privacy: { title: 'Privacy', body: '[EN] [Insert privacy policy here.]' },
-    },
   },
 } as const;

@@ -1,0 +1,11 @@
+Model Information:
+* title:	Male Clonal Raider Ant Brain
+* source:	https://sketchfab.com/3d-models/male-clonal-raider-ant-brain-f1f79d8ce83c4f8381b6096f7a4a3c98
+* author:	smckenzie (https://sketchfab.com/smckenzie)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Male Clonal Raider Ant Brain" (https://sketchfab.com/3d-models/male-clonal-raider-ant-brain-f1f79d8ce83c4f8381b6096f7a4a3c98) by smckenzie (https://sketchfab.com/smckenzie) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

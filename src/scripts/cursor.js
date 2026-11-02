@@ -44,4 +44,6 @@ if (matchMedia('(pointer: fine) and (prefers-reduced-motion: no-preference)').ma
     dot.classList.toggle('is-hover', !preview && Boolean(e.target.closest?.(HOVER)));
   }, { passive: true });
   document.documentElement.addEventListener('pointerleave', () => dot.classList.remove('is-visible'));
+  // Im iframe kommen keine Mausbewegungen an: Punkt ausblenden, statt ihn am Rand stehen zu lassen
+  addEventListener('pointerover', (e) => { if (e.target.tagName === 'IFRAME') dot.classList.remove('is-visible'); });
 }

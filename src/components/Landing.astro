@@ -2,12 +2,12 @@
 import Media from './Media.astro';
 import { copy } from '../i18n/copy';
 import type { Lang } from '../i18n/utils';
+import foto from '../assets/foto.png';
 
 interface Props { lang: Lang }
 const { lang } = Astro.props;
 const c = copy[lang];
-// TODO: Foto-Perspektiven (3–5) einsetzen; der Maus-Effekt kommt, sobald die Fotos da sind.
-const perspectives = [1, 2, 3];
+// TODO: Vorerst nur die mittlere Perspektive; der Maus-Effekt kommt, sobald die übrigen Fotos da sind.
 ---
 <section class="landing grid" id="top" data-nav-section="top">
   <div class="intro">
@@ -16,31 +16,31 @@ const perspectives = [1, 2, 3];
       : <span>{line}</span>)}</h1>
     <p class="subline" data-reveal style="--i:1">{c.subline}</p>
   </div>
-  <div class="photo" data-perspectives data-reveal style="--i:2">
-    {perspectives.map((n) => (
-      <div class="perspective" data-perspective={n} hidden={n !== 1}>
-        <Media media={{ label: `${c.photo} ${n}` }} class="photo-media" sizes="(min-width: 768px) 40vw, 100vw" />
-      </div>
-    ))}
+  <div class="photo" data-reveal style="--i:2">
+    <Media media={{ label: c.photo, image: foto }} class="photo-media" sizes="(min-width: 768px) 40vw, 100vw" />
   </div>
 </section>
 
 <style>
+  /* Die Mittelzeile hält den Text mittig; das Foto startet mit ihr und läuft bis zur Unterkante. */
   .landing {
     min-height: 100vh;
     padding: var(--nav-h) var(--gutter) 0;
-    align-items: center;
+    grid-template-rows: 1fr auto 1fr;
   }
-  .intro { grid-column: 1 / 9; display: flex; flex-direction: column; gap: 32px; }
+  .intro { grid-column: 1 / 9; grid-row: 2; display: flex; flex-direction: column; gap: 32px; }
   h1 { font-family: var(--f-hero); font-size: var(--fs-hero); text-transform: uppercase; line-height: var(--lh-display); }
   h1 span { display: block; }
   h1 .dot { display: inline; color: var(--c-accent); }
   .subline { font-size: var(--fs-sub); line-height: var(--lh-lead); font-weight: var(--fw-sub); max-width: 560px; }
-  .photo { grid-column: 9 / 13; align-self: end; }
-  .photo :global(.photo-media) { aspect-ratio: 2 / 3; border-radius: 0; }
+  /* margin-top: Abstand von der Zeilenbox bis zur Oberkante der Großbuchstaben */
+  .photo { grid-column: 9 / 13; grid-row: 2 / 4; position: relative; margin-top: calc(var(--fs-hero) * 0.17); }
+  .photo :global(.photo-media) { position: absolute; inset: 0; height: 100%; border-radius: 0; object-position: top; filter: grayscale(1); }
 
   @media (max-width: 767px) {
-    .landing { padding-top: calc(var(--nav-h) + 24px); row-gap: 40px; }
-    .photo { padding-left: 0; }
+    .landing { padding-top: calc(var(--nav-h) + 24px); row-gap: 40px; grid-template-rows: auto 1fr; }
+    .intro, .photo { grid-row: auto; }
+    .photo { padding-left: 0; margin-top: 0; align-self: end; }
+    .photo :global(.photo-media) { position: static; height: auto; }
   }
 </style>

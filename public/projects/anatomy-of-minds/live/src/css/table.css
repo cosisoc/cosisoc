@@ -1,0 +1,147 @@
+/* ===== WEB-VERSION: Tisch, Podest, Kreise, Figuren =====
+   Alles skaliert mit der Tischbreite (cqw), damit Kreise und Figuren zu den Screens passen. */
+
+:root {
+    --table: #f6f2ed;
+    --table-line: #e6ddd3;
+    --brown: #6b4130;
+    --accent: #c96f4a;
+    --cream: #fff8f1;
+}
+
+html, body { overflow: hidden; }
+
+#scene {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    user-select: none;
+}
+
+/* Tischplatte von oben, bewusst zurückhaltend: helle Fläche, feine Kante, kein Schatten */
+#table {
+    container-type: inline-size;
+    position: relative;
+    width: min(1500px, 96vw, (100vh - 90px) * 1.9);
+    display: grid;
+    grid-template-columns: 9cqw 1fr;
+    gap: 1.6cqw;
+    padding: 1.6cqw;
+    border-radius: 2cqw;
+    background: var(--table);
+    border: 1px solid var(--table-line);
+}
+
+/* Podest: nur zwei feine Kreise als Plätze */
+#podest {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2.4cqw;
+}
+.slot {
+    width: var(--fig);
+    aspect-ratio: 1;
+    border-radius: 50%;
+    border: 1px solid var(--table-line);
+}
+
+/* Projektionsfläche: 16:9 */
+#projection {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    border-radius: 0.8cqw;
+    overflow: hidden;
+}
+/* Bildebene in voller Exportgröße (inkl. weißem Rand), Inhalt deckt sich mit der Projektion */
+#canvas {
+    position: absolute;
+    left: -6.667%;
+    top: -11.852%;
+    width: 113.333%;
+    height: 123.704%;
+    pointer-events: none;
+}
+
+/* ===== Kreise ===== */
+#table { --fig: 6.4cqw; }
+#spots { position: absolute; inset: 0; z-index: 30; pointer-events: none; }
+.spot {
+    position: absolute;
+    left: var(--x);
+    top: var(--y);
+    width: calc(var(--fig) * 1.18);
+    aspect-ratio: 1;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    border: 0.22cqw dashed rgb(107 65 48 / 0.55);
+    background: rgb(255 255 255 / 0.4);
+    display: grid;
+    place-items: center;
+    transition: transform 200ms ease, border-color 200ms ease, background 200ms ease, opacity 200ms ease, filter 200ms ease;
+}
+.spot[data-pos="left"] { --x: 37%; --y: 86%; }
+.spot[data-pos="right"] { --x: 53%; --y: 86%; }
+.spot[data-point="3"] { --x: 93.5%; --y: 30%; }
+.spot[data-point="4"] { --x: 93.5%; --y: 50%; }
+.spot[data-point="5"] { --x: 93.5%; --y: 70%; }
+.spot span {
+    font-size: 0.85cqw;
+    font-weight: 700;
+    color: var(--brown);
+    text-align: center;
+}
+.spot.is-taken { border-style: solid; border-color: transparent; background: transparent; }
+.spot.is-taken span { opacity: 0; }
+.spot.is-blocked { opacity: 0.3; filter: grayscale(1); }
+/* Rasten auf den Themenkreisen (alle 90°): vier Punkte auf Höhe des Drehrings, sichtbar mit Figur */
+.spot-topic::before {
+    content: '';
+    position: absolute;
+    inset: -21.2%;
+    --tick: radial-gradient(circle, var(--accent) 0 38%, transparent 44%);
+    background:
+        var(--tick) top / 0.8cqw 0.8cqw no-repeat,
+        var(--tick) right / 0.8cqw 0.8cqw no-repeat,
+        var(--tick) bottom / 0.8cqw 0.8cqw no-repeat,
+        var(--tick) left / 0.8cqw 0.8cqw no-repeat;
+    opacity: 0;
+    transition: opacity 250ms ease;
+}
+.spot-topic.is-taken::before { opacity: 1; }
+/* Beim Ziehen leuchten die erlaubten Kreise, der getroffene wird größer */
+#table.is-dragging .spot:not(.is-blocked):not(.is-taken) { border-color: var(--accent); background: rgb(255 255 255 / 0.6); }
+.spot.is-target { transform: translate(-50%, -50%) scale(1.12); background: rgb(201 111 74 / 0.25) !important; border-style: solid; }
+
+/* ===== Hinweis unter dem Tisch ===== */
+#hint {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--brown);
+}
+
+/* ===== Gehirne an festen Stellen =====
+   Der 3D-Viewer setzt die Flächen inline auf position: relative; dadurch hingen die Positionen davon ab,
+   welche anderen Gehirne gerade sichtbar waren (und rutschten je nach Reihenfolge weg).
+   Hier fest pro Ansicht, gemessen aus dem sauberen Ablauf (= wie in der Ausstellung); Werte in % der Bildebene. */
+#main-container .display-area:not(.intro-brain) {
+    position: absolute !important;
+    left: var(--cx) !important;
+    top: var(--cy) !important;
+    right: auto !important;
+    width: var(--w) !important;
+    height: var(--h) !important;
+    transform: translate(-50%, -50%) !important;
+}
+#display-area-1 { --cx: 27.5%; --cy: 50.2%; --w: 45%; --h: 65%; }                /* Ant | Human */
+#display-area-1.centered { --cx: 45%; --cy: 50%; --w: 50%; --h: 70%; }           /* eine Figur */
+#display-area-1.comparison-two { --cx: 27.5%; --cy: 55%; --w: 35%; --h: 50%; }   /* Thema Seite 2, beide */
+#display-area-2 { --cx: 65.5%; --cy: 48%; --w: 45%; --h: 60%; }
+#display-area-2.comparison-two { --cx: 66.5%; --cy: 57%; --w: 35%; --h: 50%; }
+#display-area-3 { --cx: 59%; --cy: 51.4%; --w: 30.6%; --h: 51%; }                /* Thema Seite 2, eine Figur */

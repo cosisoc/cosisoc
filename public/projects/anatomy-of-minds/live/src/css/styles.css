@@ -1,0 +1,374 @@
+/* ===== RESET & BASE ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+body {
+    font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+    background: #fff;
+}
+
+/* Global UI scale for browser-specific tuning (Chrome-friendly) */
+:root {
+    --ui-scale: 0.67; /* change to 1.0 to disable scaling */
+    --secondary-brain-scale: 1.5; /* uniform scale for display-area-3 (default 1) */
+}
+
+/* Placement & sizing variables for easy tweaking */
+:root {
+    --point-size: 120px;    /* default diameter of placement points */
+    --side-right: 115px;     /* distance from right edge for points 3-5 */
+    --side-top: 50%;        /* vertical alignment for side points */
+    --side-gap: 40px;       /* gap between side points */
+}
+
+/* ===== BACKGROUND (Web: in der Projektionsfläche, siehe table.css) ===== */
+#background-container {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background-color: #fcefe4;
+}
+
+/* Screens liegen als Bilder übereinander (backgroundManager.js); Dauer = SCREEN_FADE_MS */
+.screen {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    animation: screen-in 250ms ease-out;
+}
+@keyframes screen-in { from { opacity: 0; } }
+
+/* ===== MAIN CONTAINER ===== */
+#main-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none;
+    /* Removed zoom from here - now applied to individual elements instead */
+}
+
+#main-container > * {
+    pointer-events: auto;
+}
+
+/* ===== PLACEMENT ZONE ===== */
+#placement-zone {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    pointer-events: none;
+}
+
+/* Punkte 1-2: Unten-Mitte */
+#placement-zone-bottom {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 60px;
+    pointer-events: auto;
+}
+
+/* Punkte 3-5: Vertikal Rechts */
+#placement-zone-side {
+    position: absolute;
+    right: var(--side-right);
+    top: var(--side-top);
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: var(--side-gap);
+    pointer-events: auto;
+}
+
+/* ===== EINZELNE PLATZIERUNGSPUNKTE ===== */
+.placement-point {
+    position: relative;
+    width: var(--point-size);
+    height: var(--point-size);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    /* Apply UI scale to individual points */
+    transform: scale(var(--ui-scale));
+}
+
+/* Punkte 1 und 2 verstecken */
+#point-1,
+#point-2,
+#point-3,
+#point-4,
+#point-5 {
+    display: none !important;
+}
+
+.placement-point:hover {
+    transform: scale(var(--ui-scale)) translateY(-5px);
+}
+
+/* Indicator Circle */
+.point-indicator {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 3px solid rgba(255, 255, 255, 0.4);
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+}
+
+.placement-point:hover .point-indicator {
+    border-color: rgba(255, 255, 255, 0.7);
+    background: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+}
+
+/* Active State (wenn Figur platziert) */
+.placement-point.active .point-indicator {
+    border-color: #4ade80;
+    background: rgba(74, 222, 128, 0.2);
+    box-shadow: 0 0 25px rgba(74, 222, 128, 0.5);
+}
+
+/* Label */
+.point-label {
+    position: relative;
+    z-index: 2;
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    text-align: center;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+    pointer-events: none;
+}
+
+/* Kategorie-Punkte spezielles Styling */
+.category-point .point-label {
+    font-size: 14px;
+}
+
+.category-point[data-category="intelligence"]:hover .point-indicator {
+    border-color: #60a5fa;
+    box-shadow: 0 0 20px rgba(96, 165, 250, 0.4);
+}
+
+.category-point[data-category="emotion"]:hover .point-indicator {
+    border-color: #f472b6;
+    box-shadow: 0 0 20px rgba(244, 114, 182, 0.4);
+}
+
+.category-point[data-category="environment"]:hover .point-indicator {
+    border-color: #34d399;
+    box-shadow: 0 0 20px rgba(52, 211, 153, 0.4);
+}
+
+/* ===== INFO DISPLAY (Kategorie-Ansichten) ===== */
+#info-display {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    max-width: 800px;
+    padding: 40px;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    z-index: 50;
+    opacity: 1;
+    transition: opacity 0.4s ease;
+}
+
+#info-display.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+#info-content {
+    color: #1a1a2e;
+    font-size: 18px;
+    line-height: 1.6;
+}
+
+#info-content h2 {
+    margin-bottom: 20px;
+    font-size: 32px;
+    color: #0f172a;
+}
+
+/* ===== 3D DISPLAY BEREICHE - Transparent für Gehirne ===== */
+.display-area {
+    position: absolute;
+    width: 45%;
+    height: 60%;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    transition: all 0.4s ease;
+    pointer-events: none;
+    overflow: visible;
+}
+
+/* Standard: Links und Rechts für 2 Gehirne */
+#display-area-1 {
+    left: 5%;
+    width: 45%;
+    height: 65%;
+    z-index: 20;
+}
+
+#display-area-2 {
+    right: -43%;
+    top: -17%;  /* Human brain positioned higher */
+    transform: translateY(-50%);
+    z-index: 20;
+}
+/* Comparison _2 slides: Different positioning for dual brains */
+#display-area-1.comparison-two {
+    left: 10% !important;
+    top: 55% !important;
+    width: 35% !important;
+    height: 50% !important;
+    transform: translateY(-50%) !important;
+}
+
+#display-area-2.comparison-two {
+    right: -49% !important;
+    top: 7% !important;
+    width: 35% !important;
+    height: 50% !important;
+    transform: translateY(-50%) !important;
+}
+/* Display-Area-3: Für _2 Slides - andere Position, Größe und einheitliche Skalierung */
+#display-area-3 {
+    left: 59% !important;
+    top: 50%;
+    /* translate to center then apply uniform scale from CSS variable */
+    transform: translate(-50%, -50%) scale(var(--secondary-brain-scale, 1));
+    transform-origin: center center;
+    width: 30%;
+    height: 50%;
+    z-index: 25;
+}
+
+/* Zentriert für 1 Gehirn */
+#display-area-1.centered {
+    left: 45% !important;
+    transform: translate(-50%, -50%) !important;
+    width: 50% !important;
+    height: 70% !important;
+}
+
+.display-area.centered {
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50%;
+    height: 70%;
+}
+
+.display-area.hidden {
+    opacity: 0;
+    pointer-events: none;
+    display: none;
+}
+
+/* ===== INTRO-BRAIN LAYOUT: Drei Gehirne für Intro-Screen ===== */
+/* Allgemeine Einstellungen für alle drei Intro-Gehirne */
+.display-area.intro-brain {
+    width: 28% !important;          /* Breite aller drei Gehirne */
+    height: 45% !important;         /* Höhe aller drei Gehirne */
+    opacity: 1 !important;
+    display: block !important;
+    z-index: 20 !important;
+    position: absolute !important;
+    transition: transform 0.1s ease-out;
+}
+
+/* AMEISE - Links (display-area-1) */
+#display-area-1.intro-brain {
+    left: 6.5% !important;            /* Abstand von links (Ameise) */
+    right: auto !important;
+    top: 50% !important;            /* Vertikale Position (Ameise) */
+    transform: translateY(-50%);
+}
+
+/* MENSCH - Mitte (display-area-2) */
+#display-area-2.intro-brain {
+    left: 31.5% !important;           /* Horizontal positioniert (Mensch) */
+    right: auto !important;
+    top: 50% !important;            /* Vertikale Position (Mensch) */
+    transform: translateY(-50%);
+}
+
+/* VOGEL - Rechts (display-area-3) */
+#display-area-3.intro-brain {
+    left: 56% !important;           /* Position von links: 100% - 28% (width) - 8% (margin) = 64% */
+    right: auto !important;
+    top: 50% !important;            /* Vertikale Position (Vogel) */
+    transform: translateY(-50%);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1200px) {
+    #placement-zone-bottom {
+        gap: 40px;
+    }
+    
+    #placement-zone-side {
+        gap: 30px;
+        right: 30px;
+    }
+    
+    .placement-point {
+        width: 100px;
+        height: 100px;
+    }
+    
+    .point-label {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 768px) {
+    #placement-zone-bottom {
+        bottom: 20px;
+        gap: 30px;
+    }
+    
+    #placement-zone-side {
+        gap: 25px;
+        right: 20px;
+    }
+    
+    .placement-point {
+        width: 80px;
+        height: 80px;
+    }
+    
+    .point-label {
+        font-size: 12px;
+    }
+    }
