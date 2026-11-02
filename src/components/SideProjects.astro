@@ -10,13 +10,14 @@ interface Props { lang: Lang; projects: Project[] }
 const { lang, projects } = Astro.props;
 const t = useT(lang);
 
-// Endpositionen im 12-Spalten-Raster: Karten à 4 Spalten ab Spalte 1, 5 und 9 (c = Startspalte ab 0),
+// Endpositionen im 12-Spalten-Raster: Karten à 3 Spalten ab Spalte 1, 4, 7 und 10 (c = Startspalte ab 0),
 // in der Höhe versetzt (y in % der Bühne). Der Stapel liegt mittig direkt unter der Überschrift.
-const PILE = { c: 4, y: 30 };
+const PILE = { c: 4.5, y: 30 };
 const SPOTS = [
   { c: 0, y: 30, r: -7 },
-  { c: 4, y: 42, r: 8 },
-  { c: 8, y: 26, r: -2 },
+  { c: 3, y: 42, r: 8 },
+  { c: 6, y: 26, r: -2 },
+  { c: 9, y: 38, r: 5 },
 ];
 const style = (i: number) => {
   const s = SPOTS[i % SPOTS.length];
@@ -89,14 +90,14 @@ const style = (i: number) => {
   }
   :global(.pins) .side-card {
     /* jede Karte startet etwas später → natürliches Auffächern */
-    --q: clamp(0, (var(--p) - var(--i) * 0.12) / 0.76, 1);
+    --q: clamp(0, (var(--p) - var(--i) * 0.08) / 0.76, 1);
     /* Spaltenbreite des 12er-Rasters innerhalb der Bühne (volle Breite inkl. Rand) */
     --col: calc((100cqw - 2 * var(--gutter) - 11 * var(--col-gap)) / 12);
     --step: calc(var(--col) + var(--col-gap));
     position: absolute;
     left: calc(var(--gutter) + var(--c) * var(--step));
     top: calc(var(--y) * 1%);
-    width: min(4 * var(--col) + 3 * var(--col-gap), 44cqh);
+    width: min(3 * var(--col) + 2 * var(--col-gap), 44cqh);
     margin: 0;
     pointer-events: auto;
     transform:

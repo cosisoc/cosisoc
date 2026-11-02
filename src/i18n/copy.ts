@@ -17,7 +17,7 @@ export const copy = {
       toolsTitle: 'Tools',
       tools: ['Figma', '[weitere Tools]'],
     },
-    contact: { label: '04 - Kontakt', title: 'Kontakt', mail: 'mail@example.com' },
+    contact: { label: '04 - Kontakt', title: 'Kontakt', mail: 'cosimabuehler06@gmail.com' },
   },
   en: {
     name: 'Cosima Bühler',
@@ -36,6 +36,6 @@ export const copy = {
       toolsTitle: 'Tools',
       tools: ['Figma', '[more tools]'],
     },
-    contact: { label: '04 - Contact', title: 'Contact', mail: 'mail@example.com' },
+    contact: { label: '04 - Contact', title: 'Contact', mail: 'cosimabuehler06@gmail.com' },
   },
 } as const;
