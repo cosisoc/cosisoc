@@ -25,13 +25,11 @@ The goal is not to keep people at the device, but to get them back among people 
 
 </Chapter>
 
-<Chapter title="Concept" teaser="Instead of interviewing retirees, we questioned AI personas – and derived three requirements.">
+<Chapter title="Research" teaser="Instead of interviewing retirees, we questioned AI personas – and derived three requirements.">
 
 A market analysis (KOMP, Familink, ElliQ, GrandPad) showed that no product tackles loneliness directly – they replace missing contacts with family or technology. We deliberately skipped real interviews: the topic is sensitive and access was difficult. Instead, we built four detailed personas, including a relative, and questioned them as AI characters in simulated interviews.
 
 Two insights shaped the concept: people are reluctant to go somewhere when they don't know who will be there. And information is scattered – in the newspaper, the local bulletin, the club calendar. This led to three requirements: **lower the threshold, real connection instead of attachment to the device, suggestions based on interests.**
-
-*Thought further, but not built:* voice input modelled on an answering machine, texts read aloud, an AI that summarises group chats and picks up appointments (with a local AI as fallback), and a key-ring tag – hold two together at a meetup and you're connected.
 
 </Chapter>
 
@@ -39,11 +37,11 @@ Two insights shaped the concept: people are reluctant to go somewhere when they 
 
 Placing highlights an element – like a hover. Sliding scrolls, along a line or in a circle. Pressing confirms. A magnetic track around the display guides the stone across 8 contact points that change meaning from screen to screen. Picking a day works as a spiral: each circular movement moves one day ahead.
 
-The character Kaius shows when the device is listening – and without its face, it isn't.
+The character Kaius shows when the device is listening – and without its face, it isn't. Tests with fellow students improved the interaction once more.
 
 </Chapter>
 
-<Chapter title="Screen Design" teaser="A round display, few elements, large type – with soft shadows that echo the physical interaction.">
+<Chapter title="Interface" teaser="A round display, few elements, large type – with soft shadows that echo the physical interaction.">
 
 The interface uses neumorphism, muted greens and violets, and Poppins at deliberately large sizes. Recurring elements – confirm, decline, placement arrow – make the interaction predictable.
 
@@ -51,33 +49,29 @@ From the sleep mode with a clock to the greeting with the weather to the event o
 
 </Chapter>
 
-<Chapter title="System Architecture" teaser="Sensors detect the stone, a web app shows what happens – cleanly separated.">
-
-An Arduino reads 8 reed sensors and reports the stone's position. An ESP32 inside the stone detects the press and sends it via the Raspberry Pi's hotspot. A central input manager merges all signals, including keyboard input for testing.
-
-The app runs in the browser. Events are generated for each day from 22 templates, so the prototype always feels current. An interface for AI is prepared.
-
-</Chapter>
-
 <Chapter title="Prototyping" teaser="Three attempts to a stable solution. Our principle: the hardware must not dictate the interaction.">
 
 First a rectangular display under a wooden board with a round cut-out, screws in the rim as contact points. Then a round display with a 3D-printed rim and a large voltage divider – the analogue reading was too unstable. The solution: 8 reed sensors and a magnet in the stone, stable and precise.
 
-In parallel, the design prototype took shape: a wooden station (320 × 230 mm) whose track recalls the ripples of a stone dropped in water, and an elliptical stone found through sketches and foam models. Tests with fellow students improved the interaction once more.
+In parallel, the design prototype took shape: a wooden station (320 × 230 mm) whose track recalls the ripples of a stone dropped in water, and an elliptical stone found through sketches and foam models.
 
 </Chapter>
 
-<Chapter title="Technical Implementation" teaser="I coded with Claude Code in VS Code – the only way this scope was possible in one semester.">
+<Chapter title="Technical Implementation" teaser="Sensors detect the stone, a web app shows what happens – cleanly separated and coded with Claude Code in VS Code.">
 
-I built the app, the sensor integration, the Raspberry Pi with its own Wi-Fi and the wireless link to the stone.
+I built the app, the sensor integration, the Raspberry Pi with its own Wi-Fi and the wireless link to the stone. An Arduino reads 8 reed sensors and reports the stone's position. An ESP32 inside the stone detects the press and sends it via the Raspberry Pi's hotspot. A central input manager merges all signals, including keyboard input for testing.
 
-AI-assisted coding delivers real results fast, but demands a lot of thinking along: without a structured approach it's easy to lose track.
+The app runs in the browser. Events are generated for each day from 22 templates, so the prototype always feels current. An interface for AI is prepared.
+
+Claude Code was the only way this scope was possible in one semester. AI-assisted coding delivers real results fast, but demands a lot of thinking along: without a structured approach it's easy to lose track.
 
 </Chapter>
 
 <Chapter title="Result" teaser="Two days of exhibition where visitors used Konekt themselves – including people from the target group who said they'd buy it.">
 
 The outcome: a functional prototype, a design prototype, a presentation and a documentation. We deliberately focused on device, stone and interaction and worked them out in depth instead of touching on everything.
+
+*Thought further, but not built:* voice input modelled on an answering machine, texts read aloud, an AI that summarises group chats and picks up appointments (with a local AI as fallback), and a key-ring tag – hold two together at a meetup and you're connected.
 
 The principle reaches beyond retirement: many younger people find their phone use draining, too. A device that only lets through what really matters could help them as well.
 

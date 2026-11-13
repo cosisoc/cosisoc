@@ -1,24 +1,64 @@
 ---
-title: "Game"
-short: "[Short description of the small game – planned.]"
+title: "The Colors We Feel"
+short: "A small 3D adventure about a blob without feelings, built in Unity in three days."
 kind: side
-order: 3
-role: "[MY TASK]"
-team: "[TEAM]"
-duration: "[DURATION]"
-semester: "[SEMESTER]"
-tools: ["[TOOLS]"]
-tags: ["Game Design"]
+order: 2
+role: "Character design, modelling & rigging, animation, cutscenes, concept & story"
+team: "Cosima Bühler, Tobias Wallet, Annika Feist, Leonard Zacke"
+duration: "3 days"
+semester: "Winter 26/27 · Lab week"
+tools: ["Unity", "Blender", "Claude", "MCP (Unity, Blender)", "ElevenLabs", "GitHub"]
+tags: ["Game Design", "Character Design", "3D Animation"]
 preview:
   label: "[Game screenshot]"
 hero:
   label: "[Hero: rendering, photo or video of the final product]"
 ---
 
-<Chapter title="Overview" teaser="[EN] [Short text: what is this chapter about?]">
-  [EN] [Longer text: how we approached it, what mattered.]
+import LiveEmbed from '../../../components/LiveEmbed.astro';
+
+<Chapter title="Overview" teaser="A blob without feelings arrives in a city where everyone glows in the colour of their emotions. In three days we turned this into a playable demo.">
+
+The Colors We Feel was made during lab week in the winter semester 26/27. There were four of us, three from Interaction Design and one from Product Design, and we had exactly three days. In that time we built a whole world with our own assets, came up with a story and did the sound design and lighting. We developed it in Unity and worked together through GitHub.
+
+My role: I designed the main character from sketch to finished rig, made all the animations and cutscenes, and helped shape the game concept and story.
+
 </Chapter>
 
-<Chapter title="Concept" teaser="[EN] [Short text: what is this chapter about?]">
-  [EN] [Longer text: how we approached it, what mattered.]
+<Chapter title="Story" teaser="Bob comes from the sewers, where everyone is black and feels nothing. In the city he learns, step by step, what emotions are.">
+
+Every character in the game is a blob, a very soft, squishy creature. Bob lives in the sewers among black blobs who feel nothing. Because he is grey, they bully him. He runs away through the tunnels, gets chased and finally escapes through a manhole cover.
+
+Up there he lands in a glowing cyberpunk street full of blobs. Each one has an orb inside that glows in the colour of its emotion. Only Bob doesn't. That's why the opening is meant to feel overwhelming: it is loud and crowded, Bob is in everyone's way and gets yelled at. This gives him his first emotion, insecurity, and from then on he glows too.
+
+He is only allowed into the green, happy district once he has learned to be happy. So he is sent to an arcade, the first quest, and while playing he gains the emotion joy. In the new district he helps someone pick up the apples they dropped and learns empathy.
+
+There is no fighting. You explore the world, talk to NPCs and solve quests. Since we only had three days, it is a short demo with two quests.
+
+</Chapter>
+
+<Chapter title="Character & Animation" teaser="From a paper sketch to a rigged 3D blob: Bob, lots of animations and the two opening cutscenes.">
+
+I sketched Bob on paper first, then modelled and rigged him in Blender. To do this I controlled Blender with Claude through an MCP server.
+
+After that I made all the animations: basic movement like idle, walking, sprinting and jumping, facial expressions for the different emotions, and on top of that several dances, sitting down, falling over and being pushed. To bring the street to life, the NPCs have their own animations too, like carrying a bag, playing ball or playing tag.
+
+I also built the two cutscenes at the start: the escape from the sewers and Bob's arrival in the city.
+
+</Chapter>
+
+<Chapter title="Working with AI" teaser="Without AI, a game like this in three days would not have been possible. The ideas still had to come from us.">
+
+We worked with Claude Desktop, connected directly to Unity and Blender through MCP servers. We generated textures and sounds with tools such as ElevenLabs. This let us get a lot done in very little time.
+
+What AI could not do was the actual design work: the concept, the worldbuilding and the storytelling. How should the opening feel, where does each NPC walk, how do you guide players through the world? We had to decide that ourselves.
+
+The team worked together really well. At times we were worried we wouldn't finish, but in the end we were done on time, without a single all-nighter.
+
+</Chapter>
+
+<Chapter title="Play" teaser="Play The Colors We Feel right in the browser.">
+  Click the game once, then: W A S D to move, E to interact, Esc or P to pause.
+
+  <LiveEmbed slot="media" src="/projects/game/webgl/index.html" width={1280} height={720} label="The Colors We Feel as a playable web version" hint="The game is played with a keyboard – try it on desktop." />
 </Chapter>

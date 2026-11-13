@@ -13,6 +13,7 @@ const projects = defineCollection({
       image: image().optional(),
       video: z.string().optional(),
       poster: image().optional(),
+      controls: z.boolean().optional(), // Video mit Steuerung: Ton anschalten, spulen
     });
     return z.object({
       title: z.string(),

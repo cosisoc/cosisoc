@@ -6,7 +6,7 @@ export const copy = {
     headline: ['Hey, ich bin Cosima,', 'Interaktions-', 'gestalterin.'],
     subline: 'aktuell studiere ich im 4. Semester an der Hochschule für Gestaltung',
     photo: 'Porträt von Cosima Bühler',
-    work: { label: '01 - Arbeiten', title: 'Projekte, auf die ich stolz bin' },
+    work: { label: '01 - Hauptprojekte', title: 'Projekte, auf die ich stolz bin' },
     side: { label: '02 - Sidequests', title: 'Nebenprojekte' },
     about: {
       label: '03 - Über mich',
@@ -25,7 +25,7 @@ export const copy = {
     headline: ['Hey, I’m Cosima,', 'interaction', 'designer.'],
     subline: 'currently in my 4th semester at the University of Design',
     photo: 'Portrait of Cosima Bühler',
-    work: { label: '01 - Work', title: 'Projects I’m proud of' },
+    work: { label: '01 - Main Projects', title: 'Projects I’m proud of' },
     side: { label: '02 - Sidequests', title: 'Side projects' },
     about: {
       label: '03 - About',

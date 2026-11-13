@@ -12,6 +12,7 @@ const { media, class: className, sizes = '(min-width: 768px) 900px, 100vw' } = A
     src={media.video}
     poster={media.poster?.src}
     aria-label={media.label}
+    controls={media.controls}
     autoplay muted loop playsinline
   />
 ) : media.image ? (

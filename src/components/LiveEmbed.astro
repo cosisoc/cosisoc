@@ -7,7 +7,7 @@ const { src, width, height, label, hint } = Astro.props;
 ---
 <div class="live" data-live-embed style={`--w:${width}; --h:${height}`}>
   <div class="live-frame">
-    <iframe data-src={src} title={label} width={width} height={height}></iframe>
+    <iframe data-src={src} title={label} width={width} height={height} allow="fullscreen"></iframe>
   </div>
   <p class="live-hint">{hint}</p>
 </div>

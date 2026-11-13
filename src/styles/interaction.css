@@ -7,10 +7,12 @@ html {
   -webkit-tap-highlight-color: transparent;
 }
 
+/* TEMP: Text markierbar – vor Deployment wieder aktivieren
 body {
   -webkit-user-select: none;
   user-select: none;
 }
+*/
 
 img, video, a {
   -webkit-user-drag: none;

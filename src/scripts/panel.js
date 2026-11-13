@@ -27,6 +27,8 @@ function show(panel) {
 function hide(panel) {
   panel.classList.remove('is-open');
   panel.inert = true;
+  // Das Video läuft im geschlossenen Panel weiter, darf dann aber nicht mehr zu hören sein.
+  for (const video of panel.querySelectorAll('video')) video.muted = true;
 }
 
 function closeView() {

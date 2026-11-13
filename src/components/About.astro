@@ -1,15 +1,20 @@
 ---
+import Media from './Media.astro';
 import SectionHead from './SectionHead.astro';
 import { copy } from '../i18n/copy';
 import type { Lang } from '../i18n/utils';
+import foto from '../assets/photo2.jpeg';
 
 interface Props { lang: Lang }
 const { lang } = Astro.props;
 const a = copy[lang].about;
 ---
-<section class="section about" id="about" data-nav-section="about">
-  <SectionHead label={a.label} title={a.title} />
-  <div class="grid about-body">
+<section class="section about grid" id="about" data-nav-section="about">
+  <div class="about-photo" data-reveal>
+    <Media media={{ label: copy[lang].photo, image: foto }} class="about-media" sizes="(min-width: 768px) 40vw, 100vw" />
+  </div>
+  <div class="about-body">
+    <SectionHead label={a.label} title={a.title} />
     <p class="intro" data-reveal>{a.intro}</p>
     <div class="lists" data-reveal style="--i:1">
       <div>
@@ -25,9 +30,13 @@ const a = copy[lang].about;
 </section>
 
 <style>
-  .about { min-height: 50vh; }
-  .about-body { row-gap: 48px; }
-  .intro { grid-column: 1 / 6; font-size: var(--fs-sub); font-weight: var(--fw-sub); line-height: var(--lh-lead); }
-  .lists { grid-column: 1 / 6; display: flex; flex-direction: column; gap: 24px; }
+  .about { min-height: 50vh; align-items: start; row-gap: 48px; }
+  /* Das Foto hat oben viel leeren Hintergrund: der Zuschnitt behält die Unterkante, gespiegelt wird nur das Bild selbst */
+  .about-photo { grid-column: 1 / 6; }
+  .about-photo :global(.about-media) { display: block; height: auto; aspect-ratio: 1 / 1.1; object-position: bottom; transform: scaleX(-1); }
+  .about-body { grid-column: 7 / 13; display: flex; flex-direction: column; gap: 48px; }
+  .about-body :global(.section-head) { margin-bottom: 0; }
+  .intro { font-size: var(--fs-sub); font-weight: var(--fw-sub); line-height: var(--lh-lead); }
+  .lists { display: flex; flex-direction: column; gap: 24px; }
   h3 { font-size: var(--fs-body); margin-bottom: 12px; }
 </style>

@@ -10,14 +10,14 @@ interface Props { lang: Lang; projects: Project[] }
 const { lang, projects } = Astro.props;
 const t = useT(lang);
 
-// Endpositionen im 12-Spalten-Raster: Karten à 3 Spalten ab Spalte 1, 4, 7 und 10 (c = Startspalte ab 0),
-// in der Höhe versetzt (y in % der Bühne). Der Stapel liegt mittig direkt unter der Überschrift.
+// Endpositionen im 12-Spalten-Raster: Karten à 3 Spalten links, mittig und rechts (c = Startspalte ab 0),
+// in der Höhe versetzt (y in % der Bühne): links mittel, Mitte am tiefsten, rechts am höchsten.
+// Der Stapel liegt mittig direkt unter der Überschrift.
 const PILE = { c: 4.5, y: 30 };
 const SPOTS = [
-  { c: 0, y: 30, r: -7 },
-  { c: 3, y: 42, r: 8 },
-  { c: 6, y: 26, r: -2 },
-  { c: 9, y: 38, r: 5 },
+  { c: 0, y: 34, r: -7 },
+  { c: 4.5, y: 43, r: 8 },
+  { c: 9, y: 25, r: -2 },
 ];
 const style = (i: number) => {
   const s = SPOTS[i % SPOTS.length];

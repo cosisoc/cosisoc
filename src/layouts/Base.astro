@@ -53,9 +53,10 @@ const alt = otherLang(lang);
       // Bilder und Links nicht herausziehen (Firefox ignoriert -webkit-user-drag)
       addEventListener('dragstart', (e) => e.preventDefault());
       // Kein Rechtsklick-Menü, außer auf Mail und Rechtstexten (zum Kopieren)
-      addEventListener('contextmenu', (e) => {
-        if (!(e.target as Element).closest('.mail, article.legal')) e.preventDefault();
-      });
+      // TEMP: Rechtsklick erlaubt – vor Deployment wieder aktivieren
+      // addEventListener('contextmenu', (e) => {
+      //   if (!(e.target as Element).closest('.mail, article.legal')) e.preventDefault();
+      // });
     </script>
     <!-- Gruß für alle, die die Entwicklertools öffnen -->
     <script is:inline define:vars={{ hello: useT(lang)('console.hello'), mail: copy[lang].contact.mail }}>

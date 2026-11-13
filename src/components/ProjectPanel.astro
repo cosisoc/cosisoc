@@ -9,7 +9,7 @@ import type { Project } from '../lib/projects';
 import { copy } from '../i18n/copy';
 import '../styles/panel.css';
 
-// Projektseite: Vollbild-Overlay mit eigener Leiste (COSI · Arbeiten · [Projekt] · DE/EN).
+// Projektseite: Vollbild-Overlay mit eigener Leiste (COSI · Hauptprojekte · [Projekt] · DE/EN).
 interface Props { lang: Lang; project: Project; next: Project; open: boolean }
 const { lang, project: p, next, open } = Astro.props;
 const t = useT(lang);

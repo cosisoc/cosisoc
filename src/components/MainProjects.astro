@@ -1,13 +1,15 @@
 ---
 import Media from './Media.astro';
+import Model3D from './Model3D.astro';
 import SectionHead from './SectionHead.astro';
 import { copy } from '../i18n/copy';
 import { projectUrl, useT, type Lang } from '../i18n/utils';
 import { projectNumber, type Project } from '../lib/projects';
 import '../styles/projectwheel.css';
 
-// Arbeiten: links Infos, in der Mitte das aktive Projekt groß (Bühne), rechts ragt ein kleines Rad mit
-// Miniaturen aller Projekte aus dem Bildschirmrand. Logik in projectwheel.js, Aussehen in projectwheel.css.
+// Hauptprojekte: Die Überschrift scrollt vorbei, angehalten bleiben oben die Infos, darunter das aktive Projekt groß
+// (Bühne), rechts ragt ein kleines Rad mit Miniaturen aller Projekte aus dem Bildschirmrand.
+// Logik in projectwheel.js, Aussehen in projectwheel.css.
 interface Props { lang: Lang; projects: Project[] }
 const { lang, projects } = Astro.props;
 const t = useT(lang);
@@ -20,9 +22,12 @@ const items = projects.map((p) => {
 const openLabel = (num: string, title: string) =>
   lang === 'de' ? `Projekt ${num}: ${title} öffnen` : `Project ${num}: open ${title}`;
 ---
-<section class="section work" id="work" data-nav-section="work">
+<section id="work" data-nav-section="work">
+<div class="section work-intro">
   <SectionHead label={copy[lang].work.label} title={copy[lang].work.title} />
-
+</div>
+<div class="work-track" data-wheel-track style={`--n: ${items.length}`}>
+<div class="section work">
   <div class="work-body grid" data-wheel-root tabindex="0" aria-roledescription="carousel" aria-label={copy[lang].work.title}>
     <div class="work-info">
       {items.map(({ d, num }, i) => (
@@ -49,7 +54,9 @@ const openLabel = (num: string, title: string) =>
           aria-label={openLabel(num, d.title)}
           tabindex={i === 0 ? 0 : -1}
         >
-          <Media media={media} class="work-media" sizes="(min-width: 768px) 60vw, 100vw" />
+          {d.model
+            ? <Model3D src={d.model.src} label={d.model.label} still />
+            : <Media media={media} class="work-media" sizes="(min-width: 768px) 80vw, 100vw" />}
         </a>
       ))}
     </div>
@@ -69,6 +76,8 @@ const openLabel = (num: string, title: string) =>
 
     <p class="sr-only" aria-live="polite" data-live></p>
   </div>
+</div>
+</div>
 </section>
 
 <script src="../scripts/projectwheel.js"></script>

@@ -1,10 +1,9 @@
 // UI-Beschriftungen (Navigation, Labels, Buttons) in beiden Sprachen.
 export const ui = {
   de: {
-    'nav.work': 'Arbeiten',
+    'nav.work': 'Hauptprojekte',
     'nav.side': 'Nebenprojekte',
     'nav.about': 'Über mich',
-    'nav.contact': 'Kontakt',
     'nav.label': 'Hauptnavigation',
     'nav.lang': 'Sprache wechseln',
     'project.when': 'Wann',
@@ -14,7 +13,6 @@ export const ui = {
     'project.tools': 'Tools',
     'project.next': 'nächstes Projekt',
     'project.cursor': 'Projekt ansehen',
-    'contact.legal': 'Legal Information',
     'footer.imprint': 'Impressum',
     'footer.privacy': 'Datenschutz',
     'legal.back': 'Zurück zur Startseite',
@@ -24,10 +22,9 @@ export const ui = {
     'console.hello': '👋 Hi! Neugierig? Schreib mir:',
   },
   en: {
-    'nav.work': 'Work',
+    'nav.work': 'Main Projects',
     'nav.side': 'Side Projects',
     'nav.about': 'About',
-    'nav.contact': 'Contact',
     'nav.label': 'Main navigation',
     'nav.lang': 'Switch language',
     'project.when': 'When',
@@ -37,7 +34,6 @@ export const ui = {
     'project.tools': 'Tools',
     'project.next': 'next project',
     'project.cursor': 'View case study',
-    'contact.legal': 'Legal Information',
     'footer.imprint': 'Imprint',
     'footer.privacy': 'Privacy',
     'legal.back': 'Back to home',

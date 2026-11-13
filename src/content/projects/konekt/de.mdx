@@ -25,13 +25,11 @@ Das Ziel ist nicht möglichst viel Zeit am Gerät, sondern möglichst schnell wi
 
 </Chapter>
 
-<Chapter title="Konzeption" teaser="Statt Interviews mit Rentner:innen haben wir KI-Personas befragt – und daraus drei Anforderungen abgeleitet.">
+<Chapter title="Recherche" teaser="Statt Interviews mit Rentner:innen haben wir KI-Personas befragt – und daraus drei Anforderungen abgeleitet.">
 
 Eine Marktanalyse (KOMP, Familink, ElliQ, GrandPad) zeigte: Kein Produkt geht Einsamkeit direkt an – sie ersetzen fehlende Kontakte durch Familie oder Technik. Auf echte Interviews haben wir bewusst verzichtet: Das Thema ist sensibel, der Zugang schwierig. Stattdessen haben wir vier detaillierte Personas als KI-Charaktere in simulierten Interviews befragt, darunter eine Angehörige.
 
 Zwei Erkenntnisse prägten das Konzept: Man geht ungern irgendwo hin, wenn man nicht weiß, wer da ist. Und Informationen sind verstreut – in der Zeitung, im Ortsblatt, im Vereinskalender. Daraus wurden drei Anforderungen: **Hemmschwelle senken, echte Verbindung statt Bindung ans Gerät, Vorschläge nach Interessen.**
-
-*Weitergedacht, aber nicht gebaut:* Spracheingabe nach dem Prinzip Anrufbeantworter, vorgelesene Texte, eine KI, die Gruppenchats zusammenfasst und Termine übernimmt (mit lokaler KI als Rückfallebene), und ein Anhänger für den Schlüsselbund – beim Treffen aneinandergehalten, ist man befreundet.
 
 </Chapter>
 
@@ -39,11 +37,11 @@ Zwei Erkenntnisse prägten das Konzept: Man geht ungern irgendwo hin, wenn man n
 
 Platzieren hebt ein Element hervor – wie ein Hover. Verschieben blättert, entlang einer Linie oder im Kreis. Drücken bestätigt. Eine magnetische Schiene rund um das Display führt den Stein über 8 Kontaktpunkte, die je nach Screen neu belegt sind. Die Tagesauswahl ist eine Spirale: Jede Kreisbewegung führt einen Tag weiter.
 
-Die Figur Kaius zeigt, wann das Gerät zuhört – und ohne ihr Gesicht hört es nicht zu.
+Die Figur Kaius zeigt, wann das Gerät zuhört – und ohne ihr Gesicht hört es nicht zu. Tests mit Kommiliton:innen haben die Interaktion noch einmal verbessert.
 
 </Chapter>
 
-<Chapter title="Screendesign" teaser="Ein rundes Display, wenige Elemente, große Schrift – mit weichen Schatten, die an die physische Bedienung anknüpfen.">
+<Chapter title="Interface" teaser="Ein rundes Display, wenige Elemente, große Schrift – mit weichen Schatten, die an die physische Bedienung anknüpfen.">
 
 Das Interface setzt auf Neumorphismus, gedeckte Grün- und Violetttöne und Poppins in bewusst großen Schriftgrößen. Wiederkehrende Elemente – Bestätigen, Ablehnen, Platzierungspfeil – machen die Bedienung vorhersehbar.
 
@@ -51,33 +49,29 @@ Vom Ruhemodus mit Uhr über die Begrüßung mit Wetter bis zur Eventübersicht (
 
 </Chapter>
 
-<Chapter title="Systemarchitektur" teaser="Sensoren erkennen den Stein, eine Web-App zeigt, was passiert – beides sauber getrennt.">
-
-Ein Arduino liest 8 Reed-Sensoren aus und meldet die Position des Steins. Ein ESP32 im Stein erkennt das Drücken und funkt es über den Hotspot des Raspberry Pi weiter. Eine zentrale Eingabeverwaltung führt alle Signale zusammen, auch Tastatureingaben zum Testen.
-
-Die App läuft im Browser. Events werden aus 22 Vorlagen für jeden Tag neu berechnet – so wirkt der Prototyp immer aktuell. Eine Schnittstelle für KI ist vorbereitet.
-
-</Chapter>
-
 <Chapter title="Prototyping" teaser="Drei Anläufe bis zur stabilen Lösung. Unser Grundsatz: Die Hardware darf die Interaktion nicht diktieren.">
 
 Erst ein eckiges Display unter einer Holzplatte mit runder Aussparung, Schrauben im Rand als Kontaktpunkte. Dann ein rundes Display mit 3D-gedrucktem Rand und einem großen Spannungsteiler – die analoge Messung war zu instabil. Die Lösung: 8 Reed-Sensoren und ein Magnet im Stein, stabil und präzise.
 
-Parallel entstand der Designprototyp: eine Station aus Holz (320 × 230 mm), deren Schiene an die Wellen eines Steins im Wasser erinnert, und ein Stein in Ellipsenform, gefunden über Skizzen und Schaummodelle. Tests mit Kommiliton:innen haben die Interaktion noch einmal verbessert.
+Parallel entstand der Designprototyp: eine Station aus Holz (320 × 230 mm), deren Schiene an die Wellen eines Steins im Wasser erinnert, und ein Stein in Ellipsenform, gefunden über Skizzen und Schaummodelle.
 
 </Chapter>
 
-<Chapter title="technische Umsetzung" teaser="Programmiert habe ich mit Claude Code in VS Code – nur so war dieser Umfang in einem Semester machbar.">
+<Chapter title="technische Umsetzung" teaser="Sensoren erkennen den Stein, eine Web-App zeigt, was passiert – beides sauber getrennt und mit Claude Code in VS Code programmiert.">
 
-App, Anbindung der Sensoren, Raspberry Pi mit eigenem WLAN und die Funkverbindung zum Stein habe ich umgesetzt.
+App, Anbindung der Sensoren, Raspberry Pi mit eigenem WLAN und die Funkverbindung zum Stein habe ich umgesetzt. Ein Arduino liest 8 Reed-Sensoren aus und meldet die Position des Steins. Ein ESP32 im Stein erkennt das Drücken und funkt es über den Hotspot des Raspberry Pi weiter. Eine zentrale Eingabeverwaltung führt alle Signale zusammen, auch Tastatureingaben zum Testen.
 
-KI-gestütztes Programmieren liefert schnell echte Ergebnisse, verlangt aber viel Mitdenken: Ohne strukturiertes Vorgehen verliert man leicht den Überblick.
+Die App läuft im Browser. Events werden aus 22 Vorlagen für jeden Tag neu berechnet – so wirkt der Prototyp immer aktuell. Eine Schnittstelle für KI ist vorbereitet.
+
+Nur mit Claude Code war dieser Umfang in einem Semester machbar. KI-gestütztes Programmieren liefert schnell echte Ergebnisse, verlangt aber viel Mitdenken: Ohne strukturiertes Vorgehen verliert man leicht den Überblick.
 
 </Chapter>
 
 <Chapter title="Ergebnis" teaser="Zwei Tage Ausstellung, an denen Besucher:innen Konekt selbst bedienten – darunter Menschen aus der Zielgruppe, die es kaufen würden.">
 
 Am Ende standen ein Funktionsprototyp, ein Designprototyp, eine Präsentation und eine Dokumentation. Wir haben uns bewusst auf Gerät, Stein und Interaktion konzentriert und diese in der Tiefe ausgearbeitet, statt alles nur anzureißen.
+
+*Weitergedacht, aber nicht gebaut:* Spracheingabe nach dem Prinzip Anrufbeantworter, vorgelesene Texte, eine KI, die Gruppenchats zusammenfasst und Termine übernimmt (mit lokaler KI als Rückfallebene), und ein Anhänger für den Schlüsselbund – beim Treffen aneinandergehalten, ist man befreundet.
 
 Das Prinzip reicht über die Rente hinaus: Auch viele Jüngere empfinden ihre Handynutzung als belastend. Ein Gerät, das nur das wirklich Wichtige durchlässt, könnte auch ihnen helfen.
 

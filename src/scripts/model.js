@@ -9,11 +9,15 @@ const observer = new IntersectionObserver((entries) => {
       viewer.setAttribute('alt', box.dataset.modelAlt);
       // Nur drehen: kein Zoom, kein Verschieben; senkrechtes Wischen scrollt weiter die Seite.
       // Ohne Eingabe dreht sich das Modell langsam nach links; der Radius hält den Controller in jeder Drehung im Fenster.
-      for (const [k, v] of Object.entries({
-        'camera-controls': '', 'disable-zoom': '', 'disable-pan': '', 'touch-action': 'pan-y',
-        'camera-orbit': '0deg 75deg 122%', 'max-camera-orbit': 'auto auto 122%', 'shadow-intensity': '0',
-        'auto-rotate': '', 'auto-rotate-delay': '1500', 'rotation-per-second': '-12deg',
-      })) viewer.setAttribute(k, v);
+      // Stilles Modell (Vorschau): feste Schrägansicht, keine Steuerung, kein Drehen.
+      const attrs = 'modelStill' in box.dataset
+        ? { 'camera-orbit': '-8deg 80deg 85%', 'shadow-intensity': '0' }
+        : {
+          'camera-controls': '', 'disable-zoom': '', 'disable-pan': '', 'touch-action': 'pan-y',
+          'camera-orbit': '0deg 75deg 122%', 'max-camera-orbit': 'auto auto 122%', 'shadow-intensity': '0',
+          'auto-rotate': '', 'auto-rotate-delay': '1500', 'rotation-per-second': '-12deg',
+        };
+      for (const [k, v] of Object.entries(attrs)) viewer.setAttribute(k, v);
       box.replaceChildren(viewer);
     });
   }

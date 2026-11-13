@@ -1,24 +1,64 @@
 ---
-title: "Game"
-short: "[Kurzbeschreibung des kleinen Games – geplant.]"
+title: "The Colors We Feel"
+short: "Ein kleines 3D-Adventure über einen Blob ohne Gefühle, in drei Tagen in Unity gebaut."
 kind: side
-order: 3
-role: "[MEINE AUFGABE]"
-team: "[TEAM]"
-duration: "[DAUER]"
-semester: "[SEMESTER]"
-tools: ["[TOOLS]"]
-tags: ["Game Design"]
+order: 2
+role: "Character Design, Modellierung & Rigging, Animation, Cutscenes, Konzept & Story"
+team: "Cosima Bühler, Tobias Wallet, Annika Feist, Leonard Zacke"
+duration: "3 Tage"
+semester: "WiSe 26/27 · Laborwoche"
+tools: ["Unity", "Blender", "Claude", "MCP (Unity, Blender)", "ElevenLabs", "GitHub"]
+tags: ["Game Design", "Character Design", "3D-Animation"]
 preview:
   label: "[Screenshot Game]"
 hero:
   label: "[Hero: Rendering, Foto oder Video des Endprodukts]"
 ---
 
-<Chapter title="Übersicht" teaser="[Kurzer Text: worum geht es in diesem Kapitel?]">
-  [Ausführlicher Text: so sind wir vorgegangen, das war wichtig.]
+import LiveEmbed from '../../../components/LiveEmbed.astro';
+
+<Chapter title="Übersicht" teaser="Ein Blob ohne Gefühle kommt in eine Stadt, in der alle in der Farbe ihrer Emotionen leuchten. In drei Tagen haben wir daraus ein spielbares Demo gebaut.">
+
+The Colors We Feel ist in der Laborwoche im Wintersemester 26/27 entstanden. Wir waren zu viert, drei aus Interaktionsgestaltung und einer aus Produktgestaltung, und hatten genau drei Tage. In der Zeit haben wir eine ganze Welt mit eigenen Assets gebaut, uns eine Story ausgedacht und Sounddesign und Licht gemacht. Entwickelt haben wir in Unity, zusammengearbeitet über GitHub.
+
+Meine Rolle: Ich habe den Hauptcharakter von der Skizze bis zum fertigen Rig entworfen, alle Animationen und die Cutscenes gemacht und das Spielkonzept und die Story mitentwickelt.
+
 </Chapter>
 
-<Chapter title="Konzeption" teaser="[Kurzer Text: worum geht es in diesem Kapitel?]">
-  [Ausführlicher Text: so sind wir vorgegangen, das war wichtig.]
+<Chapter title="Story" teaser="Bob kommt aus der Kanalisation, wo alle schwarz und gefühllos sind. In der Stadt lernt er Schritt für Schritt, was Emotionen sind.">
+
+Alle Figuren im Spiel sind Blobs, sehr weiche, knautschige Wesen. Bob lebt in der Kanalisation zwischen schwarzen, gefühllosen Blobs. Weil er grau ist, wird er gemobbt. Er flieht durch die Kanäle, wird verfolgt und klettert schließlich durch einen Gullideckel nach oben.
+
+Dort landet er in einer leuchtenden Cyberpunk-Straße voller Blobs. Jeder trägt eine Kugel im Inneren, die in der Farbe seiner Emotion leuchtet. Nur Bob nicht. Der Einstieg soll sich deshalb überfordernd anfühlen: Es ist laut und voll, Bob steht im Weg und wird angemotzt. Daraus entsteht seine erste Emotion, Unsicherheit, und von da an leuchtet auch er.
+
+Den grünen, glücklichen Stadtteil darf er erst betreten, wenn er gelernt hat, glücklich zu sein. Dafür geht es in eine Arcade, die erste Quest. Beim Spielen bekommt er die Emotion Freude. Im neuen Stadtteil hilft er dann jemandem, die heruntergefallenen Äpfel aufzusammeln, und lernt so Empathie.
+
+Kämpfe gibt es keine. Man erkundet die Welt, redet mit NPCs und löst Quests. Weil wir nur drei Tage hatten, ist es ein kurzes Demo mit zwei Quests.
+
+</Chapter>
+
+<Chapter title="Charakter & Animation" teaser="Von der Papierskizze zum geriggten 3D-Blob: Bob, viele Animationen und die beiden Cutscenes am Anfang.">
+
+Bob habe ich zuerst auf Papier skizziert und dann in Blender modelliert und geriggt. Dabei habe ich Blender über einen MCP-Server mit Claude gesteuert.
+
+Danach habe ich alle Animationen gemacht: Grundbewegungen wie Idle, Laufen, Sprinten und Springen, Gesichtsausdrücke für die verschiedenen Emotionen und dazu Tanzen in mehreren Varianten, Hinsetzen, Hinfallen und Geschubst-Werden. Damit die Straße belebt wirkt, haben auch die NPCs eigene Animationen, zum Beispiel Tasche tragen, Ball spielen oder Fangen spielen.
+
+Außerdem habe ich die beiden Cutscenes am Anfang gebaut: die Flucht aus der Kanalisation und Bobs Ankunft in der Stadt.
+
+</Chapter>
+
+<Chapter title="Arbeiten mit KI" teaser="Ohne KI wäre so ein Spiel in drei Tagen nicht möglich gewesen. Die Ideen mussten trotzdem von uns kommen.">
+
+Wir haben mit Claude Desktop gearbeitet, über MCP-Server direkt verbunden mit Unity und Blender. Texturen und Sounds haben wir unter anderem mit ElevenLabs generiert. Dadurch haben wir in kurzer Zeit sehr viel geschafft.
+
+Was die KI nicht übernehmen konnte, war die eigentliche Gestaltung: das Konzept, das Worldbuilding und das Storytelling. Wie fühlt sich der Einstieg an, wo läuft welcher NPC entlang, wie führt man die Spieler durch die Welt? Das mussten wir selbst entscheiden.
+
+Das Team hat sehr gut zusammengearbeitet. Zwischendurch hatten wir Angst, nicht fertig zu werden, am Ende waren wir aber pünktlich fertig, ganz ohne Nachtschicht.
+
+</Chapter>
+
+<Chapter title="Spielen" teaser="The Colors We Feel direkt im Browser spielen.">
+  Einmal ins Spiel klicken, dann steuern: W A S D zum Bewegen, E zum Interagieren, Esc oder P für Pause.
+
+  <LiveEmbed slot="media" src="/projects/game/webgl/index.html" width={1280} height={720} label="The Colors We Feel als spielbare Web-Version" hint="Das Spiel wird mit der Tastatur gespielt – am Desktop ausprobieren." />
 </Chapter>

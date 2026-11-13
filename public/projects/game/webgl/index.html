@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>BobtheBlob</title>
+  <style>
+    html, body { margin: 0; height: 100%; background: #0b0b0f; overflow: hidden; color: #fff;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+    #unity-container { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
+    #unity-canvas { display: block; background: #0b0b0f; outline: none; }
+
+    #unity-loading { position: absolute; display: flex; flex-direction: column; align-items: center; gap: 16px; pointer-events: none; }
+    #unity-loading .title { font-size: 20px; letter-spacing: .06em; opacity: .9; }
+    #unity-progress { width: 260px; height: 6px; border-radius: 3px; background: rgba(255,255,255,.12); overflow: hidden; }
+    #unity-progress-full { width: 0; height: 100%; background: #fff; border-radius: 3px; transition: width .2s; }
+    #unity-loading .note { font-size: 13px; opacity: .45; }
+
+    #unity-hint { position: absolute; left: 0; right: 0; bottom: 12px; text-align: center; font-size: 13px; opacity: .45; pointer-events: none; }
+    #unity-fullscreen { position: absolute; right: 14px; bottom: 12px; display: none; border: 0; border-radius: 16px; padding: 7px 16px;
+      background: rgba(255,255,255,.12); color: #fff; font-size: 13px; cursor: pointer; }
+    #unity-fullscreen:hover { background: rgba(255,255,255,.22); }
+
+    #unity-message { position: absolute; max-width: 420px; padding: 0 24px; text-align: center; display: none; line-height: 1.5; }
+    #unity-message button { margin-top: 14px; border: 0; border-radius: 16px; padding: 8px 18px; background: rgba(255,255,255,.14); color: #fff; font-size: 14px; cursor: pointer; }
+    #unity-warning { position: absolute; left: 50%; top: 14px; transform: translateX(-50%); display: none; font-size: 13px; padding: 8px 16px; border-radius: 14px; background: rgba(0,0,0,.7); }
+  </style>
+</head>
+<body>
+  <div id="unity-container">
+    <canvas id="unity-canvas" width="1280" height="720" tabindex="-1"></canvas>
+
+    <div id="unity-loading">
+      <div class="title">BobtheBlob</div>
+      <div id="unity-progress"><div id="unity-progress-full"></div></div>
+      <div class="note">Loading, this can take a moment the first time</div>
+    </div>
+
+    <div id="unity-message">
+      <div>This game is played with a keyboard.<br>Please open it on a computer.</div>
+      <button id="unity-load-anyway">Load anyway</button>
+    </div>
+
+    <div id="unity-hint">Click the game once to focus it &nbsp;·&nbsp; W A S D to move &nbsp;·&nbsp; E to interact &nbsp;·&nbsp; Esc or P for pause</div>
+    <button id="unity-fullscreen">Fullscreen</button>
+    <div id="unity-warning"></div>
+  </div>
+
+  <script>
+    var container = document.querySelector("#unity-container");
+    var canvas = document.querySelector("#unity-canvas");
+    var loading = document.querySelector("#unity-loading");
+    var progressFull = document.querySelector("#unity-progress-full");
+    var message = document.querySelector("#unity-message");
+    var fullscreenButton = document.querySelector("#unity-fullscreen");
+    var warningBanner = document.querySelector("#unity-warning");
+    var hint = document.querySelector("#unity-hint");
+
+    // Canvas immer im 16:9-Format so groß wie möglich ins Fenster (oder in den iframe) einpassen
+    function fit() {
+      var w = window.innerWidth, h = window.innerHeight, ar = 1280 / 720;
+      var cw = w, ch = w / ar;
+      if (ch > h) { ch = h; cw = h * ar; }
+      canvas.style.width = Math.floor(cw) + "px";
+      canvas.style.height = Math.floor(ch) + "px";
+    }
+    window.addEventListener("resize", fit);
+    fit();
+
+    // Meldungen von Unity (Warnungen, Fehler) dezent oben anzeigen
+    function showBanner(msg, type) {
+      var div = document.createElement("div");
+      div.textContent = msg;
+      warningBanner.appendChild(div);
+      warningBanner.style.display = "block";
+      if (type !== "error") setTimeout(function () { warningBanner.removeChild(div); if (!warningBanner.children.length) warningBanner.style.display = "none"; }, 5000);
+    }
+
+    // Leertaste und Pfeiltasten sollen die Seite nicht scrollen, wenn das Spiel läuft
+    window.addEventListener("keydown", function (e) {
+      if (["Space", "ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].indexOf(e.code) >= 0) e.preventDefault();
+    });
+    canvas.addEventListener("mousedown", function () { canvas.focus(); });
+
+    var config = {
+      arguments: [],
+      dataUrl: "Build/9b830b87b2b6d215823969eb56a58a56.data.unityweb",
+      frameworkUrl: "Build/5e2829822ba14b858dba18bd524cf4f2.framework.js.unityweb",
+      codeUrl: "Build/c0021b0f91de84ec679dcaea9c783266.wasm.unityweb",
+      streamingAssetsUrl: "StreamingAssets",
+      companyName: "DefaultCompany",
+      productName: "BobtheBlob",
+      productVersion: "0.1.0",
+      showBanner: showBanner,
+      devicePixelRatio: 1    // schont auf Retina-Displays die Grafikkarte; 2 = schärfer, aber deutlich langsamer
+    };
+
+    function start() {
+      message.style.display = "none";
+      loading.style.display = "flex";
+      var script = document.createElement("script");
+      script.src = "Build/0ffdaa0fbdf24b0abcf66d29ace560dd.loader.js";
+      script.onload = function () {
+        createUnityInstance(canvas, config, function (progress) {
+          progressFull.style.width = (100 * progress) + "%";
+        }).then(function (unityInstance) {
+          loading.style.display = "none";
+          canvas.focus();
+          if (document.fullscreenEnabled || document.webkitFullscreenEnabled) {
+            fullscreenButton.style.display = "block";
+            fullscreenButton.onclick = function () { unityInstance.SetFullscreen(1); };
+          }
+        }).catch(function (msg) {
+          loading.style.display = "none";
+          showBanner(String(msg), "error");
+        });
+      };
+      document.body.appendChild(script);
+    }
+
+    // Auf Handys und Tablets läuft das Spiel nicht sinnvoll (nur Tastatur): erst Hinweis, nichts laden
+    var isTouchDevice = /Android|iPhone|iPad|iPod|Mobi/i.test(navigator.userAgent) || (navigator.maxTouchPoints > 1 && /Macintosh/.test(navigator.userAgent));
+    if (isTouchDevice) {
+      loading.style.display = "none";
+      hint.style.display = "none";
+      message.style.display = "block";
+      document.querySelector("#unity-load-anyway").onclick = start;
+    } else {
+      start();
+    }
+  </script>
+</body>
+</html>

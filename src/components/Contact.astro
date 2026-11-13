@@ -3,7 +3,7 @@ import SectionHead from './SectionHead.astro';
 import { copy } from '../i18n/copy';
 import { routes, useT, type Lang } from '../i18n/utils';
 
-// Kontakt ersetzt den Footer: Mail + „Legal Information“ (Impressum, Datenschutz).
+// Kontakt ersetzt den Footer: Mail + Impressum und Datenschutz.
 interface Props { lang: Lang }
 const { lang } = Astro.props;
 const t = useT(lang);
@@ -20,7 +20,6 @@ const c = copy[lang].contact;
     </button>
   </div>
   <footer class="legal">
-    <span>{t('contact.legal')}</span>
     <a href={routes.imprint[lang]}>{t('footer.imprint')}</a>
     <a href={routes.privacy[lang]}>{t('footer.privacy')}</a>
     <span class="copy">© {new Date().getFullYear()} {copy[lang].name}</span>

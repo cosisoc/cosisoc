@@ -55,7 +55,7 @@
 /* Kopf: Label y=128, Titel y=160, Titel → Inhalt 48 px; Text 5 Spalten, 1 Spalte Abstand, Bild 6 Spalten */
 .panel-head { row-gap: var(--head-gap); padding: calc(var(--section-top) - var(--nav-h)) 0 96px; }
 .head-title { grid-column: 1 / -1; }
-/* Zurück-Pfeil vor dem Abschnitts-Label: schließt das Projekt (wie „Arbeiten“ in der Leiste) */
+/* Zurück-Pfeil vor dem Abschnitts-Label: schließt das Projekt (wie „Hauptprojekte“ in der Leiste) */
 .head-back { display: block; width: fit-content; text-decoration: none; }
 .head-title h2 { font-size: var(--fs-display); text-transform: uppercase; margin-top: 16px; }
 .head-text { grid-column: 1 / 6; display: flex; flex-direction: column; gap: 48px; max-width: 560px; }
