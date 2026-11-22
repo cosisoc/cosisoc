@@ -1,0 +1,22 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="109.903" height="109.903" viewBox="0 0 109.903 109.903" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Group 150">
+<g id="Ellipse 100" filter="url(#filter0_d_0_342)">
+<circle cx="54.9516" cy="46.9516" r="40.5" fill="#5884BA"/>
+</g>
+<g id="lucide:sliders-horizontal">
+<path id="Vector" d="M49.2899 33.0162H34.0479M53.6447 63.5001H34.0479M57.9996 28.6614V33.0162M57.9996 33.0162V37.371M57.9996 33.0162H73.2415M62.3544 59.1452V63.5001M62.3544 63.5001V67.8549M62.3544 63.5001H73.2415M73.2415 48.2581H53.6447M44.935 43.9033V48.2581M44.935 48.2581V52.613M44.935 48.2581H34.0479" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke="white"/>
+</g>
+</g>
+<defs>
+<filter id="filter0_d_0_342" x="0" y="0" width="109.903" height="109.903" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset dy="8"/>
+<feGaussianBlur stdDeviation="7.22581"/>
+<feComposite in2="hardAlpha" operator="out"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_0_342"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_0_342" result="shape"/>
+</filter>
+</defs>
+</svg>

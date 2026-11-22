@@ -37,6 +37,9 @@ const c = copy[lang];
   .subline { font-size: var(--fs-sub); line-height: var(--lh-lead); font-weight: var(--fw-sub); max-width: 560px; }
   .photo { grid-column: 8 / 13; grid-row: 1 / 4; position: relative; }
   .photo :global(.photo-media) { position: absolute; inset: 0; height: 100%; border-radius: 0; object-position: top; filter: grayscale(1); }
+  @media (min-width: 768px) {
+    .photo :global(.photo-media) { scale: 0.85; transform-origin: bottom right; }
+  }
 
   /* Schmale Fenster (z. B. Tablet): Die Headline bräuchte die Spalte, und das hohe Feld würde das Foto seitlich abschneiden */
   @media (min-width: 768px) and (max-aspect-ratio: 4/3) {

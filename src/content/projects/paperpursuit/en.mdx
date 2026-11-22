@@ -1,25 +1,54 @@
 ---
 title: "Paper Pursuit"
-short: "A stop-motion film made of paper and newspaper clippings, created during Laborwoche 2025 at HfG Schwäbisch Gmünd."
+short: "A stop-motion film about a little paper man chased by a pair of scissors through different paper worlds."
 kind: side
 order: 3
-role: "[MY TASK]"
-team: "Cosima Bühler, Helena Noe, Annkathrin [SURNAME]"
-duration: "[DURATION]"
-semester: "Laborwoche 2025"
-tools: ["[TOOLS]"]
+role: ""
+team: "Cosima Bühler, Helena Noe, Annkathrin Schweikert"
+duration: "3 days · lab week, 2nd semester"
+semester: "2nd semester"
+tools: ["Cyclorama", "Paper", "DSLR camera", "Tripod"]
 tags: ["Stop-Motion"]
 preview:
   label: "Video: stop-motion film made of paper"
   video: "/projects/paperpursuit/paperpursuit.mp4"
   poster: ./paperpursuit-poster.jpg
 hero:
-  label: "Video: stop-motion film made of paper"
-  video: "/projects/paperpursuit/paperpursuit.mp4"
-  poster: ./paperpursuit-poster.jpg
-  controls: true
+  label: "Title image: “Paper Pursuit” in newspaper letters"
+  image: ./hero.jpg
 ---
 
-<Chapter title="Overview" teaser="[EN] [Short text: what is this chapter about?]">
-  [EN] [Longer text: how we approached it, what mattered.]
+import Carousel from '../../../components/Carousel.astro';
+import figuren from './figuren.jpg';
+import vogel from './vogel.jpg';
+import studio from './studio.jpg';
+import aufnahme from './aufnahme.jpg';
+import szene1 from './szene-1.jpg';
+import szene2 from './szene-2.jpg';
+import szene3 from './szene-3.jpg';
+import szene4 from './szene-4.jpg';
+import szene5 from './szene-5.jpg';
+import szene6 from './szene-6.jpg';
+import szene7 from './szene-7.jpg';
+
+<Chapter title="Overview" teaser="On the run from a pair of scissors – right through worlds made of paper." video="/projects/paperpursuit/paperpursuit.mp4" label="Watch the film (with sound)" controls wide>
+
+</Chapter>
+
+<Chapter title="Process" teaser="From paper scraps to a finished film in three days." wide>
+
+<Carousel slot="media" images={[
+  { image: figuren, label: 'Paper figures' },
+  { image: vogel, label: 'Making-of: the bird' },
+  { image: studio, label: 'Our set in the studio' },
+  { image: aufnahme, label: 'Shooting at the computer' },
+  { image: szene1 },
+  { image: szene2 },
+  { image: szene3 },
+  { image: szene4 },
+  { image: szene5 },
+  { image: szene6 },
+  { image: szene7 }
+]} />
+
 </Chapter>

@@ -1,0 +1,19 @@
+---
+// Farbiger Streifen über die volle Breite zwischen Titelbild und Kapiteln (Figma: „Wie Cluttr entstanden ist“).
+// Ein div statt section, sonst verschiebt es die Links/Rechts-Abwechslung der Kapitel (nth-of-type).
+// In der MDX-Datei: <Band title="…"><Figures images={[…]} /></Band>
+interface Props { title: string }
+const { title } = Astro.props;
+---
+<div class="band">
+  <h3 class="band-title">{title}</h3>
+  <slot />
+</div>
+
+<style>
+  .band {
+    display: flex; flex-direction: column; gap: 20px; padding: 40px 0;
+    background: var(--c-sand); box-shadow: 0 0 0 100vmax var(--c-sand); clip-path: inset(0 -100vmax);
+  }
+  .band-title { font-size: var(--fs-body); font-weight: 700; }
+</style>

@@ -1,13 +1,13 @@
 ---
 title: "Datenvisualisierung"
-short: "[Kurzbeschreibung der Datenvisualisierung – 2-Wochen-Projekt, live ausprobierbar.]"
+short: "Wohin fließen internationale Hilfsgelder? 1960 bis 2023 als interaktive Visualisierung."
 kind: side
 order: 1
-role: "[MEINE AUFGABE]"
-team: "[TEAM]"
-duration: "[DAUER]"
-semester: "[SEMESTER]"
-tools: ["[TOOLS]"]
+role: "Frontend und Visualisierungskonzept"
+team: "Cosima Bühler, Yannick Stegmeier, Magali Wilhelm, Shilei Xu"
+duration: "1 Woche · Kurs, 2. Semester"
+semester: "2. Semester"
+tools: ["Adobe Premiere Pro", "VS Code"]
 tags: ["Data Visualisation"]
 preview:
   label: "Video: Bedienung der Hilfsgelder-Visualisierung im Zeitverlauf"
@@ -21,11 +21,18 @@ hero:
 
 import LiveEmbed from '../../../components/LiveEmbed.astro';
 
-<Chapter title="Übersicht" teaser="[Kurzer Text: worum geht es in diesem Kapitel?]">
-  [Ausführlicher Text: so sind wir vorgegangen, das war wichtig.]
+<Chapter title="Übersicht" teaser="Wohin fließen internationale Hilfsgelder, und wie hat sich das über die Jahre verändert?" wide>
+
+Im Kurs sollten wir uns eine Statistik aussuchen und daraus eine Datenvisualisierung machen. Wir haben uns für den Fluss internationaler Hilfsgelder entschieden. Die Daten stammen aus der OECD-Statistik „DAC2A: Aid (ODA) disbursements to countries and regions“. Sie erfasst, wie viel öffentliche Entwicklungshilfe (ODA) tatsächlich ausgezahlt wurde, aufgeschlüsselt nach Geber- und Empfängerländern.
+
+Wir haben uns überlegt, wie sich diese Flüsse darstellen lassen. Die Visualisierung zeigt, welche Länder an welche Länder Geld schicken, und wie sich das über die Jahre verändert. Dabei sieht man auch die größten Geber und die Länder, die am meisten Geld bekommen haben.
+
+Ich habe das Frontend gemacht: wie die Visualisierung am Ende aussieht und wie sich die Daten darstellen lassen. Das Video zum Projekt haben wir in Adobe Premiere Pro geschnitten.
+
 </Chapter>
 
-<Chapter title="Technische Umsetzung" teaser="[Kurzer Text: worum geht es in diesem Kapitel?]">
-  [Ausführlicher Text: so sind wir vorgegangen, das war wichtig.]
-  <LiveEmbed slot="media" src="/projects/datenvisualisierung/live/index.html" width={1512} height={945} label="Live-Visualisierung: Internationale Hilfsgelder 1960–2023" hint="Die Visualisierung ist für große Bildschirme gebaut – am Desktop live ausprobieren." />
+<Chapter title="Live-Version" teaser="Zum Selbstausprobieren: die Visualisierung im Browser." wide>
+
+<LiveEmbed narrow slot="media" src="/projects/datenvisualisierung/live/index.html" width={1512} height={945} label="Live-Visualisierung: Internationale Hilfsgelder 1960–2023" hint="Die Visualisierung ist für große Bildschirme gebaut – am Desktop live ausprobieren." />
+
 </Chapter>

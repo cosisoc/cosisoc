@@ -1,7 +1,7 @@
 // Mauszeiger als grüner Punkt; über klickbaren Elementen wird er zum Ring.
 // Über einer Projektvorschau ([data-cursor-label]) wird er zum runden Button mit Pfeil und drehendem Text.
 // Nur mit Maus (nicht auf Touch-Geräten) und nicht bei „Bewegung reduzieren“.
-const HOVER = 'a, button, summary, [data-wheel]';
+const HOVER = 'a, button, summary, [data-wheel], [data-bob-hit]'; // data-bob-hit: Maus über Bob (bob/scene.js)
 const CASE = '[data-cursor-label]';
 
 if (matchMedia('(pointer: fine) and (prefers-reduced-motion: no-preference)').matches) {
@@ -30,19 +30,30 @@ if (matchMedia('(pointer: fine) and (prefers-reduced-motion: no-preference)').ma
     paused = video && !video.paused ? video : null;
     paused?.pause();
   };
-  addEventListener('pointermove', (e) => {
-    if (e.pointerType !== 'mouse') return;
-    dot.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
-    dot.classList.add('is-visible');
-    const preview = e.target.closest?.(CASE);
+  // Zustand (Projekt-Button, Ring) hängt am Element unter der Maus. Das ändert sich auch ohne Mausbewegung,
+  // wenn ein Projekt auf- oder zugeht – deshalb gibt es eine eigene Funktion, die auch dann neu rechnet.
+  const setState = (target) => {
+    const preview = target?.closest?.(CASE);
     if (preview && preview.dataset.cursorLabel !== label) {
       label = preview.dataset.cursorLabel;
       textPath.textContent = `${label} • ${label} • `.toUpperCase();
     }
     pauseVideoIn(preview);
     dot.classList.toggle('is-case', Boolean(preview));
-    dot.classList.toggle('is-hover', !preview && Boolean(e.target.closest?.(HOVER)));
+    dot.classList.toggle('is-hover', !preview && Boolean(target?.closest?.(HOVER)));
+  };
+  let last = null;
+  addEventListener('pointermove', (e) => {
+    if (e.pointerType !== 'mouse') return;
+    last = [e.clientX, e.clientY];
+    dot.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
+    dot.classList.add('is-visible');
+    setState(e.target);
   }, { passive: true });
+  // Projekt geöffnet oder geschlossen: sofort neu prüfen, nach dem Hereinfahren/Wegfahren noch einmal
+  const refresh = () => { if (last) setState(document.elementFromPoint(...last)); };
+  new MutationObserver(refresh).observe(document.body, { attributes: true, attributeFilter: ['class'] });
+  addEventListener('transitionend', (e) => { if (e.target.classList?.contains('panel-sheet')) requestAnimationFrame(refresh); });
   document.documentElement.addEventListener('pointerleave', () => dot.classList.remove('is-visible'));
   // Im iframe kommen keine Mausbewegungen an: Punkt ausblenden, statt ihn am Rand stehen zu lassen
   addEventListener('pointerover', (e) => { if (e.target.tagName === 'IFRAME') dot.classList.remove('is-visible'); });

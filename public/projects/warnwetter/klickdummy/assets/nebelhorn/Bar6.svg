@@ -1,0 +1,16 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="178.999" height="7" viewBox="0 0 178.999 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Group 110">
+<g id="Frame 95">
+<path id="Union" d="M103.5 0C105.433 0 107 1.567 107 3.5C107 5.433 105.433 7 103.5 7H3.5C1.567 7 0 5.433 0 3.5C1.61066e-08 1.567 1.567 0 3.5 0H103.5Z" fill="url(#paint0_linear_0_17)"/>
+</g>
+<path id="Subtract" d="M175.499 0C177.432 0 178.999 1.567 178.999 3.5C178.999 5.433 177.432 7 175.499 7H76.3496C78.2825 6.99993 79.8496 5.43295 79.8496 3.5C79.8496 1.56705 78.2825 7.00931e-05 76.3496 0H175.499Z" fill="#D9D9D9"/>
+</g>
+<defs>
+<linearGradient id="paint0_linear_0_17" x1="0" y1="3.5" x2="141" y2="3.5" gradientUnits="userSpaceOnUse">
+<stop stop-color="#5884BA"/>
+<stop offset="0.361882" stop-color="#55BDA3"/>
+<stop offset="0.642049" stop-color="#EFD871"/>
+<stop offset="1" stop-color="#FF946D"/>
+</linearGradient>
+</defs>
+</svg>

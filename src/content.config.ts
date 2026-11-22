@@ -29,6 +29,7 @@ const projects = defineCollection({
       preview: media,
       hero: media,
       model: z.object({ src: z.string(), label: z.string() }).optional(),
+      bob: z.object({ label: z.string() }).optional(), // Bob-Viewer mit Bühne statt Hero (nur Game)
     });
   },
 });

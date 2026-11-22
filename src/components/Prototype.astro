@@ -1,17 +1,22 @@
 ---
 // Figma-Klickdummy: erst Platzhalter mit Knopf, der iframe lädt (und damit Figma kontaktiert) erst nach dem Klick.
 // In der MDX-Datei: <Prototype slot="media" url="https://www.figma.com/proto/…" label="Titel" button="Prototyp starten" />
+// Eigener Klickdummy aus public/ geht auch: url="/projects/…/index.html"
 interface Props { url: string; label: string; button: string }
 const { url, label, button } = Astro.props;
-const embed = new URL(url);
-embed.hostname = 'embed.figma.com';
-embed.searchParams.delete('show-proto-sidebar');
-embed.searchParams.delete('t');
-embed.searchParams.set('embed-host', 'share');
-embed.searchParams.set('hide-ui', '1');
-embed.searchParams.set('hotspot-hints', '0');
+let src = url;
+if (!url.startsWith('/')) {
+  const embed = new URL(url);
+  embed.hostname = 'embed.figma.com';
+  embed.searchParams.delete('show-proto-sidebar');
+  embed.searchParams.delete('t');
+  embed.searchParams.set('embed-host', 'share');
+  embed.searchParams.set('hide-ui', '1');
+  embed.searchParams.set('hotspot-hints', '0');
+  src = embed.href;
+}
 ---
-<div class="proto" data-proto-src={embed.href} data-proto-label={label}>
+<div class="proto" data-proto-src={src} data-proto-label={label}>
   <button class="btn proto-load" type="button">{button}</button>
 </div>
 

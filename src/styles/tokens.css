@@ -15,6 +15,7 @@
   --c-dotted-bg: #FFFFFF;
   --c-dot: #C8C8C8;
   --c-card: #FFFFFF;
+  --c-sand: #F4F1EA; /* beiger Hintergrund für Band und hervorgehobene Kapitel */
 
   /* Schrift: Satoshi. Drei Stufen (bei 1512 px Breite): Überschrift 64 Bold / Zwischenüberschrift 28 Medium / Text 20 Regular.
      Hero 112 nur auf der Landing. Labels = Text in Bold, Nebeninfos = Text in --c-text-muted. */
@@ -37,6 +38,7 @@
   --section-top: 128px; /* Label bei y=128, Titel bei y=160 */
   --head-gap: 48px; /* Titel → Inhalt */
   --radius: 14px;
+  --media-scale: 0.8; /* alle Bilder/Videos/Demos auf Projektseiten: 1 = volle Rasterbreite, kleiner = kleiner */
   --radius-tab: 30px;
 
   /* Bewegung */

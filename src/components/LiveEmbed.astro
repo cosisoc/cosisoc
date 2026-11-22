@@ -2,12 +2,15 @@
 // Live-Demo (eigene HTML-Seite aus public/) im iframe, auf die Breite skaliert.
 // Die Seite ist für eine feste Größe gebaut (width × height). Auf dem Handy steht statt der Demo ein Hinweis.
 // In der MDX-Datei: <LiveEmbed slot="media" src="/projects/…/index.html" width={1512} height={945} label="Titel" hint="Am Desktop ausprobieren" />
-interface Props { src: string; width: number; height: number; label: string; hint: string }
-const { src, width, height, label, hint } = Astro.props;
+// Mit narrow steht die Demo nur über Spalte 4–12 (bündig mit dem Kernsatz) statt über die volle Breite.
+// Mit button="Spiel starten" lädt die Demo erst nach Klick auf den Knopf (für schwere Demos wie das Unity-Spiel).
+interface Props { src: string; width: number; height: number; label: string; hint: string; button?: string; narrow?: boolean }
+const { src, width, height, label, hint, button, narrow } = Astro.props;
 ---
-<div class="live" data-live-embed style={`--w:${width}; --h:${height}`}>
+<div class="live" data-live-embed data-narrow={narrow ? '' : undefined} style={`--w:${width}; --h:${height}`}>
   <div class="live-frame">
     <iframe data-src={src} title={label} width={width} height={height} allow="fullscreen"></iframe>
+    {button && <button class="btn live-play" type="button">{button}</button>}
   </div>
   <p class="live-hint">{hint}</p>
 </div>
@@ -18,20 +21,28 @@ const { src, width, height, label, hint } = Astro.props;
     const frame = box.querySelector<HTMLElement>('.live-frame')!;
     const width = Number(box.style.getPropertyValue('--w'));
     new ResizeObserver(() => box.style.setProperty('--s', String(frame.clientWidth / width))).observe(frame);
-    // Erst laden, wenn das Kapitel offen und die Demo im Bild ist (alle Projekte liegen schon auf der Startseite).
+    // Erst laden, wenn die Demo im Bild ist (alle Projekte liegen schon auf der Startseite).
     const iframe = frame.querySelector('iframe')!;
     const isLoaded = () => iframe.getAttribute('src') === iframe.dataset.src;
-    new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting && !isLoaded()) iframe.src = iframe.dataset.src!;
-    }).observe(frame);
+    const play = frame.querySelector<HTMLButtonElement>('.live-play');
+    if (play) {
+      // Erst auf Knopfdruck laden, danach die Tastatur direkt ins Spiel geben
+      play.addEventListener('click', () => { play.hidden = true; iframe.src = iframe.dataset.src!; });
+      iframe.addEventListener('load', () => { if (isLoaded()) iframe.focus(); });
+    } else {
+      new IntersectionObserver(([entry]) => {
+        if (entry.isIntersecting && !isLoaded()) iframe.src = iframe.dataset.src!;
+      }).observe(frame);
+    }
 
-    // Kapitel oder Projekt zu: wieder entladen, sonst rechnet die Demo unsichtbar weiter. Vorbeiscrollen behält den Stand.
+    // Projekt zu: wieder entladen, sonst rechnet die Demo unsichtbar weiter. Vorbeiscrollen behält den Stand.
     const panel = frame.closest('.panel')!;
-    const chapter = frame.closest('details')!;
     const unloadIfClosed = () => {
-      if (isLoaded() && !(panel.classList.contains('is-open') && chapter.open)) iframe.src = 'about:blank';
+      if (isLoaded() && !panel.classList.contains('is-open')) {
+        iframe.src = 'about:blank';
+        if (play) play.hidden = false;
+      }
     };
-    chapter.addEventListener('toggle', unloadIfClosed);
     new MutationObserver(unloadIfClosed).observe(panel, { attributes: true, attributeFilter: ['class'] });
   }
 </script>
@@ -45,6 +56,13 @@ const { src, width, height, label, hint } = Astro.props;
     overflow: hidden;
     border-radius: var(--radius);
   }
+  .live-frame:has(.live-play:not([hidden])) { background: var(--c-placeholder); }
+  .live-play {
+    position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
+    display: flex; align-items: center; gap: 10px; padding: 14px 28px; border: 0; border-radius: 999px;
+    background: var(--c-accent); color: var(--c-on-accent); font: inherit; font-weight: 700; cursor: pointer;
+  }
+  .live-play::before { content: ''; border-left: 12px solid currentColor; border-block: 7px solid transparent; }
   iframe { position: absolute; top: 0; left: 0; border: 0; transform: scale(var(--s)); transform-origin: 0 0; }
   .live-hint { display: none; font-weight: 700; color: var(--c-text-muted); }
 

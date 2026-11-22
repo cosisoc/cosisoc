@@ -1,0 +1,15 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="160" height="117" viewBox="0 0 160 117" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Frame 107">
+<rect id="Rectangle 199" x="96" y="8" width="64" height="1" rx="0.5" fill="#E2E2E2"/>
+<rect id="Rectangle 198" x="96" y="35" width="64" height="1" rx="0.5" fill="#E2E2E2"/>
+<rect id="Rectangle 193" x="96" y="62" width="64" height="1" rx="0.5" fill="#E2E2E2"/>
+<rect id="Rectangle 200" x="96" y="89" width="64" height="1" rx="0.5" fill="#C7C7C7"/>
+<rect id="Rectangle 201" x="96" y="116" width="64" height="1" rx="0.5" fill="#C7C7C7"/>
+<path id="Line 104" d="M124 2L146 2" stroke-width="4" stroke-linecap="round" stroke="#5B5B5B"/>
+<path id="Line 105" d="M124 28L146 28" stroke-width="4" stroke-linecap="round" stroke="#5B5B5B"/>
+<path id="Line 106" d="M124 56L146 56" stroke-width="4" stroke-linecap="round" stroke="#5B5B5B"/>
+<path id="Line 107" d="M124 82L146 82" stroke-width="4" stroke-linecap="round" stroke="#E4E4E4"/>
+<path id="Line 108" d="M124 109L146 109" stroke-width="4" stroke-linecap="round" stroke="#E4E4E4"/>
+<path id="Rectangle 201_2" d="M60.5295 36C66.3122 36 71 31.3122 71 25.5295V23.4705C71 17.6878 66.3122 13 60.5295 13L19.4705 13C13.6878 13 9 17.6878 9 23.4705V25.5295C9 31.3122 13.6878 36 19.4705 36L60.5295 36Z" fill="#6A6A6A"/>
+</g>
+</svg>

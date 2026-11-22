@@ -20,6 +20,7 @@ export const ui = {
     'notFound.title': 'Seite nicht gefunden',
     'notFound.text': 'Diese Seite gibt es nicht (mehr).',
     'console.hello': '👋 Hi! Neugierig? Schreib mir:',
+    'bob.moods': 'Emotion',
   },
   en: {
     'nav.work': 'Main Projects',
@@ -41,5 +42,6 @@ export const ui = {
     'notFound.title': 'Page not found',
     'notFound.text': 'This page doesn’t exist (anymore).',
     'console.hello': '👋 Hi! Curious? Write me:',
+    'bob.moods': 'Emotion',
   },
 } as const;

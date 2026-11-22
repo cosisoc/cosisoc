@@ -5,41 +5,60 @@ kind: side
 order: 2
 role: "Character design, modelling & rigging, animation, cutscenes, concept & story"
 team: "Cosima Bühler, Tobias Wallet, Annika Feist, Leonard Zacke"
-duration: "3 days"
-semester: "Winter 26/27 · Lab week"
+duration: "3 days · lab week, 4th semester"
+semester: "4th semester"
 tools: ["Unity", "Blender", "Claude", "MCP (Unity, Blender)", "ElevenLabs", "GitHub"]
 tags: ["Game Design", "Character Design", "3D Animation"]
 preview:
-  label: "[Game screenshot]"
+  label: "Video: clips from The Colors We Feel"
+  video: "/projects/game/preview.mp4"
+  poster: ./preview-poster.jpg
 hero:
   label: "[Hero: rendering, photo or video of the final product]"
+bob:
+  label: "Bob the Blob in his neon alley, as a rotatable 3D figure"
 ---
 
 import LiveEmbed from '../../../components/LiveEmbed.astro';
+import BobViewer from '../../../components/BobViewer.astro';
+import Carousel from '../../../components/Carousel.astro';
+import skizzen from './skizzen.png';
+import varianten from './varianten.png';
+import gesichter from './gesichter.png';
+import graybox from './graybox.png';
+import thirdpersonTest from './thirdperson-test.png';
+import kameraDrehen from './kamera-drehen.png';
+import kameraNah from './kamera-nah.png';
+import vogelperspektive from './vogelperspektive.png';
+import artGasse from './art-gasse.png';
+import artGasse2 from './art-gasse-2.png';
+import neonlicht from './neonlicht.png';
 
-<Chapter title="Overview" teaser="A blob without feelings arrives in a city where everyone glows in the colour of their emotions. In three days we turned this into a playable demo.">
+<Chapter title="Process" teaser="From a paper sketch to a finished game." wide>
+
+<Carousel slot="media" images={[
+  { image: skizzen, label: 'Sketches' },
+  { image: varianten, label: 'Variations' },
+  { image: gesichter, label: 'Facial expressions' },
+  { image: graybox, label: 'Greybox: the city as blocks' },
+  { image: thirdpersonTest, label: 'Third person: first test' },
+  { image: kameraDrehen, label: 'Rotating the camera with Q/R' },
+  { image: kameraNah, label: 'Camera close behind Bob' },
+  { image: vogelperspektive, label: "Bird's-eye view at 45°" },
+  { image: artGasse, label: 'First art in the alley' },
+  { image: artGasse2, label: 'More colour and signs' },
+  { image: neonlicht, label: 'Neon lights' }
+]} />
 
 The Colors We Feel was made during lab week in the winter semester 26/27. There were four of us, three from Interaction Design and one from Product Design, and we had exactly three days. In that time we built a whole world with our own assets, came up with a story and did the sound design and lighting. We developed it in Unity and worked together through GitHub.
 
-My role: I designed the main character from sketch to finished rig, made all the animations and cutscenes, and helped shape the game concept and story.
-
-</Chapter>
-
-<Chapter title="Story" teaser="Bob comes from the sewers, where everyone is black and feels nothing. In the city he learns, step by step, what emotions are.">
-
-Every character in the game is a blob, a very soft, squishy creature. Bob lives in the sewers among black blobs who feel nothing. Because he is grey, they bully him. He runs away through the tunnels, gets chased and finally escapes through a manhole cover.
-
-Up there he lands in a glowing cyberpunk street full of blobs. Each one has an orb inside that glows in the colour of its emotion. Only Bob doesn't. That's why the opening is meant to feel overwhelming: it is loud and crowded, Bob is in everyone's way and gets yelled at. This gives him his first emotion, insecurity, and from then on he glows too.
-
-He is only allowed into the green, happy district once he has learned to be happy. So he is sent to an arcade, the first quest, and while playing he gains the emotion joy. In the new district he helps someone pick up the apples they dropped and learns empathy.
-
-There is no fighting. You explore the world, talk to NPCs and solve quests. Since we only had three days, it is a short demo with two quests.
-
-</Chapter>
-
-<Chapter title="Character & Animation" teaser="From a paper sketch to a rigged 3D blob: Bob, lots of animations and the two opening cutscenes.">
-
 I sketched Bob on paper first, then modelled and rigged him in Blender. To do this I controlled Blender with Claude through an MCP server.
+
+</Chapter>
+
+<Chapter title="Emotion and Animation" teaser="Step by step, Bob learns what emotions are: first insecurity, then joy, then empathy.">
+
+<BobViewer slot="media" label="Bob the Blob as a rotatable 3D figure, playing his animations on his own" color="#99d19e" mood="unsure" moods={{ neutral: "Neutral", unsure: "Unsure", happy: "Joy", empathy: "Empathy", scared: "Fear" }} acts={["walk", "sprint", "jump", "fall", "sit", "pickup", "laugh", "wave", "spin", "hop", "joy", "win"]} />
 
 After that I made all the animations: basic movement like idle, walking, sprinting and jumping, facial expressions for the different emotions, and on top of that several dances, sitting down, falling over and being pushed. To bring the street to life, the NPCs have their own animations too, like carrying a bag, playing ball or playing tag.
 
@@ -47,7 +66,27 @@ I also built the two cutscenes at the start: the escape from the sewers and Bob'
 
 </Chapter>
 
-<Chapter title="Working with AI" teaser="Without AI, a game like this in three days would not have been possible. The ideas still had to come from us.">
+<Chapter title="Sneak Peek" teaser="A blob without feelings arrives in a city where everyone glows in the colour of their emotions." video="/projects/game/sneak-peek.mp4" label="Highlights from the game">
+
+Every character in the game is a blob, a very soft, squishy creature. Bob lives in the sewers among black blobs who feel nothing. Because he is grey, they bully him. He runs away through the tunnels, gets chased and finally escapes through a manhole cover.
+
+Up there he lands in a glowing cyberpunk street full of blobs. Each one has an orb inside that glows in the colour of its emotion. Only Bob doesn't. That's why the opening is meant to feel overwhelming: it is loud and crowded, Bob is in everyone's way and gets yelled at. This gives him his first emotion, insecurity, and from then on he glows too.
+
+He is only allowed into the green, happy district once he has learned to be happy. So he is sent to an arcade, the first quest, and while playing he gains the emotion joy. In the new district he helps someone pick up the apples they dropped and learns empathy.
+
+</Chapter>
+
+<Chapter title="Demo" teaser="Our demo to play yourself, with slightly reduced graphics." wide>
+
+<LiveEmbed slot="media" src="/projects/game/webgl/index.html" width={1280} height={720} button="Start game" label="The Colors We Feel as a playable web version" hint="The game is played with a keyboard – try it on desktop." />
+
+There is no fighting. You explore the world, talk to NPCs and solve quests. Since we only had three days, it is a short demo with two quests.
+
+Best played with mouse and keyboard: click the game once, then W A S D to move, E to interact, Esc or P to pause. Depending on your device it may stutter a little.
+
+</Chapter>
+
+<Chapter title="Working with AI" teaser="Without AI, a game like this in three days would not have been possible. The ideas still had to come from us." wide>
 
 We worked with Claude Desktop, connected directly to Unity and Blender through MCP servers. We generated textures and sounds with tools such as ElevenLabs. This let us get a lot done in very little time.
 
@@ -57,8 +96,8 @@ The team worked together really well. At times we were worried we wouldn't finis
 
 </Chapter>
 
-<Chapter title="Play" teaser="Play The Colors We Feel right in the browser.">
-  Click the game once, then: W A S D to move, E to interact, Esc or P to pause.
+<Chapter title="My Role" teaser="Character design, rigging, all animations and both cutscenes." wide>
 
-  <LiveEmbed slot="media" src="/projects/game/webgl/index.html" width={1280} height={720} label="The Colors We Feel as a playable web version" hint="The game is played with a keyboard – try it on desktop." />
+I designed the main character from sketch to finished rig, made all the animations and cutscenes, and helped shape the game concept and story.
+
 </Chapter>

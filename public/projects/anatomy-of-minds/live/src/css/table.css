@@ -4,6 +4,7 @@
 :root {
     --table: #f6f2ed;
     --table-line: #e6ddd3;
+    --table-edge: #e4d9cd;
     --brown: #6b4130;
     --accent: #c96f4a;
     --cream: #fff8f1;
@@ -22,11 +23,15 @@ html, body { overflow: hidden; }
     user-select: none;
 }
 
-/* Tischplatte von oben, bewusst zurückhaltend: helle Fläche, feine Kante, kein Schatten */
+/* Tisch als Illustration: Platte flach von oben (Projektion bleibt unverzerrt),
+   darunter die Vorderkante als Dicke und zwei schräge Beine */
 #table {
+    --edge: 1.1cqw;
+    --leg: 5.5cqw;
     container-type: inline-size;
     position: relative;
-    width: min(1500px, 96vw, (100vh - 90px) * 1.9);
+    width: min(1500px, 96vw, (100vh - 90px) * 1.65);
+    margin-bottom: calc(var(--edge) + var(--leg));
     display: grid;
     grid-template-columns: 9cqw 1fr;
     gap: 1.6cqw;
@@ -34,7 +39,20 @@ html, body { overflow: hidden; }
     border-radius: 2cqw;
     background: var(--table);
     border: 1px solid var(--table-line);
+    box-shadow: 0 var(--edge) 0 var(--table-edge), 0 calc(var(--edge) + 0.8cqw) 1.6cqw rgb(80 40 20 / 0.12);
 }
+#table::before, #table::after {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    top: calc(100% - 1cqw);
+    width: 2.6cqw;
+    height: calc(var(--leg) + var(--edge) + 1cqw);
+    border-radius: 0 0 0.5cqw 0.5cqw;
+    background: linear-gradient(90deg, var(--table) 55%, var(--table-edge) 55%);
+}
+#table::before { left: 4cqw; transform: skewX(12deg); transform-origin: top; }
+#table::after { right: 4cqw; transform: skewX(-12deg); transform-origin: top; }
 
 /* Podest: nur zwei feine Kreise als Plätze */
 #podest {

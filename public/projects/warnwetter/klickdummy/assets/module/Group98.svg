@@ -1,0 +1,10 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="161" height="64" viewBox="0 0 161 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Group 97">
+<path id="Vector 32" d="M1 0.5C0.723858 0.5 0.5 0.723858 0.5 1C0.5 1.27614 0.723858 1.5 1 1.5V1V0.5ZM1 1V1.5H160V1V0.5H1V1Z" fill="#5B5B5B" fill-opacity="0.16"/>
+<path id="Vector 33" d="M1 31.5C0.723858 31.5 0.5 31.7239 0.5 32C0.5 32.2761 0.723858 32.5 1 32.5V32V31.5ZM1 32V32.5H160V32V31.5H1V32Z" fill="#5B5B5B" fill-opacity="0.16"/>
+<path id="Vector 34" d="M1 62.5C0.723858 62.5 0.5 62.7239 0.5 63C0.5 63.2761 0.723858 63.5 1 63.5V63V62.5ZM1 63V63.5H160V63V62.5H1V63Z" fill="#5B5B5B" fill-opacity="0.16"/>
+<path id="Vector 35" d="M1 1H160" stroke-width="2" stroke-linecap="round" stroke="#5B5B5B" stroke-opacity="0.16"/>
+<path id="Vector 36" d="M1 32H160" stroke-width="2" stroke-linecap="round" stroke="#5B5B5B" stroke-opacity="0.16"/>
+<path id="Vector 37" d="M1 63H160" stroke-width="2" stroke-linecap="round" stroke="#5B5B5B" stroke-opacity="0.16"/>
+</g>
+</svg>

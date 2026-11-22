@@ -63,7 +63,7 @@
 .head-facts { display: flex; flex-direction: column; gap: 4px; }
 .head-facts dt { font-weight: 700; }
 .head-facts dt, .head-facts dd { display: inline; }
-.head-media { grid-column: 7 / 13; }
+.head-media { grid-column: 7 / 13; width: calc(100% * var(--media-scale)); justify-self: center; }
 /* height: auto, sonst setzt die Höhenangabe echter Bilder das Seitenverhältnis außer Kraft */
 .panel-head .head-media .head-hero { aspect-ratio: 4 / 3; height: auto; border-radius: var(--radius); }
 /* Videos im Titelbild nie beschneiden: immer ganz, in ihrem eigenen Format */
@@ -74,55 +74,29 @@
   .has-model { grid-template-rows: auto 1fr; }
   .has-model .head-title { grid-column: 1 / 6; grid-row: 1; }
   .has-model .head-text { grid-row: 2; }
-  .has-model .head-media { grid-column: 1 / -1; grid-row: 1 / span 2; justify-self: end; width: 61%; margin-top: -78px; }
+  .has-model .head-media { grid-column: 1 / -1; grid-row: 1 / span 2; justify-self: end; width: calc(61% * var(--media-scale)); margin-right: calc(61% * (1 - var(--media-scale)) / 2); margin-top: -78px; }
 }
 
-/* Kapitel: nummerierte Liste mit + / −; Zeilen 88 px, Nummer am Rand, Titel nach 80 px, Kreis 48 px rechts */
+/* Kapitel (Figma-Vorlage), immer offen: Linie, Kopf mit Nummer + Titel (Spalte 1–3) und Kernsatz (Spalte 4–10),
+   darunter Text 5 Spalten links, Bild 6 Spalten rechts (4:3) – bei jedem zweiten Kapitel gespiegelt */
 .chapters { counter-reset: chapter; border-bottom: 1px solid var(--c-line); }
-.chapter { counter-increment: chapter; border-top: 1px solid var(--c-line); }
-.chapter-row {
-  display: grid;
-  grid-template-columns: 80px 1fr auto;
-  align-items: center;
-  min-height: 88px;
-  font-size: var(--fs-sub);
-  font-weight: var(--fw-sub);
-  line-height: var(--lh-lead);
-  cursor: pointer;
-  list-style: none;
-}
-.chapter-row::-webkit-details-marker { display: none; }
+.chapter { counter-increment: chapter; border-top: 1px solid var(--c-line); padding: 32px 0 96px; }
+.chapter-head { row-gap: 16px; }
+/* tint: Kapitel auf beigem Grund über die volle Breite (Figma: Prototyping) */
+.chapter.is-tinted { background: var(--c-sand); box-shadow: 0 0 0 100vmax var(--c-sand); clip-path: inset(0 -100vmax); border-top-color: transparent; }
+.chapter-more blockquote { margin: 0 0 24px; font-size: var(--fs-sub); font-style: italic; line-height: var(--lh-lead); }
+.chapter-side { grid-column: 1 / 4; display: flex; flex-direction: column; gap: 4px; font-size: var(--fs-body); line-height: var(--lh-lead); letter-spacing: 0; }
+.chapter-num { font-weight: 400; color: var(--c-text-muted); }
 .chapter-num::before { content: counter(chapter, decimal-leading-zero); }
-.chapter-icon {
-  position: relative;
-  width: 48px;
-  aspect-ratio: 1;
-  border: 1.5px solid var(--c-text);
-  border-radius: 50%;
-  transition: background var(--dur) ease, border-color var(--dur) ease;
-}
-.chapter-icon::before, .chapter-icon::after {
-  content: '';
-  position: absolute;
-  inset: 50% auto auto 50%;
-  width: 50%;
-  height: 2px;
-  background: currentColor;
-  transform: translate(-50%, -50%);
-  transition: transform var(--dur) var(--ease);
-}
-.chapter-icon::after { transform: translate(-50%, -50%) rotate(90deg); }
-.chapter[open] .chapter-icon::after { transform: translate(-50%, -50%) rotate(0deg); }
-.chapter-row:hover .chapter-icon { border-color: var(--c-accent); color: var(--c-accent); }
-
-/* Aufgeklappt: Text 5 Spalten links, Bild 6 Spalten rechts (4:3) – bei jedem zweiten Kapitel gespiegelt */
-.chapter-body { row-gap: 32px; padding: 16px 0 72px; animation: chapter-in var(--dur-slow) var(--ease); }
+.chapter-main { grid-column: 4 / 11; display: flex; flex-direction: column; gap: 20px; }
+.chapter-body { row-gap: 32px; padding-top: 32px; }
 .chapter-text { grid-column: 1 / 6; display: flex; flex-direction: column; gap: 24px; max-width: 560px; }
 .chapter-teaser { font-size: var(--fs-sub); font-weight: var(--fw-sub); line-height: var(--lh-lead); }
 .chapter-more { font-size: var(--fs-body); line-height: var(--lh-body); }
 .chapter-more p + p { margin-top: 24px; }
 .chapters .chapter-body .chapter-media { grid-column: 7 / 13; aspect-ratio: 4 / 3; height: auto; border-radius: var(--radius); }
 .chapters .chapter-body .chapter-media.is-contain { object-fit: contain; }
+.chapters .chapter-body video.chapter-media { aspect-ratio: auto; } /* Videos im eigenen Format statt auf 4:3 beschnitten */
 /* Abwechselnd: gerade Kapitel mit Bild links (6 Spalten), Text rechts (5 Spalten) */
 .chapter:nth-of-type(even) .chapter-text { grid-column: 8 / 13; order: 2; }
 .chapters .chapter:nth-of-type(even) .chapter-body .chapter-media { grid-column: 1 / 7; }
@@ -130,7 +104,15 @@
 .chapters .chapter:nth-of-type(even) .chapter-body .chapter-custom { grid-column: 1 / 7; }
 /* Live-Demo braucht Platz: volle Breite unter dem Text */
 .chapters .chapter .chapter-body .chapter-custom:has(.live) { grid-column: 1 / -1; order: 3; }
-@keyframes chapter-in { from { opacity: 0; transform: translateY(16px); } }
+/* wide: Medium über die volle Breite, Bilder und Videos in 16:9 */
+.chapters .chapter.is-wide .chapter-body .chapter-media,
+.chapters .chapter.is-wide .chapter-body .chapter-custom { grid-column: 1 / -1; }
+.chapters .chapter.is-wide .chapter-body .chapter-media { aspect-ratio: 16 / 9; }
+.chapters .chapter .chapter-body .chapter-custom:has(.live[data-narrow]) { grid-column: 4 / -1; } /* schmale Demo: bündig mit dem Kernsatz */
+/* Medien einheitlich um --media-scale verkleinern (tokens.css), damit ein Kapitel auf einen Bildschirm passt.
+   Sie bleiben mittig in ihren Spalten; Karussell (läuft über den Rand) und schmale Demo ausgenommen. */
+.chapters .chapter-body .chapter-media { width: calc(100% * var(--media-scale)); justify-self: center; }
+.chapters .chapter-custom > :not(.carousel, .live[data-narrow]) { width: calc(100% * var(--media-scale)); flex: none; }
 
 /* Nächstes Projekt: Label und Titel linksbündig auf einer Linie mit dem Rand */
 .panel-next {
@@ -147,6 +129,5 @@
 
 @media (max-width: 767px) {
   .bar-crumbs .bar-item:first-child { display: none; }
-  .chapter-row { grid-template-columns: 56px 1fr auto; }
   .chapter:nth-of-type(even) .chapter-text { order: 0; } /* Handy: Text immer zuerst */
 }

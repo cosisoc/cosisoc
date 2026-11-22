@@ -3,6 +3,7 @@ import { render } from 'astro:content';
 import Media from './Media.astro';
 import Chapter from './Chapter.astro';
 import Model3D from './Model3D.astro';
+import BobViewer from './BobViewer.astro';
 import LangSwitch from './LangSwitch.astro';
 import { projectUrl, otherLang, routes, useT, type Lang } from '../i18n/utils';
 import type { Project } from '../lib/projects';
@@ -25,7 +26,7 @@ const facts = [
   [t('project.team'), d.team],
   [t('project.tools'), d.tools.join(', ')],
   [t('project.role'), d.role],
-];
+].filter(([, value]) => value); // leere Angaben nicht anzeigen
 ---
 <div
   class:list={['panel', { 'is-open': open }]}
@@ -63,6 +64,8 @@ const facts = [
       <div class="head-media">
         {d.model
           ? <Model3D src={d.model.src} label={d.model.label} />
+          : d.bob
+          ? <BobViewer stage label={d.bob.label} />
           : <Media media={d.hero} class="head-hero" />}
       </div>
     </section>

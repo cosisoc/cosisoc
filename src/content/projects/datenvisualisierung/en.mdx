@@ -1,13 +1,13 @@
 ---
 title: "Datenvisualisierung"
-short: "[Short description of the data visualisation – two-week project, try it live.]"
+short: "Where does international aid money flow? 1960 to 2023 as an interactive visualisation."
 kind: side
 order: 1
-role: "[MY TASK]"
-team: "[TEAM]"
-duration: "[DURATION]"
-semester: "[SEMESTER]"
-tools: ["[TOOLS]"]
+role: "Frontend and visualisation concept"
+team: "Cosima Bühler, Yannick Stegmeier, Magali Wilhelm, Shilei Xu"
+duration: "1 week · course, 2nd semester"
+semester: "2nd semester"
+tools: ["Adobe Premiere Pro", "VS Code"]
 tags: ["Data Visualisation"]
 preview:
   label: "Video: using the aid funds visualisation over time"
@@ -21,11 +21,18 @@ hero:
 
 import LiveEmbed from '../../../components/LiveEmbed.astro';
 
-<Chapter title="Overview" teaser="[EN] [Short text: what is this chapter about?]">
-  [EN] [Longer text: how we approached it, what mattered.]
+<Chapter title="Overview" teaser="Where does international aid money flow, and how has that changed over the years?" wide>
+
+In the course we had to pick a statistic and turn it into a data visualisation. We chose the flow of international aid. The data comes from the OECD statistic “DAC2A: Aid (ODA) disbursements to countries and regions”. It records how much official development assistance (ODA) was actually paid out, broken down by donor and recipient countries.
+
+We thought about how to show these flows. The visualisation shows which countries send money to which, and how that changes over the years. You can also see the biggest donors and the countries that received the most money.
+
+I did the frontend: how the visualisation looks in the end and how the data can be shown. We cut the project video in Adobe Premiere Pro.
+
 </Chapter>
 
-<Chapter title="Technical Implementation" teaser="[EN] [Short text: what is this chapter about?]">
-  [EN] [Longer text: how we approached it, what mattered.]
-  <LiveEmbed slot="media" src="/projects/datenvisualisierung/live/index.html" width={1512} height={945} label="Live visualisation: international aid funds 1960–2023" hint="This visualisation is built for large screens – try it live on desktop." />
+<Chapter title="Live version" teaser="Try it yourself: the visualisation in the browser." wide>
+
+<LiveEmbed narrow slot="media" src="/projects/datenvisualisierung/live/index.html" width={1512} height={945} label="Live visualisation: international aid funds 1960–2023" hint="This visualisation is built for large screens – try it live on desktop." />
+
 </Chapter>

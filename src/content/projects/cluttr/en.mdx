@@ -24,8 +24,8 @@ import concept from './concept.png';
 import interaction from './interaction.png';
 import prototype from './prototype.png';
 import wiring from './wiring.png';
-import Gallery from '../../../components/Gallery.astro';
-import renderFrontal from './render-frontal.jpg';
+import Band from '../../../components/Band.astro';
+import Figures from '../../../components/Figures.astro';
 import renderLinks from './render-links.jpg';
 import renderRechts from './render-rechts.jpg';
 import joystick from './detail-joystick.jpg';
@@ -34,51 +34,65 @@ import slow from './detail-slow.jpg';
 import greifhebel from './detail-greifhebel.jpg';
 import drehrad from './detail-drehrad.jpg';
 import rueckseite from './detail-rueckseite.jpg';
+import roboterFahren from './roboter-fahren.jpg';
+import roboterGreifarm from './roboter-greifarm.jpg';
+import formstudien from './formstudien.jpg';
+import varianten from './varianten.jpg';
+import usertest from './usertest-klasse.jpg';
+import skizzen from './entstehung-1-skizzen.jpg';
+import knete from './entstehung-2-knete.jpg';
+import holz from './entstehung-3-holz.jpg';
+import blender from './entstehung-4-blender.jpg';
+import test from './entstehung-5-test.jpg';
 
-<Chapter title="Overview" teaser="The brief: a controller for a given robot. Our idea: children use it to tidy up their room." image={renderFrontal} fit="contain" label="Front view of the Cluttr controller, rendering">
+<Band title="How Cluttr came about">
+  <Figures images={[
+    { image: skizzen, label: '1  Shape sketches' },
+    { image: knete, label: '2  Clay model' },
+    { image: holz, label: '3  Wooden prototype' },
+    { image: blender, label: '4  Blender' },
+    { image: test, label: '5  Testing with children' },
+  ]} />
+</Band>
+
+<Chapter title="Overview" teaser="An unloved chore should become a game." wide>
 
 The robot from the Interface Design course was set: mecanum wheels that let it drive in every direction – including sideways – and a gripper that opens, closes and moves up and down. Use case and target group were up to us.
 
-We chose children aged 8 to 11: an unloved chore should become a game. The focus was deliberately on the controller itself, not on an app or game mechanics around it.
+We chose children aged 8 to 11 who use the robot to tidy up their room. The focus was deliberately on the controller itself, not on an app or game mechanics around it.
+
+  <Figures slot="media" ratio="5 / 3" images={[
+    { image: roboterFahren, label: 'The given robot drives in every direction' },
+    { image: roboterGreifarm, label: 'The gripper opens, closes and moves up and down' },
+  ]} />
 
 </Chapter>
 
-<Chapter title="Concept" teaser="Drive on the left, grab on the right – splitting the functions shapes both form and colour." image={concept} fit="contain" label="Graphic: opening, closing and raising the gripper">
+<Chapter title="Concept" teaser="Drive on the left, grab on the right – splitting the functions shapes both form and colour." wide>
 
 We started from controllers children already know – Nintendo Switch Joy-Cons, the toy Bop It – and lots of shape sketches. This led to a clear split: the left hand steers the robot, the right hand works the gripper. The split also shows in the colours.
 
 *Thought further, but not built:* a display in the middle showing the robot's camera feed.
 
-</Chapter>
-
-<Chapter title="Interaction Concept" teaser="Every movement of the robot has its own tangible control." image={interaction} fit="contain" label="Graphic: driving, crab walk and slow mode on the controller">
-
-Left: the joystick drives, a button moves the robot sideways (crab walk), and a switch turns on slow mode for precise work.
-
-Right: squeezing the grip closes the gripper – the hand's natural grasping motion carries straight over. A thumb wheel adjusts the height.
-
-</Chapter>
-
-<Chapter title="Controls in Detail" teaser="Joystick, crab walk button, slow switch, grip lever and dial – rendered in Blender.">
-
-Driving controls on the left, gripping controls on the right. The back has a line texture.
-
-  <Gallery slot="media" images={[
-    { image: joystick, label: 'Joystick for driving' },
-    { image: crabwalk, label: 'Arrow button for the crab walk' },
-    { image: slow, label: 'Slow mode switch with turtle symbol' },
-    { image: greifhebel, label: 'Grip lever: squeezing closes the gripper' },
-    { image: drehrad, label: 'Dial for the gripper height' },
-    { image: rueckseite, label: 'Back with line texture' },
+  <Figures slot="media" images={[
+    { image: formstudien, label: 'Shape studies for the grip', span: 8, ratio: '947 / 620' },
+    { image: varianten, label: 'Variants side by side', span: 4, ratio: '461 / 620' },
   ]} />
 
 </Chapter>
 
-<Chapter title="Prototyping" teaser="From a laser-cut wooden board to a clay model to a design prototype in Blender." image={prototype} label="First functional prototype made of laser-cut wood">
+<Chapter title="Prototyping" teaser="From a laser-cut wooden board to a clay model to a design prototype in Blender." wide tint>
 
 The first functional prototype consisted of two laser-cut wooden plates with spacers, its shape fitted to the components beforehand. In parallel, a clay model let us test how the controller sits in the hand.
 
+The functional prototype controls the real robot wirelessly. Inside are a joystick, two crab-walk buttons in a 3D-printed housing, a slow-mode switch, a limit switch for the grasping motion and a potentiometer with a 3D-printed thumb wheel – connected via an Arduino and a shared power hub that saves cables.
+
 After testing, all controls moved to the front. The final design was modelled in Blender – including several colour variants.
+
+  <Figures slot="media" images={[
+    { image: prototype, label: 'First functional prototype made of laser-cut wood', span: 8, ratio: '947 / 620' },
+    { image: wiring, label: 'Wiring inside', span: 4, ratio: '461 / 620' },
+  ]} />
 
 </Chapter>
 
@@ -86,26 +100,54 @@ After testing, all controls moved to the front. The final design was modelled in
 
 Testing with HfG students showed that the tilted joystick and the thumb wheel on the back didn't work – while the ergonomic shape and the split of functions did.
 
-We then tested with about 25 fifth graders. They understood the joystick steering instantly and became faster and more confident within minutes. It was fascinating to see how differently confident the children were. We sketched and visualised their design ideas right there.
+We then tested with a fifth-grade class, people with no connection to design. That gives different results from interviews within our own circle at the HfG. The task: steer the robot, pick up a bottle and put it down inside a circle.
+
+Children with controller experience, for example from a Nintendo Switch, solved the task noticeably faster. So our controller follows conventions they already knew.
+
+The tests led to two changes: the crab-walk button wasn't understood as expected and got a label. The speed button also got an icon.
+
+  <Figures slot="media" images={[{ image: usertest, label: 'User tests with a fifth-grade class' }]} />
 
 </Chapter>
 
-<Chapter title="Technical Implementation" teaser="The functional prototype controls the real robot wirelessly." image={wiring} label="Wiring inside the functional prototype">
+<Chapter title="Interaction" teaser="Every movement of the robot has its own tangible control." wide>
 
-A joystick, two crab-walk buttons in a 3D-printed housing, a slow-mode switch, a limit switch for the grasping motion and a potentiometer with a 3D-printed thumb wheel – connected via an Arduino and a shared power hub that saves cables.
+Left: the joystick drives, a button moves the robot sideways (crab walk), and a switch turns on slow mode for precise work.
+
+Right: squeezing the grip closes the gripper – the hand's natural grasping motion carries straight over. A thumb wheel adjusts the height.
+
+We rendered all controls in Blender. The back has a line texture.
+
+  <Figures slot="media" images={[
+    { image: interaction, label: 'Left: driving – joystick, crab walk, slow mode', span: 6, fit: 'contain' },
+    { image: concept, label: 'Right: gripping – grip lever and dial', span: 6, fit: 'contain' },
+    { image: joystick, label: 'Joystick', span: 2, ratio: '219 / 270' },
+    { image: crabwalk, label: 'Crab-walk button', span: 2, ratio: '219 / 270' },
+    { image: slow, label: 'Slow switch', span: 2, ratio: '219 / 270' },
+    { image: greifhebel, label: 'Grip lever', span: 2, ratio: '219 / 270' },
+    { image: drehrad, label: 'Dial', span: 2, ratio: '219 / 270' },
+    { image: rueckseite, label: 'Back', span: 2, ratio: '219 / 270' },
+  ]} />
 
 </Chapter>
 
-<Chapter title="Result" teaser="An ergonomic controller that children could use without much explanation." image={renderLinks} fit="contain" label="Cluttr controller from the left, rendering">
+<Chapter title="Result" teaser="An ergonomic controller that children could use without much explanation." wide>
 
 The outcome: a functional prototype that controls the robot, a form prototype and a design prototype in Blender. The camera display remained a concept.
 
+  <Figures slot="media" images={[
+    { image: renderLinks, label: 'From the left, rendering', fit: 'contain' },
+    { image: renderRechts, label: 'From the right, rendering', fit: 'contain' },
+  ]} />
+
 </Chapter>
 
-<Chapter title="My Role" teaser="Design, sketching, prototyping, user tests and the 3D model in Blender." image={renderRechts} fit="contain" label="Cluttr controller from the right, rendering">
+<Chapter title="My Role" teaser="Design, sketching, prototyping, user tests and the 3D model in Blender." wide>
+
+> “The children reacted differently from students – more directly, more playfully.”
 
 I co-designed and sketched the form, built the prototypes with the team, co-ran the user tests and modelled the design prototype in Blender.
 
-My biggest takeaway: how much testing with the real target group adds. The children reacted differently from students – more directly, more playfully – and gave us new design ideas at the same time.
+My biggest takeaway: how much testing with the real target group adds. The children also gave us new design ideas at the same time.
 
 </Chapter>

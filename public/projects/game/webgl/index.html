@@ -107,6 +107,12 @@
         }).then(function (unityInstance) {
           loading.style.display = "none";
           canvas.focus();
+          // Esc gibt im Browser nur die Maus frei und erreicht das Spiel nicht: dann sofort pausieren
+          var hadLock = false;
+          document.addEventListener("pointerlockchange", function () {
+            if (document.pointerLockElement) { hadLock = true; return; }
+            if (hadLock) { hadLock = false; unityInstance.SendMessage("[PauseMenu]", "OnPointerLockLost"); }
+          });
           if (document.fullscreenEnabled || document.webkitFullscreenEnabled) {
             fullscreenButton.style.display = "block";
             fullscreenButton.onclick = function () { unityInstance.SetFullscreen(1); };

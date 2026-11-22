@@ -52,6 +52,10 @@
 .work-specs { display: flex; flex-wrap: wrap; gap: 12px 24px; }
 .work-specs dt { font-weight: 700; color: var(--c-text-muted); }
 .work-specs dd { font-weight: 700; }
+/* Tags als reine Info, nicht als Knöpfe: grauer Text mit Trennpunkten statt umrandeter Pillen */
+.work-detail .tags { display: block; color: var(--c-text-muted); font-weight: 700; line-height: var(--lh-lead); }
+.work-detail .tag { display: inline-block; padding: 0; border: 0; border-radius: 0; }
+.work-detail .tag:not(:last-child)::after { content: '·'; margin: 0 0.4em; } /* Punkt hängt am Zeilenende, nie am Anfang */
 @keyframes work-in { from { opacity: 0; transform: translateY(8px); } }
 
 /* Bühne: das aktive Projekt groß */
