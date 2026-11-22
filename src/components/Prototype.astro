@@ -2,10 +2,12 @@
 // Figma-Klickdummy: erst Platzhalter mit Knopf, der iframe lädt (und damit Figma kontaktiert) erst nach dem Klick.
 // In der MDX-Datei: <Prototype slot="media" url="https://www.figma.com/proto/…" label="Titel" button="Prototyp starten" />
 // Eigener Klickdummy aus public/ geht auch: url="/projects/…/index.html"
-interface Props { url: string; label: string; button: string }
-const { url, label, button } = Astro.props;
+// Ohne url: Platzhalter mit dem Label, bis der Prototyp fertig ist.
+// wide = breiter Rahmen über die volle Breite (Figma: 1432 × 800), auf dem Handy wieder im iPhone-Format.
+interface Props { url?: string; label: string; button?: string; wide?: boolean }
+const { url, label, button, wide = false } = Astro.props;
 let src = url;
-if (!url.startsWith('/')) {
+if (url && !url.startsWith('/')) {
   const embed = new URL(url);
   embed.hostname = 'embed.figma.com';
   embed.searchParams.delete('show-proto-sidebar');
@@ -16,15 +18,21 @@ if (!url.startsWith('/')) {
   src = embed.href;
 }
 ---
-<div class="proto" data-proto-src={src} data-proto-label={label}>
-  <button class="btn proto-load" type="button">{button}</button>
-</div>
+{url ? (
+  <div class:list={['proto', { 'is-wide': wide }]} data-proto-src={src} data-proto-label={label}>
+    <button class="btn proto-load" type="button">{button}</button>
+  </div>
+) : (
+  <div class:list={['proto', 'proto-empty', { 'is-wide': wide }]}><span>{label}</span></div>
+)}
 
 <script src="../scripts/prototype.js"></script>
 
 <style>
   /* iPhone-Frame 402 × 874 */
   .proto { position: relative; width: min(100%, 350px); aspect-ratio: 402 / 874; border-radius: var(--radius); background: var(--c-placeholder); }
+  @media (min-width: 768px) { .proto.is-wide { aspect-ratio: 1432 / 800; } }
+  .proto-empty { display: flex; align-items: center; justify-content: center; padding: 32px; text-align: center; color: var(--c-placeholder-text); }
   .proto-load { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); border: 0; cursor: pointer; }
   .proto :global(iframe) { display: block; width: 100%; height: 100%; border: 0; border-radius: var(--radius); }
 </style>

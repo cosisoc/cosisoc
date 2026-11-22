@@ -14,6 +14,7 @@ const projects = defineCollection({
       video: z.string().optional(),
       poster: image().optional(),
       controls: z.boolean().optional(), // Video mit Steuerung: Ton anschalten, spulen
+      fit: z.enum(['cover', 'contain']).optional(), // contain = Bild ganz zeigen statt beschneiden
     });
     return z.object({
       title: z.string(),
@@ -22,12 +23,14 @@ const projects = defineCollection({
       order: z.number(),
       role: z.string(),
       team: z.string(),
+      supervision: z.string().optional(), // Betreuung
       duration: z.string(),
       semester: z.string(),
       tools: z.array(z.string()),
       tags: z.array(z.string()),
       preview: media,
       hero: media,
+      cta: z.object({ label: z.string(), href: z.string() }).optional(), // Knopf im Kopf, z. B. Sprung zum Prototyp (#id eines Kapitels)
       model: z.object({ src: z.string(), label: z.string() }).optional(),
       bob: z.object({ label: z.string() }).optional(), // Bob-Viewer mit Bühne statt Hero (nur Game)
     });

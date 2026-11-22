@@ -10,13 +10,14 @@ import Media from './Media.astro';
 // Videos mit controls bekommen Bedienleiste und Ton (z. B. ein ganzer Film).
 // Grafiken mit fit="contain" werden ganz gezeigt statt auf 4:3 beschnitten.
 // tint = Kapitel auf beigem Grund über die volle Breite.
-// Eigener Inhalt statt Bild (z. B. <Prototype slot="media" …/>) kommt in den Slot „media“.
-interface Props { title: string; teaser: string; image?: ImageMetadata; video?: string; label?: string; fit?: 'cover' | 'contain'; wide?: boolean; controls?: boolean; tint?: boolean }
-const { title, teaser, image, video, label, fit = 'cover', wide = false, controls, tint = false } = Astro.props;
+// Eigener Inhalt statt Bild (z. B. <Prototype slot="media" …/>) kommt in den Slot „media“; mehrere Elemente stehen untereinander.
+// statement = Kernsatz groß wie eine Überschrift (Figma: „Leitsatz“). id = Sprungziel, z. B. für den Knopf im Projektkopf.
+interface Props { title: string; teaser: string; image?: ImageMetadata; video?: string; label?: string; fit?: 'cover' | 'contain'; wide?: boolean; controls?: boolean; tint?: boolean; statement?: boolean; id?: string }
+const { title, teaser, image, video, label, fit = 'cover', wide = false, controls, tint = false, statement = false, id } = Astro.props;
 const custom = Astro.slots.has('media');
 const hasMedia = custom || image || video || label || !wide;
 ---
-<section class:list={['chapter', { 'is-wide': wide, 'is-tinted': tint }]}>
+<section class:list={['chapter', { 'is-wide': wide, 'is-tinted': tint, 'is-statement': statement }]} id={id}>
   <div class="chapter-head grid">
     <h3 class="chapter-side">
       <span class="chapter-num" aria-hidden="true"></span>

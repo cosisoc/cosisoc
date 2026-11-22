@@ -76,6 +76,13 @@ document.addEventListener('click', (e) => {
   if (e.target.closest('[data-panel-close]')) {
     e.preventDefault();
     close();
+    return;
+  }
+  // Sprunglink im Projekt (#kapitel): nur scrollen, ohne Hash in der URL (popstate würde das Panel nach oben setzen)
+  const jump = e.target.closest('.panel a[href^="#"]');
+  if (jump) {
+    e.preventDefault();
+    document.getElementById(jump.getAttribute('href').slice(1))?.scrollIntoView({ behavior: 'smooth' });
   }
 });
 

@@ -24,6 +24,7 @@ const back = d.kind === 'main'
 const facts = [
   [t('project.duration'), d.duration],
   [t('project.team'), d.team],
+  [t('project.supervision'), d.supervision],
   [t('project.tools'), d.tools.join(', ')],
   [t('project.role'), d.role],
 ].filter(([, value]) => value); // leere Angaben nicht anzeigen
@@ -57,6 +58,7 @@ const facts = [
       </div>
       <div class="head-text">
         <p class="head-short">{d.short}</p>
+        {d.cta && <a class="head-cta" href={d.cta.href}>{d.cta.label}</a>}
         <dl class="head-facts">
           {facts.map(([k, v]) => <div><dt>{k}:</dt> <dd>{v}</dd></div>)}
         </dl>
@@ -66,7 +68,7 @@ const facts = [
           ? <Model3D src={d.model.src} label={d.model.label} />
           : d.bob
           ? <BobViewer stage label={d.bob.label} />
-          : <Media media={d.hero} class="head-hero" />}
+          : <Media media={d.hero} class={d.hero.fit === 'contain' ? 'head-hero is-contain' : 'head-hero'} />}
       </div>
     </section>
 

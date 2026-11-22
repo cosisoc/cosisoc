@@ -1,53 +1,153 @@
 ---
-title: "WarnWetter"
-short: "Redesign der DWD-App: personalisierte Templates und eine klare Farbcodierung machen Wetter auf einen Blick verständlich."
+title: "WarnWetter ReDesign"
+short: "Ein Redesign der WarnWetter-App des Deutschen Wetterdienstes. Aus komplexen Wetterdaten werden persönliche Empfehlungen – Wetter verstehen, nicht nur ablesen."
 kind: main
 order: 4
-role: "[MEINE AUFGABE]"
-team: "[TEAM]"
-duration: "[DAUER]"
-semester: "[SEMESTER]"
-tools: ["[TOOLS]"]
+role: "Gemeinsam im Team – alle gleich beteiligt"
+team: "Annika Feist, Magali Wilhelm Miret, Cosima Bühler"
+supervision: "Rebecca Götte"
+duration: "1 Semester · SoSe 26, Application Design 1"
+semester: "SoSe 26 · Application Design 1"
+tools: ["Figma", "Claude Design", "Skizzen"]
 tags: ["UX Research", "UI Design", "Design System"]
 preview:
   label: "WarnWetter-Redesign auf zwei Smartphones"
   image: ./cover.png
 hero:
-  label: "WarnWetter-Redesign auf zwei Smartphones"
-  image: ./cover.png
+  label: "WarnWetter-Redesign: Startseite mit Wander-Template auf dem Smartphone"
+  image: ./hero.png
+  fit: contain
+cta:
+  label: "Prototyp ausprobieren →"
+  href: "#warnwetter-prototyp"
 ---
 
+import Figures from '../../../components/Figures.astro';
+import Quotes from '../../../components/Quotes.astro';
+import Flow from '../../../components/Flow.astro';
+import Screens from '../../../components/Screens.astro';
+import Principles from '../../../components/Principles.astro';
 import Prototype from '../../../components/Prototype.astro';
+import vorher from './vorher.png';
+import valueProposition from './value-proposition.png';
+import template1 from './template-1.png';
+import template2 from './template-2.png';
+import widgets1 from './widgets-1.png';
+import widgets2 from './widgets-2.png';
+import standorte1 from './standorte-1.png';
+import standorte2 from './standorte-2.png';
+import navigation from './navigation.png';
+import infoarchitektur from './infoarchitektur.png';
+import farbskala from './farbskala.png';
+import warnstufen from './warnstufen.png';
+import widgetDesign from './widget-design.png';
+import iconKompass from './icon-kompass.svg';
+import iconRegler from './icon-regler.svg';
+import iconAuge from './icon-auge.svg';
+import iconTeilen from './icon-teilen.svg';
 
-<Chapter title="Intro / Aufgabe" teaser="[Kurzer Text: worum geht es in diesem Kapitel?]">
-  [Ausführlicher Text: so sind wir vorgegangen, das war wichtig.]
+<Chapter title="Übersicht" teaser="Verlässliche Daten, versteckt hinter schlechter Usability." wide statement>
+
+Im Kurs Application Design 1 haben wir die WarnWetter-App des Deutschen Wetterdienstes neu gedacht – als Studienprojekt, ohne Auftrag des DWD. Die App liefert verlässliche, amtliche Daten, doch die gehen im Design unter: Features wie die Pollenflug-Anzeige sind tief versteckt, Overlays verdecken genau das, was man sehen will, und unterwegs – mit Handschuhen oder dem Hund an der Leine – sind kleine Grafiken und das Radar kaum zu bedienen.
+
+  <Figures slot="media" ratio="1432 / 520" images={[
+    { image: vorher, label: 'Vorher: die alte App und ihre Problemstellen', fit: 'contain' },
+  ]} />
+
 </Chapter>
 
-<Chapter title="Research / Einordnung" teaser="[Kurzer Text: worum geht es in diesem Kapitel?]">
-  [Ausführlicher Text: so sind wir vorgegangen, das war wichtig.]
+<Chapter title="Research & Bedürfnisse" teaser="Gebraucht wird das Hier und Jetzt." wide>
+
+Um nicht an den Nutzer:innen vorbei zu designen, haben wir Interviews und Umfragen durchgeführt und App-Store-Rezensionen ausgewertet. Wetter-Apps werden vor allem für das Hier und Jetzt und den kommenden Tag genutzt. Für unsere Persona Anna, Studentin und viel draußen im Allgäu, entscheidet das Wetter über Sicherheit am Berg und Gesundheit. Im Value Proposition Canvas haben wir ihre größten Schmerzpunkte – unübersichtliche Informationen und schwer erreichbare Details – unseren Lösungen gegenübergestellt: Personalisierung, präzise Datenvisualisierung und smarte Widgets.
+
+  <Quotes slot="media" quotes={[
+    { text: 'Es ist schwierig, Meldungen konkret den betroffenen Orten zuzuordnen.', source: 'Marianne, 28 · App Store' },
+    { text: 'Hat an Übersichtlichkeit verloren. Jetzt muss man auf eine kleine Grafik zielsicher tippen, um es klar zu sehen.', source: 'Jonas, 34 · App Store' },
+    { text: 'Die Listenansicht ist sehr grob und wenig aussagekräftig.', source: 'Sibylle, 40 · App Store' },
+    { text: 'Regenradar ist beim Reinzoomen zu undetailliert.', source: 'Harald, 65 · Play Store' },
+  ]} />
+  <Figures slot="media" ratio="1432 / 420" images={[
+    { image: valueProposition, label: 'Value Proposition Canvas: Lösungen links, Annas Pains und Gains rechts', fit: 'contain' },
+  ]} />
+
 </Chapter>
 
-<Chapter title="Konzeption" teaser="[Kurzer Text: worum geht es in diesem Kapitel?]">
-  [Ausführlicher Text: so sind wir vorgegangen, das war wichtig.]
+<Chapter title="Konzept" teaser="Wetter verstehen, nicht nur ablesen." wide statement tint>
+
+Bisher lautete der inoffizielle Leitsatz der App: Schutz von Leben und Sachwerten durch verlässliche, amtliche Wetterdaten. Das bleibt wichtig, ist aber sehr technisch gedacht. Wir haben das Konzept menschlicher gemacht: Aus komplexen Daten werden persönliche Handlungsempfehlungen. Die App wird vom Daten-Lieferanten zum persönlichen Begleiter, der mit einem Blick zeigt, was man heute braucht.
+
+  <Flow slot="media" labels={{ step: 'Schritt', question: 'Annas Frage', feature: 'Funktion' }} steps={[
+    { question: 'Ich möchte eine Wandertour planen.', feature: 'Dafür öffne ich die DWD-App' },
+    { question: 'Was muss ich wettertechnisch wissen?', feature: 'Wanderprofil auswählen' },
+    { question: 'Stört der Pollenflug beim Wandern?', feature: 'Extra-Widget für Pollenallergie' },
+    { question: 'Ich gehe zum Nebelhorn.', feature: 'Standort der Tour speichern' },
+  ]} />
+
 </Chapter>
 
-<Chapter title="UI/UX / Screendesign" teaser="[Kurzer Text: worum geht es in diesem Kapitel?]">
-  [Ausführlicher Text: so sind wir vorgegangen, das war wichtig.]
+<Chapter title="Templates, Widgets & Standorte" teaser="Eine Vorlage zum Start, ein Ort mit Gedächtnis." wide>
+
+Beim ersten Öffnen wählt man ein Template wie Wandern, Alltag oder Gärtnern – sinnvoll vorkonfiguriert und sofort nutzbar. Wer mehr will, passt die Widgets an: Auf der Startseite steht eine reduzierte Ansicht, per Long-Press öffnen sich Details und Einstellungen.
+
+Die hartnäckigste Frage war, wie Standorte und Templates zusammenhängen. Unsere Lösung: Alle Standorte gelten für alle Templates, aber jedes Template hat eigene Favoriten. Öffnet Anna das Wander-Template, steht das Nebelhorn ganz oben.
+
+  <Screens slot="media" groups={[
+    { images: [template1, template2], label: 'Template auswählen und anpassen' },
+    { images: [widgets1, widgets2], label: 'Widgets: reduzierte Ansicht, Details per Long-Press' },
+    { images: [standorte1, standorte2], label: 'Gemeinsame Standorte, Favoriten pro Template' },
+  ]} />
+
 </Chapter>
 
-<Chapter title="Klickdummy" teaser="[Kurzer Text: worum geht es in diesem Kapitel?]">
-  [Ausführlicher Text: so sind wir vorgegangen, das war wichtig.]
-  <Prototype slot="media" url="/projects/warnwetter/klickdummy/index.html?embed" label="Klickdummy der WarnWetter-App" button="Prototyp starten" />
+<Chapter title="Navigation & Informationsarchitektur" teaser="Alles Wichtige bleibt einen Schritt entfernt." wide>
+
+Für die Navigation war uns wichtig, Standorte und Templates bewusst voneinander zu trennen, damit beide gleich gut erreichbar sind. Aus ersten Skizzen entstand eine flache Struktur: Vom Onboarding geht es direkt auf die Startseite mit dem aktiven Standort. Von dort erreicht man Standorte und Templates, das Community-Profil und die Einstellungen.
+
+  <Figures slot="media" images={[
+    { image: navigation, label: 'Wireframes der Navigation: Standorte und Profilauswahl', span: 5, ratio: '956 / 961', fit: 'contain' },
+    { image: infoarchitektur, label: 'Informationsarchitektur der App', span: 7, ratio: '1605 / 961', fit: 'contain' },
+  ]} />
+
 </Chapter>
 
-<Chapter title="Prototyping / Testing" teaser="[Kurzer Text: worum geht es in diesem Kapitel?]">
-  [Ausführlicher Text: so sind wir vorgegangen, das war wichtig.]
+<Chapter title="Design Principles" teaser="Vier Prinzipien als Maßstab für jede Entscheidung." wide tint>
+
+Aus unseren Pain Points haben wir Adjektive gesammelt und zu vier Design Principles verdichtet. Danach haben wir das Gestaltungsfeld bewusst breit aufgemacht, unter anderem mit Claude Design. Im Variantenreichtum ging Übersicht verloren. Also haben wir jedes Element erneut gegen die Prinzipien geprüft und sie selbst geschärft.
+
+  <Principles slot="media" items={[
+    { title: 'Informativ und vorausschauend', icon: iconKompass, color: '#45CA88', points: ['Kritische Warnungen erscheinen proaktiv, bevor der Nutzer danach sucht', 'Informationen sind immer zugänglich'] },
+    { title: 'Persönlich und aufmerksam', icon: iconRegler, color: '#F2C971', points: ['Die App filtert irrelevante Daten heraus', 'Was angezeigt wird, wurde vom Nutzer als relevant markiert', 'Die App gibt direkte Kleidungstipps, passend zu Wetter und Situation'] },
+    { title: 'Anschaulich und verständlich', icon: iconAuge, color: '#66CCFF', points: ['Farbe ist unser primäres Kommunikationsmittel für Temperatur und Wetterzustand', 'Der Nutzer spürt das Wetter, bevor er eine Zahl liest'] },
+    { title: 'Präzise und strukturiert', icon: iconTeilen, color: '#BCAAD5', points: ['Jedes Element hat genau einen Informationszweck', 'Dekorative Flächen ohne Datenbezug existieren nicht'] },
+  ]} />
+
 </Chapter>
 
-<Chapter title="Ergebnis / Impact" teaser="[Kurzer Text: worum geht es in diesem Kapitel?]">
-  [Ausführlicher Text: so sind wir vorgegangen, das war wichtig.]
+<Chapter title="Farbe als Sprache" teaser="Farbe zeigt Temperatur und Warnstufe zugleich." wide>
+
+Im ganzen System ist Farbe das wichtigste Kommunikationsmittel. Eine Skala codiert zwei Ebenen: Bei der Temperatur steht Blau für unter 0 °C, Grün für 0 bis 10 °C, Gelb für 10 bis 20 °C und Rot für über 20 °C. Bei Warnungen zeigt dieselbe Skala die Gefahr, von Blau für keine bis Rot für kritische.
+
+Auch die Illustrationen folgen diesem Raster: Die Hintergrundfarbe verrät die Temperatur, die Illustration darüber die Wetterlage. So lassen sich zwei Datenebenen auf einen Blick ablesen, ohne die Startseite zu überladen.
+
+  <Figures slot="media" images={[
+    { image: farbskala, label: 'Farbskala: Temperatur und Warnstufe in einer Skala', span: 6, ratio: '704 / 420', fit: 'contain' },
+    { image: warnstufen, label: 'Warnungen: eine Skala, vier Stufen', span: 6, ratio: '704 / 420', fit: 'contain' },
+    { image: widgetDesign, label: 'Widgets im Design System: die Farbe folgt den Daten', span: 12, ratio: '1432 / 560', fit: 'contain' },
+  ]} />
+
 </Chapter>
 
-<Chapter title="Meine Rolle" teaser="[Kurzer Text: worum geht es in diesem Kapitel?]">
-  [Ausführlicher Text: so sind wir vorgegangen, das war wichtig.]
+<Chapter title="Ergebnis" teaser="Mit einem Blick wissen, was heute ansteht." wide tint id="warnwetter-prototyp">
+
+Am Ende stehen die zentralen Nutzungspfade unseres Redesigns: ein Template erstellen, Orte favorisieren und einen neuen Standort hinzufügen. Im Prototyp lässt sich alles selbst ausprobieren.
+
+  {/* Figma-Prototyp: url="https://www.figma.com/proto/…" und button="Prototyp starten" ergänzen, sobald er fertig ist */}
+  <Prototype slot="media" wide label="Klickbarer Prototyp – zum Ausprobieren" />
+
+</Chapter>
+
+<Chapter title="Team" teaser="Alles zu dritt, alles gemeinsam." wide>
+
+Wir haben das Projekt zu dritt umgesetzt und waren an allen Schritten gleich beteiligt – von den Interviews über Konzept und Wireframes bis zum finalen UI und den Illustrationen.
+
 </Chapter>

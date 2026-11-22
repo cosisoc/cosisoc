@@ -1,53 +1,153 @@
 ---
-title: "WarnWetter"
-short: "Redesign of the DWD app: personalised templates and clear colour coding make weather understandable at a glance."
+title: "WarnWetter ReDesign"
+short: "A redesign of the German Weather Service's WarnWetter app. Complex weather data becomes personal recommendations – understanding the weather, not just reading it."
 kind: main
 order: 4
-role: "[MY TASK]"
-team: "[TEAM]"
-duration: "[DURATION]"
-semester: "[SEMESTER]"
-tools: ["[TOOLS]"]
+role: "Together as a team – everyone equally involved"
+team: "Annika Feist, Magali Wilhelm Miret, Cosima Bühler"
+supervision: "Rebecca Götte"
+duration: "1 semester · Summer 26, Application Design 1"
+semester: "Summer 26 · Application Design 1"
+tools: ["Figma", "Claude Design", "Sketches"]
 tags: ["UX Research", "UI Design", "Design System"]
 preview:
   label: "WarnWetter redesign on two smartphones"
   image: ./cover.png
 hero:
-  label: "WarnWetter redesign on two smartphones"
-  image: ./cover.png
+  label: "WarnWetter redesign: home screen with the hiking template on a smartphone"
+  image: ./hero.png
+  fit: contain
+cta:
+  label: "Try the prototype →"
+  href: "#warnwetter-prototyp"
 ---
 
+import Figures from '../../../components/Figures.astro';
+import Quotes from '../../../components/Quotes.astro';
+import Flow from '../../../components/Flow.astro';
+import Screens from '../../../components/Screens.astro';
+import Principles from '../../../components/Principles.astro';
 import Prototype from '../../../components/Prototype.astro';
+import vorher from './vorher.png';
+import valueProposition from './value-proposition.png';
+import template1 from './template-1.png';
+import template2 from './template-2.png';
+import widgets1 from './widgets-1.png';
+import widgets2 from './widgets-2.png';
+import standorte1 from './standorte-1.png';
+import standorte2 from './standorte-2.png';
+import navigation from './navigation.png';
+import infoarchitektur from './infoarchitektur.png';
+import farbskala from './farbskala.png';
+import warnstufen from './warnstufen.png';
+import widgetDesign from './widget-design.png';
+import iconKompass from './icon-kompass.svg';
+import iconRegler from './icon-regler.svg';
+import iconAuge from './icon-auge.svg';
+import iconTeilen from './icon-teilen.svg';
 
-<Chapter title="Intro / Brief" teaser="[EN] [Short text: what is this chapter about?]">
-  [EN] [Longer text: how we approached it, what mattered.]
+<Chapter title="Overview" teaser="Reliable data, hidden behind poor usability." wide statement>
+
+In the Application Design 1 course we rethought the WarnWetter app of the German Weather Service (DWD) – as a student project, not commissioned by the DWD. The app delivers reliable, official data, but it gets lost in the design: features like the pollen forecast are buried deep, overlays cover exactly what you want to see, and on the go – wearing gloves or with the dog on a leash – small graphics and the radar are hard to use.
+
+  <Figures slot="media" ratio="1432 / 520" images={[
+    { image: vorher, label: 'Before: the old app and its problem areas', fit: 'contain' },
+  ]} />
+
 </Chapter>
 
-<Chapter title="Research / Context" teaser="[EN] [Short text: what is this chapter about?]">
-  [EN] [Longer text: how we approached it, what mattered.]
+<Chapter title="Research & Needs" teaser="What people need is the here and now." wide>
+
+To avoid designing past our users, we ran interviews and surveys and analysed app store reviews. Weather apps are mainly used for the here and now and the next day. For our persona Anna, a student who spends a lot of time outdoors in the Allgäu, the weather decides about safety in the mountains and her health. In a Value Proposition Canvas we set her biggest pain points – cluttered information and hard-to-reach details – against our solutions: personalisation, precise data visualisation and smart widgets.
+
+  <Quotes slot="media" quotes={[
+    { text: 'It is hard to match warnings to the places they actually affect.', source: 'Marianne, 28 · App Store' },
+    { text: 'It has lost its clarity. Now you have to tap precisely on a tiny graphic to see it properly.', source: 'Jonas, 34 · App Store' },
+    { text: 'The list view is very rough and not very informative.', source: 'Sibylle, 40 · App Store' },
+    { text: 'The rain radar lacks detail when you zoom in.', source: 'Harald, 65 · Play Store' },
+  ]} />
+  <Figures slot="media" ratio="1432 / 420" images={[
+    { image: valueProposition, label: 'Value Proposition Canvas: solutions on the left, Anna’s pains and gains on the right', fit: 'contain' },
+  ]} />
+
 </Chapter>
 
-<Chapter title="Concept" teaser="[EN] [Short text: what is this chapter about?]">
-  [EN] [Longer text: how we approached it, what mattered.]
+<Chapter title="Concept" teaser="Understanding the weather, not just reading it." wide statement tint>
+
+Until now, the app’s unofficial guiding principle was: protecting lives and property through reliable, official weather data. That still matters, but it is a very technical way of thinking. We made the concept more human: complex data turns into personal recommendations. The app goes from data supplier to personal companion that shows at a glance what you need today.
+
+  <Flow slot="media" labels={{ step: 'Step', question: 'Anna’s question', feature: 'Feature' }} steps={[
+    { question: 'I want to plan a hike.', feature: 'So I open the DWD app' },
+    { question: 'What do I need to know about the weather?', feature: 'Choose the hiking profile' },
+    { question: 'Will pollen bother me on the hike?', feature: 'Extra widget for pollen allergy' },
+    { question: 'I’m going to the Nebelhorn.', feature: 'Save the tour’s location' },
+  ]} />
+
 </Chapter>
 
-<Chapter title="UI/UX / Screen Design" teaser="[EN] [Short text: what is this chapter about?]">
-  [EN] [Longer text: how we approached it, what mattered.]
+<Chapter title="Templates, Widgets & Locations" teaser="A template to start with, a place with a memory." wide>
+
+When you first open the app, you pick a template such as hiking, everyday life or gardening – sensibly preconfigured and ready to use. If you want more, you adjust the widgets: the home screen shows a reduced view, a long press opens details and settings.
+
+The most stubborn question was how locations and templates relate to each other. Our solution: all locations apply to all templates, but each template has its own favourites. When Anna opens the hiking template, the Nebelhorn is right at the top.
+
+  <Screens slot="media" groups={[
+    { images: [template1, template2], label: 'Choosing and customising a template' },
+    { images: [widgets1, widgets2], label: 'Widgets: reduced view, details via long press' },
+    { images: [standorte1, standorte2], label: 'Shared locations, favourites per template' },
+  ]} />
+
 </Chapter>
 
-<Chapter title="Click dummy" teaser="[EN] [Short text: what is this chapter about?]">
-  [EN] [Longer text: how we approached it, what mattered.]
-  <Prototype slot="media" url="/projects/warnwetter/klickdummy/index.html?embed" label="Click dummy of the WarnWetter app" button="Start prototype" />
+<Chapter title="Navigation & Information Architecture" teaser="Everything important stays one step away." wide>
+
+For the navigation, it was important to us to deliberately separate locations and templates so that both are equally easy to reach. Our first sketches led to a flat structure: onboarding leads straight to the home screen with the active location. From there you reach locations and templates, the community profile and the settings.
+
+  <Figures slot="media" images={[
+    { image: navigation, label: 'Navigation wireframes: locations and profile selection', span: 5, ratio: '956 / 961', fit: 'contain' },
+    { image: infoarchitektur, label: 'Information architecture of the app', span: 7, ratio: '1605 / 961', fit: 'contain' },
+  ]} />
+
 </Chapter>
 
-<Chapter title="Prototyping / Testing" teaser="[EN] [Short text: what is this chapter about?]">
-  [EN] [Longer text: how we approached it, what mattered.]
+<Chapter title="Design Principles" teaser="Four principles as the yardstick for every decision." wide tint>
+
+From our pain points we collected adjectives and condensed them into four design principles. Then we deliberately opened up the design space, among other things with Claude Design. In the wealth of variants we lost clarity. So we checked every element against the principles again and sharpened the principles themselves.
+
+  <Principles slot="media" items={[
+    { title: 'Informative and anticipatory', icon: iconKompass, color: '#45CA88', points: ['Critical warnings appear proactively, before the user looks for them', 'Information is always accessible'] },
+    { title: 'Personal and attentive', icon: iconRegler, color: '#F2C971', points: ['The app filters out irrelevant data', 'What is shown has been marked as relevant by the user', 'The app gives direct clothing tips that fit the weather and the situation'] },
+    { title: 'Vivid and understandable', icon: iconAuge, color: '#66CCFF', points: ['Colour is our primary means of communicating temperature and weather conditions', 'Users feel the weather before they read a number'] },
+    { title: 'Precise and structured', icon: iconTeilen, color: '#BCAAD5', points: ['Every element has exactly one informational purpose', 'Decorative areas without a data reference do not exist'] },
+  ]} />
+
 </Chapter>
 
-<Chapter title="Result / Impact" teaser="[EN] [Short text: what is this chapter about?]">
-  [EN] [Longer text: how we approached it, what mattered.]
+<Chapter title="Colour as Language" teaser="Colour shows temperature and warning level at once." wide>
+
+Throughout the system, colour is the most important means of communication. One scale encodes two levels: for temperature, blue stands for below 0 °C, green for 0 to 10 °C, yellow for 10 to 20 °C and red for above 20 °C. For warnings, the same scale shows the danger, from blue for none to red for critical.
+
+The illustrations follow the same grid: the background colour reveals the temperature, the illustration on top the weather. This way two levels of data can be read at a glance without overloading the home screen.
+
+  <Figures slot="media" images={[
+    { image: farbskala, label: 'Colour scale: temperature and warning level in one scale', span: 6, ratio: '704 / 420', fit: 'contain' },
+    { image: warnstufen, label: 'Warnings: one scale, four levels', span: 6, ratio: '704 / 420', fit: 'contain' },
+    { image: widgetDesign, label: 'Widgets in the design system: colour follows the data', span: 12, ratio: '1432 / 560', fit: 'contain' },
+  ]} />
+
 </Chapter>
 
-<Chapter title="My Role" teaser="[EN] [Short text: what is this chapter about?]">
-  [EN] [Longer text: how we approached it, what mattered.]
+<Chapter title="Result" teaser="Knowing at a glance what today holds." wide tint id="warnwetter-prototyp">
+
+In the end we arrive at the key user flows of our redesign: creating a template, favouriting places and adding a new location. You can try it all yourself in the prototype.
+
+  {/* Figma prototype: add url="https://www.figma.com/proto/…" and button="Start prototype" once it is ready */}
+  <Prototype slot="media" wide label="Clickable prototype – try it yourself" />
+
+</Chapter>
+
+<Chapter title="Team" teaser="All three of us, everything together." wide>
+
+We carried out the project as a team of three and were equally involved in every step – from the interviews through concept and wireframes to the final UI and the illustrations.
+
 </Chapter>

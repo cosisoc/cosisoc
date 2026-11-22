@@ -31,5 +31,6 @@ const widths = (image: ImageMetadata) => [...new Set([480, 960, 1600].map((w) =>
   @media (max-width: 767px) {
     .figures { grid-template-columns: 1fr 1fr; }
     figure { grid-column: 1 / -1 !important; }
+    img.is-contain { aspect-ratio: auto; } /* ganze Grafik in ihrem eigenen Format statt winzig im breiten Rahmen */
   }
 </style>
