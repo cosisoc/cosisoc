@@ -4,3 +4,5 @@ dist/
 .DS_Store
 .env
 /content/
+docs/Documentation - Anatomy of minds.pdf
+public/projects/game/webgl/Build/*.data.unityweb
