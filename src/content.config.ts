@@ -19,6 +19,7 @@ const projects = defineCollection({
     return z.object({
       title: z.string(),
       short: z.string(),
+      intro: z.string().optional(), // Absatz unter dem Kurztext im Projektkopf
       kind: z.enum(['main', 'side']),
       order: z.number(),
       role: z.string(),

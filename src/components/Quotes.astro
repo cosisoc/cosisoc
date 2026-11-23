@@ -1,10 +1,11 @@
 ---
 // Zitate aus der Recherche als Karten nebeneinander (Figma: „Modul Zitate“).
 // In der MDX-Datei als Slot „media“: <Quotes slot="media" quotes={[{ text: '…', source: 'Name, Alter · App Store' }, …]} />
-interface Props { quotes: { text: string; source: string }[] }
-const { quotes } = Astro.props;
+// cols = Karten pro Reihe (Standard: alle nebeneinander), z. B. cols={2} für ein 2×2-Raster.
+interface Props { quotes: { text: string; source: string }[]; cols?: number }
+const { quotes, cols = quotes.length } = Astro.props;
 ---
-<ul class="quotes" style={`--n: ${quotes.length}`}>
+<ul class="quotes" style={`--n: ${cols}`}>
   {quotes.map(({ text, source }) => (
     <li>
       <blockquote>„{text}“</blockquote>

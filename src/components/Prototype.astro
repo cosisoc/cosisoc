@@ -4,8 +4,10 @@
 // Eigener Klickdummy aus public/ geht auch: url="/projects/…/index.html"
 // Ohne url: Platzhalter mit dem Label, bis der Prototyp fertig ist.
 // wide = breiter Rahmen über die volle Breite (Figma: 1432 × 800), auf dem Handy wieder im iPhone-Format.
-interface Props { url?: string; label: string; button?: string; wide?: boolean }
-const { url, label, button, wide = false } = Astro.props;
+// phone = eigener Klickdummy mit eigenem iPhone-Rahmen: lädt direkt, ohne grauen Kasten, Bildschirm 375 px breit,
+//         label steht als Bildunterschrift darunter.
+interface Props { url?: string; label: string; button?: string; wide?: boolean; phone?: boolean }
+const { url, label, button, wide = false, phone = false } = Astro.props;
 let src = url;
 if (url && !url.startsWith('/')) {
   const embed = new URL(url);
@@ -18,7 +20,12 @@ if (url && !url.startsWith('/')) {
   src = embed.href;
 }
 ---
-{url ? (
+{phone && url ? (
+  <figure class="proto-phone">
+    <iframe src={src} title={label} loading="lazy"></iframe>
+    <figcaption>{label}</figcaption>
+  </figure>
+) : url ? (
   <div class:list={['proto', { 'is-wide': wide }]} data-proto-src={src} data-proto-label={label}>
     <button class="btn proto-load" type="button">{button}</button>
   </div>
@@ -35,4 +42,10 @@ if (url && !url.startsWith('/')) {
   .proto-empty { display: flex; align-items: center; justify-content: center; padding: 32px; text-align: center; color: var(--c-placeholder-text); }
   .proto-load { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); border: 0; cursor: pointer; }
   .proto :global(iframe) { display: block; width: 100%; height: 100%; border: 0; border-radius: var(--radius); }
+
+  /* phone: 292 × 565 = Gerät des Klickdummys (426 × 898) auf Figma-Größe skaliert (Rahmen 260 × 548, Bildschirm 245 × 533),
+     plus sein Innenabstand (32 px quer, 16 px hoch) */
+  .proto-phone { margin: 0; width: 292px; max-width: 100%; }
+  .proto-phone iframe { display: block; width: 100%; height: auto; aspect-ratio: 292 / 565; border: 0; background: transparent; }
+  .proto-phone figcaption { margin-top: 10px; text-align: center; font-size: 16px; color: var(--c-text-muted); }
 </style>

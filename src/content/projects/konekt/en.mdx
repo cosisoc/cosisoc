@@ -1,13 +1,14 @@
 ---
 title: "Konekt"
-short: "A home station that helps people find local connections again as they enter retirement – operated not by touch, but with a stone."
+short: "A home station that helps people find local connections again after they retire. It is operated with a stone instead of touch."
+intro: "Retirement takes away the working day and its routines, and with them many chances for contact. Konekt suggests suitable meetups nearby and so lowers the barrier to taking the first step. The core idea was mine. I co-developed the concept and information architecture, organised the process and programmed the web app for the functional prototype."
 kind: main
 order: 1
-role: "Research, concept, interaction principle, technical implementation"
+role: "Idea, concept, information architecture, process organisation, web app and system architecture"
 team: "Ajana Windisch, Mei Fornefeld, Paula Grimm, Cosima Bühler"
-duration: "1 semester"
+duration: "1 semester · Summer 26, Invention 1 and Product Design 3"
 semester: "Summer 26 · Invention 1"
-tools: ["Figma", "VS Code + Claude Code", "Arduino", "Raspberry Pi", "ESP32"]
+tools: ["Figma", "VS Code with Claude Code", "Arduino", "Raspberry Pi", "ESP32", "3D printing"]
 tags: ["Tangible Interface", "UI Design", "AI Concept", "Prototyping"]
 preview:
   label: "[Preview video functional prototype]"
@@ -17,70 +18,205 @@ hero:
   poster: ./stopmotion.jpg
 ---
 
-<Chapter title="Overview" teaser="Loneliness is rising – not for lack of opportunities, but because the first step is hard. Konekt lowers exactly that barrier.">
+import Figures from '../../../components/Figures.astro';
+import storyboardVorschlag from './storyboard-eventvorschlag.png';
+import storyboardEigenes from './storyboard-eigenes-event.png';
+import walter from './persona-walter.png';
+import erna from './persona-erna.png';
+import helmut from './persona-helmut.png';
+import sandra from './persona-sandra.png';
+import platzieren from './stein-platzieren.png';
+import verschieben from './stein-verschieben.png';
+import druecken from './stein-druecken.png';
+import kaius from './kaius.png';
+import ansatz1 from './ansatz1-aufbau.png';
+import ansatz2 from './ansatz2-spannungsteiler.png';
+import ansatz3 from './ansatz3-reedsensoren.png';
+import loeten from './prototyp-loeten.png';
+import steinAufbau from './stein-aufbau.png';
+import steinUmsetzung from './stein-umsetzung.png';
+import systemarchitektur from './systemarchitektur.png';
+import skizzen from './skizzen-station.png';
+import schaummodelle from './schaummodelle-stein.png';
+import formStation from './form-station.png';
+import ruhemodus from './screen-ruhemodus.png';
+import begruessung from './screen-begruessung.png';
+import vorschlaege from './screen-vorschlaege.png';
+import event from './screen-event.png';
+import karte from './screen-karte.png';
+import nachricht from './screen-nachricht.png';
+import rendering from './rendering-wohnraum.png';
+import protoPoster from './funktionsprototyp.jpg';
 
-Retirement often removes several anchors at once: the working day, routines, sometimes a partner or friends. Konekt suggests suitable meetups nearby, shows which acquaintances have already said yes, and makes organising your own meetup a matter of a few moves.
+<Chapter title="Overview" teaser="People are rarely lonely for lack of opportunities, but because the first step is hard." wide statement>
 
-The goal is not to keep people at the device, but to get them back among people as quickly as possible. Created in the course Invention 1 with Prof. Michael Schuster, together with product design.
+In the course Invention 1 with Prof. Michael Schuster, the task was to find a problem ourselves and develop a solution for it. We worked across disciplines: three students of interaction design and one of product design.
 
-</Chapter>
+The core idea was mine. People move far more often today than they used to. Whoever moves has to build a new circle of friends, and whoever stays loses family and friends who move away. At the same time, everyday comfort makes us less dependent on each other. Many natural occasions for contact disappear.
 
-<Chapter title="Research" teaser="Instead of interviewing retirees, we questioned AI personas – and derived three requirements.">
+Our approach: new technology should also tackle problems that technology has helped create. Instead of yet another app that follows you everywhere, we wanted to develop a physical product for the home. You use it when you feel like it, and it brings people together in real life again.
 
-A market analysis (KOMP, Familink, ElliQ, GrandPad) showed that no product tackles loneliness directly – they replace missing contacts with family or technology. We deliberately skipped real interviews: the topic is sensitive and access was difficult. Instead, we built four detailed personas, including a relative, and questioned them as AI characters in simulated interviews.
-
-Two insights shaped the concept: people are reluctant to go somewhere when they don't know who will be there. And information is scattered – in the newspaper, the local bulletin, the club calendar. This led to three requirements: **lower the threshold, real connection instead of attachment to the device, suggestions based on interests.**
-
-</Chapter>
-
-<Chapter title="Interaction Concept" teaser="Three gestures with a stone replace the touchscreen: place, slide, press.">
-
-Placing highlights an element – like a hover. Sliding scrolls, along a line or in a circle. Pressing confirms. A magnetic track around the display guides the stone across 8 contact points that change meaning from screen to screen. Picking a day works as a spiral: each circular movement moves one day ahead.
-
-The character Kaius shows when the device is listening – and without its face, it isn't. Tests with fellow students improved the interaction once more.
-
-</Chapter>
-
-<Chapter title="Interface" teaser="A round display, few elements, large type – with soft shadows that echo the physical interaction.">
-
-The interface uses neumorphism, muted greens and violets, and Poppins at deliberately large sizes. Recurring elements – confirm, decline, placement arrow – make the interaction predictable.
-
-From the sleep mode with a clock to the greeting with the weather to the event overview ("Manfred and Birgit are joining too"), every screen shows only what's needed. The screens were designed by the team; my part was turning them into code.
-
-</Chapter>
-
-<Chapter title="Prototyping" teaser="Three attempts to a stable solution. Our principle: the hardware must not dictate the interaction.">
-
-First a rectangular display under a wooden board with a round cut-out, screws in the rim as contact points. Then a round display with a 3D-printed rim and a large voltage divider – the analogue reading was too unstable. The solution: 8 reed sensors and a magnet in the stone, stable and precise.
-
-In parallel, the design prototype took shape: a wooden station (320 × 230 mm) whose track recalls the ripples of a stone dropped in water, and an elliptical stone found through sketches and foam models.
-
-</Chapter>
-
-<Chapter title="Technical Implementation" teaser="Sensors detect the stone, a web app shows what happens – cleanly separated and coded with Claude Code in VS Code.">
-
-I built the app, the sensor integration, the Raspberry Pi with its own Wi-Fi and the wireless link to the stone. An Arduino reads 8 reed sensors and reports the stone's position. An ESP32 inside the stone detects the press and sends it via the Raspberry Pi's hotspot. A central input manager merges all signals, including keyboard input for testing.
-
-The app runs in the browser. Events are generated for each day from 22 templates, so the prototype always feels current. An interface for AI is prepared.
-
-Claude Code was the only way this scope was possible in one semester. AI-assisted coding delivers real results fast, but demands a lot of thinking along: without a structured approach it's easy to lose track.
+  <Figures slot="media" ratio="704 / 422" images={[
+    { image: storyboardVorschlag, label: 'Storyboard: Konekt suggests a meetup that suits the weather' },
+    { image: storyboardEigenes, label: 'Storyboard: creating your own meetup by voice' },
+  ]} />
 
 </Chapter>
 
-<Chapter title="Result" teaser="Two days of exhibition where visitors used Konekt themselves – including people from the target group who said they'd buy it.">
+<Chapter title="Research" teaser="Existing products replace contacts instead of enabling new ones." wide>
 
-The outcome: a functional prototype, a design prototype, a presentation and a documentation. We deliberately focused on device, stone and interaction and worked them out in depth instead of touching on everything.
+First we analysed what already exists for older people: KOMP, Familink, ElliQ and GrandPad. All of them simplify technology, but none addresses the actual problem. They rely on existing family contacts or simulate company, like the robot ElliQ.
 
-*Thought further, but not built:* voice input modelled on an answering machine, texts read aloud, an AI that summarises group chats and picks up appointments (with a local AI as fallback), and a key-ring tag – hold two together at a meetup and you're connected.
-
-The principle reaches beyond retirement: many younger people find their phone use draining, too. A device that only lets through what really matters could help them as well.
+This led to our guiding question: why do retirees stop taking part in social life, and how can taking part be made as easy as possible?
 
 </Chapter>
 
-<Chapter title="My Role" teaser="Research, concept, interaction principle and the entire technical implementation.">
+<Chapter title="Target group & personas" teaser="The problem is less the feeling than the loss of opportunities." wide>
 
-I co-built the research and the AI personas, co-developed the interaction principle and implemented all of the technology: app, sensors, Raspberry Pi and system architecture.
+Our target group is people between 65 and 95. In 2024 that was around 19 million people in Germany, and about one in three of them lives alone. We were especially interested in the transition into retirement. Several anchors fall away at once, such as work, a partner or friends, while a lot of free time suddenly appears.
 
-Above all, I learned how to approach concept work in a structured way and keep a large team project organised. Next time I would decide earlier what really needs to be built for the vision: I enjoyed going deep and refining details – time that could have made more of the concept visible elsewhere. After all, a prototype should above all show what you set out to do.
+We excluded people with advanced dementia or severe visual impairments. People whose fine motor skills no longer allow them to use a touchscreen reliably, for example because of a tremor, are explicitly included. That strongly shaped the interaction.
+
+  <Figures slot="media" ratio="340 / 300" images={[
+    { image: walter, label: 'Walter: often alone since his wife died' },
+    { image: erna, label: 'Erna: new in town, too shy to reach out' },
+    { image: helmut, label: 'Helmut: wants to do something together' },
+    { image: sandra, label: 'Sandra: a daughter whose father barely uses technology' },
+  ]} />
+
+</Chapter>
+
+<Chapter title="Concept" teaser="Konekt invites instead of demanding planning." wide>
+
+From the personas we derived three requirements. First, lower the barrier: the initiative needed should be as small as possible, so the device suggests meetups instead of making people search. Second, real connection: Konekt should not be used for as long as possible, but bring people back among others quickly. Third, suggestions based on interests, so they motivate rather than frustrate.
+
+The suggestions come from a transparent weighting instead of machine learning: interests count for up to 40 points, mood up to 30, accessibility up to 20 and cost up to 10. From 75 points, a meetup is highlighted. Konekt also shows which acquaintances have already said yes, because it is easier to go somewhere when you know who will be there.
+
+</Chapter>
+
+<Chapter title="Interaction principle" teaser="Three gestures with a stone replace the touchscreen." wide>
+
+Place: the stone is placed on the rail around the display and clicks into one of eight magnetic points you can feel. The element in front of it is highlighted, like a hover.
+
+Slide: moving along the edge scrolls through lists, messages or days.
+
+Press: pressing the stone confirms the selection, like a click. Originally, simply leaving the stone on a point was meant to confirm. That did not work well in tests with fellow students, so we switched to pressing.
+
+  <Figures slot="media" ratio="340 / 300" images={[
+    { image: platzieren, label: 'Placing the stone' },
+    { image: verschieben, label: 'Sliding the stone' },
+    { image: druecken, label: 'Pressing the stone' },
+    { image: kaius, label: 'Kaius shows when the device is listening' },
+  ]} />
+
+</Chapter>
+
+<Chapter title="First functional prototype" teaser="The hardware should not dictate the interaction." image={ansatz1} label="Build of the first functional prototype: display, wooden board, acrylic and rail">
+
+To test the interaction principle early, we first built with what was available: a rectangular touch display. A wooden board with a round cut-out simulated the round display. We screwed metal screws into the edge that worked as capacitive contact points and operated the display as soon as you touched them. It was a stopgap, but it let us try the edge interaction right away.
+
+With the round display we had to rethink. A 3D-printed housing widened the edge, and on it we built a large voltage divider: depending on the position of the conductive stone, a different voltage was meant to be measured. Despite a lot of tuning of circuit and software, the analogue range stayed too unstable to reliably tell where the stone was.
+
+</Chapter>
+
+<Chapter title="Iteration and solution" teaser="From analogue to digital: 8 reed sensors instead of a voltage divider." wide>
+
+Instead of measuring a value continuously, the third approach detects fixed positions. Eight reed sensors in the edge of the housing react to a magnet in the stone and report clearly via an Arduino where the stone is. This was stable and precise and covered two of the three gestures: placing and sliding.
+
+For pressing, we built an ESP32-C6 with a button and battery into the 3D-printed stone. It sends the confirmation wirelessly over Wi-Fi to the system. Position detection and confirmation stay cleanly separated, and the click happens exactly where the stone is.
+
+  <Figures slot="media" ratio="704 / 261" images={[
+    { image: ansatz2, label: 'Before: voltage divider on a 3D-printed edge' },
+    { image: ansatz3, label: 'After: reed sensors in the edge of the housing' },
+  ]} />
+
+</Chapter>
+
+<Chapter title="Build" teaser="We built the housing, sensors and stone ourselves." wide>
+
+A Raspberry Pi drives the round display and sets up its own Wi-Fi network, which the stone uses to communicate. An Arduino reads the reed sensors.
+
+  <Figures slot="media" ratio="219 / 270" images={[
+    { image: loeten, label: 'Soldering the sensors' },
+    { image: steinAufbau, label: 'Stone layout' },
+    { image: steinUmsetzung, label: 'Stone build' },
+    { label: 'Inside the station' },
+    { label: 'ESP32 in the stone' },
+    { label: 'Testing on the laptop' },
+  ]} />
+
+</Chapter>
+
+<Chapter title="Web app & system architecture" teaser="A web app that brings all inputs together.">
+
+The interface runs as a web app in the browser on the Raspberry Pi. A central input manager unifies all signals: the position from the reed sensors, the click from the stone and, for testing, keyboard input. This let us develop the app before the hardware was ready.
+
+In the prototype, events, profiles, weather and messages exist as test data. The events are recalculated every day from 22 templates, so the prototype looks current in every presentation. In the finished product, Konekt would collect events from online sources, newspapers and notice boards and filter them locally by location.
+
+As soon as the app was running, fellow students tried out the prototype. Fast and careless use in particular revealed bugs that we were able to fix. I programmed with Claude Code in VS Code. AI-assisted programming delivers results quickly, but it requires a structured approach.
+
+  <Figures slot="media" ratio="704 / 528" images={[
+    { image: systemarchitektur, label: 'System architecture: sensors, stone and web app' },
+  ]} />
+
+</Chapter>
+
+<Chapter title="Form finding" teaser="A piece of home furnishing, not an assistive device." wide>
+
+Konekt should not stigmatise, but fit calmly into the home and deliberately not look like a smartphone. The moodboard draws on a Zen garden: matte plastic, light textile, wood and a few metallic details. The round display was a deliberate decision, because only then can the stone be guided along a rail all the way around the screen. The rail recalls the ripples that appear when a stone falls into water.
+
+For the stone we built and tested foam models, and an ellipse sat best in the hand.
+
+  <Figures slot="media" images={[
+    { image: skizzen, label: 'Sketches of the station', span: 8, ratio: '947 / 362' },
+    { image: schaummodelle, label: 'Foam models for the stone', span: 2, ratio: '212 / 187' },
+    { image: formStation, label: 'Shape of the station', span: 2, ratio: '231 / 140' },
+  ]} />
+
+</Chapter>
+
+<Chapter title="Screen design" teaser="A round display, few elements, large type." wide>
+
+Little space and unfamiliar layout patterns made the round display the biggest design challenge. Over many iterations, the main question was what really matters and what can go. The centre shows only the essentials, and texts have to be short and concrete. The suggestions sit on a spiral that starts at the present. Sliding the stone moves you further into the future, and meetups that match the chosen mood are highlighted.
+
+The interface picks up the shape of the display: soft shadows, muted greens and violets, and Poppins in deliberately large sizes. Recurring elements such as confirm, decline and the placement arrow make the interaction predictable.
+
+The screen design was mainly done by [Name]. I helped design it and implemented the screens in code.
+
+  <Figures slot="media" ratio="219 / 235" images={[
+    { image: ruhemodus, label: 'Sleep mode' },
+    { image: begruessung, label: 'Greeting with weather' },
+    { image: vorschlaege, label: 'Suggestions' },
+    { image: event, label: 'Event with accept and decline' },
+    { image: karte, label: 'Radius on the map' },
+    { image: nachricht, label: 'Replying to a message' },
+  ]} />
+
+</Chapter>
+
+<Chapter title="Result" teaser="Two days of exhibition where visitors used Konekt themselves." wide>
+
+In the end we had a functional prototype, a design prototype, a stop-motion video, a presentation and documentation.
+
+At the two-day semester exhibition, older visitors also used the functional prototype. Although it did not yet match the design prototype in form and usability, several said they would use Konekt and asked when it would be available. We also presented Konekt together with three other projects on older people at an event organised by the city, among others to staff from care facilities. This feedback was informal and does not replace structured tests, but it shows that the idea meets a real need.
+
+Thought further, but not built: AI summaries of group chats, and a key ring pendant that lets two people add each other as friends when they meet.
+
+  <Figures slot="media" ratio="704 / 528" images={[
+    { image: rendering, label: 'Konekt at home, rendering' },
+    { video: '/projects/konekt/funktionsprototyp.mp4', poster: protoPoster, crop: { width: 149.11, height: 128.42, x: 46.46, y: 45.32, rotate: 3.63 }, label: 'Functional prototype in use' },
+  ]} />
+
+</Chapter>
+
+<Chapter title="Reflection" teaser="Better one part in depth than everything on the surface." wide>
+
+Prototyping the whole concept at once was not possible, so we focused on the device, the stone and their interaction. Looking back, I would decide earlier what really needs to be built for the vision. I enjoyed going deep and refining details. That time could have made more of the concept visible elsewhere. The most important next step would be structured tests with people who are just retiring. The principle reaches beyond retirement, though: many younger people also find their phone use stressful.
+
+</Chapter>
+
+<Chapter title="My role" teaser="Idea, concept, information architecture and the web app of the functional prototype." wide>
+
+The core idea was mine. I co-developed the concept, information architecture and interaction principle in the team, and helped build the research and the AI personas. I organised the process and assigned tasks. On the technical side, I implemented the web app and the system architecture and helped with the wiring. Product design: [Name]. Screen design mainly: [Name]. Wiring mainly: [Name]. Above all, I learned how to approach a large team project in a structured way.
 
 </Chapter>

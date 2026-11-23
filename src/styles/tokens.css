@@ -38,7 +38,7 @@
   --section-top: 128px; /* Label bei y=128, Titel bei y=160 */
   --head-gap: 48px; /* Titel → Inhalt */
   --radius: 14px;
-  --media-scale: 0.8; /* alle Bilder/Videos/Demos auf Projektseiten: 1 = volle Rasterbreite, kleiner = kleiner */
+  --media-scale: 1; /* alle Bilder/Videos/Demos auf Projektseiten: 1 = volle Rasterbreite, kleiner = kleiner */
   --radius-tab: 30px;
 
   /* Bewegung */

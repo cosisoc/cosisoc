@@ -12,12 +12,15 @@ import Media from './Media.astro';
 // tint = Kapitel auf beigem Grund über die volle Breite.
 // Eigener Inhalt statt Bild (z. B. <Prototype slot="media" …/>) kommt in den Slot „media“; mehrere Elemente stehen untereinander.
 // statement = Kernsatz groß wie eine Überschrift (Figma: „Leitsatz“). id = Sprungziel, z. B. für den Knopf im Projektkopf.
-interface Props { title: string; teaser: string; image?: ImageMetadata; video?: string; label?: string; fit?: 'cover' | 'contain'; wide?: boolean; controls?: boolean; tint?: boolean; statement?: boolean; id?: string }
-const { title, teaser, image, video, label, fit = 'cover', wide = false, controls, tint = false, statement = false, id } = Astro.props;
+// Nur mit wide: split = Text und Slot „media“ nebeneinander unter dem Kernsatz; inset = Medium bündig mit dem Text (Spalte 4–12);
+// pair = zwei Elemente im Slot „media“ nebeneinander (je 6 Spalten).
+// beside = Kernsatz und Text links (520 px), Slot „media“ rechts daneben, oben bündig (z. B. Prototyp im Handy).
+interface Props { title: string; teaser: string; image?: ImageMetadata; video?: string; label?: string; fit?: 'cover' | 'contain'; wide?: boolean; controls?: boolean; tint?: boolean; statement?: boolean; id?: string; split?: boolean; inset?: boolean; pair?: boolean; beside?: boolean }
+const { title, teaser, image, video, label, fit = 'cover', wide = false, controls, tint = false, statement = false, id, split = false, inset = false, pair = false, beside = false } = Astro.props;
 const custom = Astro.slots.has('media');
 const hasMedia = custom || image || video || label || !wide;
 ---
-<section class:list={['chapter', { 'is-wide': wide, 'is-tinted': tint, 'is-statement': statement }]} id={id}>
+<section class:list={['chapter', { 'is-wide': wide, 'is-tinted': tint, 'is-statement': statement, 'is-split': split, 'is-inset': inset, 'is-pair': pair, 'is-beside': beside }]} id={id}>
   <div class="chapter-head grid">
     <h3 class="chapter-side">
       <span class="chapter-num" aria-hidden="true"></span>
@@ -25,10 +28,17 @@ const hasMedia = custom || image || video || label || !wide;
     </h3>
     <div class="chapter-main">
       <p class="chapter-teaser">{teaser}</p>
-      {wide && <div class="chapter-more"><slot /></div>}
+      {wide && !split && <div class="chapter-more"><slot /></div>}
+      {wide && beside && <div class="chapter-custom"><slot name="media" /></div>}
+      {wide && split && (
+        <div class="chapter-split">
+          <div class="chapter-more"><slot /></div>
+          <div class="chapter-custom"><slot name="media" /></div>
+        </div>
+      )}
     </div>
   </div>
-  {(!wide || hasMedia) && (
+  {(!wide || hasMedia) && !split && !beside && (
     <div class="chapter-body grid">
       {!wide && <div class="chapter-text chapter-more"><slot /></div>}
       {hasMedia && (custom

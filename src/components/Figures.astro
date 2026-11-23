@@ -5,17 +5,29 @@ import { Image } from 'astro:assets';
 // Bildreihe mit Bildunterschriften auf dem 12-Spalten-Raster (wie die Bildreihen in Figma).
 // span = Breite in Spalten; ohne span teilen sich die Bilder die Breite gleichmäßig.
 // ratio = Seitenverhältnis (Standard 4 / 3), pro Bild überschreibbar; fit="contain" zeigt Grafiken ganz.
+// video = Pfad in public/ statt Bild (läuft stumm in Schleife); ohne image und video: grauer Platzhalter.
+// crop = Video im Rahmen zoomen/drehen wie in Figma: Breite/Höhe und Mittelpunkt in % des Rahmens, Drehung in Grad.
 // In der MDX-Datei: <Figures slot="media" images={[{ image: a, label: 'Skizzen', span: 8 }, …]} />
-interface Item { image: ImageMetadata; label: string; span?: number; ratio?: string; fit?: 'cover' | 'contain' }
+interface Crop { width: number; height: number; x: number; y: number; rotate: number }
+interface Item { image?: ImageMetadata; video?: string; poster?: ImageMetadata; crop?: Crop; label: string; span?: number; ratio?: string; fit?: 'cover' | 'contain' }
 interface Props { images: Item[]; ratio?: string }
 const { images, ratio = '4 / 3' } = Astro.props;
 const even = images.every((item) => !item.span);
 const widths = (image: ImageMetadata) => [...new Set([480, 960, 1600].map((w) => Math.min(w, image.width)))];
 ---
 <div class="figures" style={even ? `--n: ${images.length}` : undefined}>
-  {images.map(({ image, label, span, ratio: own, fit }) => (
+  {images.map(({ image, video, poster, crop, label, span, ratio: own, fit }) => (
     <figure style={`--ratio: ${own ?? ratio};${span ? ` grid-column: span ${span};` : ''}`}>
-      <Image src={image} alt={label} widths={widths(image)} sizes="(min-width: 768px) 66vw, 100vw" class:list={[{ 'is-contain': fit === 'contain' }]} />
+      {video && crop
+        ? <div class="figure-media is-cropped">
+            <video src={video} poster={poster?.src} aria-label={label} autoplay muted loop playsinline
+              style={`width: ${crop.width}%; height: ${crop.height}%; left: ${crop.x}%; top: ${crop.y}%; transform: translate(-50%, -50%) rotate(${crop.rotate}deg);`} />
+          </div>
+        : video
+        ? <video class="figure-media" src={video} poster={poster?.src} aria-label={label} autoplay muted loop playsinline />
+        : image
+        ? <Image class:list={['figure-media', { 'is-contain': fit === 'contain' }]} src={image} alt={label} widths={widths(image)} sizes="(min-width: 768px) 66vw, 100vw" />
+        : <div class="figure-media is-empty" role="img" aria-label={label}></div>}
       <figcaption>{label}</figcaption>
     </figure>
   ))}
@@ -24,13 +36,16 @@ const widths = (image: ImageMetadata) => [...new Set([480, 960, 1600].map((w) =>
 <style>
   .figures { width: 100%; display: grid; grid-template-columns: repeat(var(--n, 12), minmax(0, 1fr)); gap: 32px var(--col-gap); }
   figure { margin: 0; min-width: 0; }
-  img { display: block; width: 100%; height: auto; aspect-ratio: var(--ratio); object-fit: cover; border-radius: var(--radius); }
-  img.is-contain { object-fit: contain; }
+  .figure-media { display: block; width: 100%; height: auto; aspect-ratio: var(--ratio); object-fit: cover; border-radius: var(--radius); }
+  .figure-media.is-contain { object-fit: contain; }
+  .figure-media.is-empty { background: var(--c-placeholder); }
+  .figure-media.is-cropped { position: relative; overflow: hidden; background: var(--c-placeholder); }
+  .is-cropped video { position: absolute; max-width: none; object-fit: cover; }
   figcaption { margin-top: 10px; font-size: 16px; color: var(--c-text-muted); }
 
   @media (max-width: 767px) {
     .figures { grid-template-columns: 1fr 1fr; }
     figure { grid-column: 1 / -1 !important; }
-    img.is-contain { aspect-ratio: auto; } /* ganze Grafik in ihrem eigenen Format statt winzig im breiten Rahmen */
+    .figure-media.is-contain { aspect-ratio: auto; } /* ganze Grafik in ihrem eigenen Format statt winzig im breiten Rahmen */
   }
 </style>

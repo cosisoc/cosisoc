@@ -56,7 +56,7 @@ const items = [
     padding: 0 var(--gutter);
     pointer-events: none;
   }
-  .nav > * { pointer-events: auto; }
+  .nav > *, .nav > :global(.lang) { pointer-events: auto; } /* .lang kommt aus LangSwitch (andere Komponente), braucht :global */
   .nav > .nav-fade {
     position: absolute;
     inset: 0 0 auto;

@@ -58,6 +58,7 @@ const facts = [
       </div>
       <div class="head-text">
         <p class="head-short">{d.short}</p>
+        {d.intro && <p class="head-intro">{d.intro}</p>}
         {d.cta && <a class="head-cta" href={d.cta.href}>{d.cta.label}</a>}
         <dl class="head-facts">
           {facts.map(([k, v]) => <div><dt>{k}:</dt> <dd>{v}</dd></div>)}
