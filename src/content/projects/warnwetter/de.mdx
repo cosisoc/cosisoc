@@ -46,7 +46,9 @@ import iconRegler from './icon-regler.svg';
 import iconAuge from './icon-auge.svg';
 import iconTeilen from './icon-teilen.svg';
 
-<Chapter title="Übersicht" teaser="Verlässliche Daten, versteckt hinter schlechter Usability." wide statement split>
+<Part title="Ausgangslage" />
+
+<Chapter title="Übersicht" teaser="Verlässliche Daten, versteckt hinter schlechter Usability." wide statement>
 
 Im Kurs Application Design 1 haben wir die WarnWetter-App des Deutschen Wetterdienstes neu gedacht – als Studienprojekt, ohne Auftrag des DWD. Die App liefert verlässliche, amtliche Daten, doch die gehen im Design unter: Features wie die Pollenflug-Anzeige sind tief versteckt, Overlays verdecken genau das, was man sehen will, und unterwegs – mit Handschuhen oder dem Hund an der Leine – sind kleine Grafiken und das Radar kaum zu bedienen.
 
@@ -56,7 +58,7 @@ Im Kurs Application Design 1 haben wir die WarnWetter-App des Deutschen Wetterdi
 
 </Chapter>
 
-<Chapter title="Research & Bedürfnisse" teaser="Gebraucht wird das Hier und Jetzt." wide pair>
+<Chapter title="Research & Bedürfnisse" teaser="Gebraucht wird das Hier und Jetzt." wide>
 
 Um nicht an den Nutzer:innen vorbei zu designen, haben wir Interviews und Umfragen durchgeführt und App-Store-Rezensionen ausgewertet. Wetter-Apps werden vor allem für das Hier und Jetzt und den kommenden Tag genutzt. Für unsere Persona Anna, Studentin und viel draußen im Allgäu, entscheidet das Wetter über Sicherheit am Berg und Gesundheit. Im Value Proposition Canvas haben wir ihre größten Schmerzpunkte – unübersichtliche Informationen und schwer erreichbare Details – unseren Lösungen gegenübergestellt: Personalisierung, präzise Datenvisualisierung und smarte Widgets.
 
@@ -72,7 +74,9 @@ Um nicht an den Nutzer:innen vorbei zu designen, haben wir Interviews und Umfrag
 
 </Chapter>
 
-<Chapter title="Konzept" teaser="Wetter verstehen, nicht nur ablesen." wide statement tint inset>
+<Part title="Konzept" />
+
+<Chapter title="Konzept" teaser="Wetter verstehen, nicht nur ablesen." wide statement tint>
 
 Bisher lautete der inoffizielle Leitsatz der App: Schutz von Leben und Sachwerten durch verlässliche, amtliche Wetterdaten. Das bleibt wichtig, ist aber sehr technisch gedacht. Wir haben das Konzept menschlicher gemacht: Aus komplexen Daten werden persönliche Handlungsempfehlungen. Die App wird vom Daten-Lieferanten zum persönlichen Begleiter, der mit einem Blick zeigt, was man heute braucht.
 
@@ -104,11 +108,13 @@ Die hartnäckigste Frage war, wie Standorte und Templates zusammenhängen. Unser
 Für die Navigation war uns wichtig, Standorte und Templates bewusst voneinander zu trennen, damit beide gleich gut erreichbar sind. Aus ersten Skizzen entstand eine flache Struktur: Vom Onboarding geht es direkt auf die Startseite mit dem aktiven Standort. Von dort erreicht man Standorte und Templates, das Community-Profil und die Einstellungen.
 
   <Figures slot="media" images={[
-    { image: navigation, label: 'Wireframes der Navigation: Standorte und Profilauswahl', span: 5, ratio: '542 / 544', fit: 'contain' },
-    { image: infoarchitektur, label: 'Informationsarchitektur der App', span: 7, ratio: '866 / 544', fit: 'contain' },
+    { image: navigation, label: 'Wireframes der Navigation: Standorte und Profilauswahl', ratio: '542 / 544', fit: 'contain' },
+    { image: infoarchitektur, label: 'Informationsarchitektur der App', ratio: '866 / 544', fit: 'contain' },
   ]} />
 
 </Chapter>
+
+<Part title="Gestaltung" />
 
 <Chapter title="Design Principles" teaser="Vier Prinzipien als Maßstab für jede Entscheidung." wide tint>
 
@@ -123,21 +129,23 @@ Aus unseren Pain Points haben wir Adjektive gesammelt und zu vier Design Princip
 
 </Chapter>
 
-<Chapter title="Farbe als Sprache" teaser="Farbe zeigt Temperatur und Warnstufe zugleich." wide pair>
+<Chapter title="Farbe als Sprache" teaser="Farbe zeigt Temperatur und Warnstufe zugleich." wide>
 
 Im ganzen System ist Farbe das wichtigste Kommunikationsmittel. Eine Skala codiert zwei Ebenen: Bei der Temperatur steht Blau für unter 0 °C, Grün für 0 bis 10 °C, Gelb für 10 bis 20 °C und Rot für über 20 °C. Bei Warnungen zeigt dieselbe Skala die Gefahr, von Blau für keine bis Rot für kritische.
 
 Auch die Illustrationen folgen diesem Raster: Die Hintergrundfarbe verrät die Temperatur, die Illustration darüber die Wetterlage. So lassen sich zwei Datenebenen auf einen Blick ablesen, ohne die Startseite zu überladen.
 
-  <Figures slot="media" images={[
-    { image: widgetDesign, label: 'Widgets im Design System: die Farbe folgt den Daten', span: 12, ratio: '704 / 575', fit: 'contain' },
-  ]} />
-  <Figures slot="media" images={[
-    { image: farbskala, label: 'Farbskala: Temperatur und Warnstufe in einer Skala', span: 12, ratio: '704 / 260', fit: 'contain' },
-    { image: warnstufen, label: 'Warnungen: eine Skala, vier Stufen', span: 12, ratio: '704 / 260', fit: 'contain' },
-  ]} />
+  <div slot="media" class="figures-split">
+    <Figures images={[{ image: widgetDesign, label: 'Widgets im Design System: die Farbe folgt den Daten', ratio: '413 / 337', fit: 'contain' }]} />
+    <div>
+      <Figures images={[{ image: farbskala, label: 'Farbskala: Temperatur und Warnstufe in einer Skala', ratio: '413 / 152', fit: 'contain' }]} />
+      <Figures images={[{ image: warnstufen, label: 'Warnungen: eine Skala, vier Stufen', ratio: '413 / 152', fit: 'contain' }]} />
+    </div>
+  </div>
 
 </Chapter>
+
+<Part title="Ergebnis" />
 
 <Chapter title="Ergebnis" teaser="Mit einem Blick wissen, was heute ansteht." wide tint beside id="warnwetter-prototyp">
 

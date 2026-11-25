@@ -35,10 +35,12 @@ import rueckseite from './detail-rueckseite.jpg';
 import roboterFahren from './roboter-fahren.jpg';
 import roboterGreifarm from './roboter-greifarm.jpg';
 import formstudien from './formstudien.jpg';
-import varianten from './varianten.jpg';
-import usertest from './usertest-klasse.jpg';
-import skizzen from './entstehung-1-skizzen.jpg';
+import varianten from './formfindung-farben.png';
+import usertest from './usertest-klasse-2.jpg';
+import skizzen from './formfindung-skizzen.png';
 import knete from './entstehung-2-knete.jpg';
+
+<Part title="Ausgangslage" />
 
 <Chapter title="Übersicht" teaser="Aus einer ungeliebten Aufgabe soll ein Spiel werden." wide statement>
 
@@ -57,6 +59,8 @@ Die Zielgruppe Kinder fanden wir besonders interessant, gerade weil ein Roboter 
 
 </Chapter>
 
+<Part title="Konzept" />
+
 <Chapter title="Formfindung" teaser="Erste Skizzen der Form und Anordnung der Bedienelemente." wide>
 
 Kinder kennen Controller schon aus Spielen. Deshalb haben wir die Bedienung an bekannte Gamepads angelehnt, statt eine eigene Logik zu erfinden.
@@ -64,8 +68,8 @@ Kinder kennen Controller schon aus Spielen. Deshalb haben wir die Bedienung an b
 In unserem ersten Entwurf spielte die räumliche Steuerung des Roboters eine größere Rolle als die Steuerung des Greifarms.
 
   <Figures slot="media" images={[
-    { image: skizzen, label: 'Formstudien für den Griff', span: 8, ratio: '947 / 620', fit: 'contain' },
-    { image: varianten, label: 'Farbaufteilung links und rechts', span: 4, ratio: '461 / 620' },
+    { image: skizzen, label: 'Formstudien für den Griff', ratio: '556 / 364' },
+    { image: varianten, label: 'Farbaufteilung links und rechts', ratio: '271 / 364' },
   ]} />
 
 </Chapter>
@@ -79,6 +83,8 @@ Unsere ersten Usertests haben wir mit Studierenden an der HfG durchgeführt. Wic
 Unsere Idee, die Greifzange mit dem Schließen der Hand zu bedienen, funktionierte gut. Allerdings änderten wir die Ausrichtung, sodass das Schließen bzw. Drücken des Limit-Switchs die Greifzange öffnete und sie sich nach dem Loslassen automatisch wieder schloss. Außerdem hatten manche Proband:innen Probleme mit der Geschwindigkeit des Roboters bei Aufgaben, die Genauigkeit erforderten.
 
 </Chapter>
+
+<Part title="Iteration" />
 
 <Chapter title="Iteration und Lösung" teaser="Links fahren, rechts greifen." wide>
 
@@ -127,15 +133,17 @@ Rechts: Wer den Griff zudrückt, öffnet die Greifzange. Ein Drehrad unter dem D
 Alle Bedienelemente haben wir in Blender gerendert. Auf der Rückseite liegt eine Linienstruktur.
 
   <Figures slot="media" images={[
-    { image: joystick, label: 'Joystick', span: 2, ratio: '219 / 270' },
-    { image: crabwalk, label: 'Crabwalk-Taste', span: 2, ratio: '219 / 270' },
-    { image: slow, label: 'Slow-Schalter', span: 2, ratio: '219 / 270' },
-    { image: greifhebel, label: 'Greifhebel', span: 2, ratio: '219 / 270' },
-    { image: drehrad, label: 'Drehrad', span: 2, ratio: '219 / 270' },
-    { image: rueckseite, label: 'Rückseite', span: 2, ratio: '219 / 270' },
+    { image: joystick, label: 'Joystick', ratio: '219 / 270' },
+    { image: crabwalk, label: 'Crabwalk-Taste', ratio: '219 / 270' },
+    { image: slow, label: 'Slow-Schalter', ratio: '219 / 270' },
+    { image: greifhebel, label: 'Greifhebel', ratio: '219 / 270' },
+    { image: drehrad, label: 'Drehrad', ratio: '219 / 270' },
+    { image: rueckseite, label: 'Rückseite', ratio: '219 / 270' },
   ]} />
 
 </Chapter>
+
+<Part title="Ergebnis" />
 
 <Chapter title="Ergebnis" teaser="Ein Controller, den Kinder ohne Erklärung bedienen." wide>
 

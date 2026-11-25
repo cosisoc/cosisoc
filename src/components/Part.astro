@@ -1,0 +1,10 @@
+---
+// Teil-Kopf der Hauptprojekte (z. B. „Ausgangslage“): dünne Linie über die ganze Breite, grüner Titel in der Inhaltsspalte.
+// Fasst die folgenden Kapitel bis zum nächsten Teil zusammen. In der MDX-Datei vor dem ersten Kapitel des Teils:
+// <Part title="Ausgangslage" />
+interface Props { title: string }
+const { title } = Astro.props;
+---
+<div class="part axes">
+  <h3 class="part-title on-content">{title}</h3>
+</div>

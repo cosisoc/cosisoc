@@ -34,7 +34,7 @@ a:hover { color: var(--c-accent); }
   position: relative;
   padding: var(--section-top) var(--gutter) 96px;
 }
-.section-label, .label { font-weight: 700; }
+.section-label, .label { font-size: var(--fs-label); font-weight: 700; }
 .section-title { font-size: var(--fs-display); margin-top: 16px; }
 .section-head { margin-bottom: var(--head-gap); }
 
@@ -44,6 +44,14 @@ a:hover { color: var(--c-accent); }
   grid-template-columns: repeat(12, minmax(0, 1fr));
   column-gap: var(--col-gap);
 }
+
+/* Zwei Achsen der Projektseiten: Label-Spalte links, Inhaltsspalte rechts (Handy: untereinander) */
+.axes {
+  display: grid;
+  grid-template-columns: minmax(0, var(--axis-label)) minmax(0, var(--axis-content));
+  column-gap: var(--axis-gap);
+}
+.axes > .on-content { grid-column: 2; }
 
 /* Nur für Screenreader sichtbar */
 .sr-only {
@@ -99,8 +107,9 @@ a:hover { color: var(--c-accent); }
 
 .tags { display: flex; flex-wrap: wrap; gap: 8px; }
 .tag {
+  font-size: var(--fs-meta);
   font-weight: 700;
-  padding: 4px 12px;
+  padding: 4px 10px;
   border-radius: 999px;
   border: 1.5px solid var(--c-text);
 }
@@ -175,6 +184,8 @@ a:hover { color: var(--c-accent); }
   .section { padding-bottom: 64px; }
   .grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
   .grid > * { grid-column: 1 / -1 !important; }
+  .axes { grid-template-columns: minmax(0, 1fr); row-gap: 16px; }
+  .axes > .on-content { grid-column: 1; }
 }
 
 @media (prefers-reduced-motion: reduce) {

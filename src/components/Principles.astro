@@ -22,13 +22,15 @@ const { items } = Astro.props;
 
 <style>
   .principles { width: 100%; display: grid; grid-template-columns: repeat(var(--n), minmax(0, 1fr)); gap: var(--col-gap); margin: 0; padding: 0; list-style: none; }
-  .principles > li { display: flex; flex-direction: column; gap: 14px; padding: 12px 12px 24px; border-radius: var(--radius); background: var(--c-card); }
-  .principle-icon { height: 158px; display: flex; align-items: center; justify-content: center; border-radius: 8px; }
-  .principle-text { display: flex; flex-direction: column; gap: 10px; padding: 0 8px; }
-  h4 { font-size: 20px; font-weight: 700; line-height: 1.25; }
-  .principle-text ul { margin: 0; padding: 0; list-style: none; font-size: 16px; line-height: 1.45; }
+  /* 4 gleich große Karten: farbiges Feld 2:1 mit Icon (48 px), Titel 15, Stichpunkte 13 */
+  .principles > li { display: flex; flex-direction: column; gap: 12px; padding: 8px 8px 16px; border-radius: var(--radius); background: var(--c-card); }
+  .principle-icon { aspect-ratio: 2 / 1; display: flex; align-items: center; justify-content: center; border-radius: 8px; }
+  .principle-icon img { width: 48px; height: 48px; object-fit: contain; }
+  .principle-text { display: flex; flex-direction: column; gap: 8px; padding: 0 6px; }
+  h4 { font-size: var(--fs-label); font-weight: 700; line-height: var(--lh-lead); }
+  .principle-text ul { margin: 0; padding: 0; list-style: none; font-size: var(--fs-meta); line-height: 1.45; }
   .principle-text li::before { content: '→ '; }
 
-  @media (max-width: 1023px) { .principles { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 899px) { .principles { grid-template-columns: 1fr 1fr; } }
   @media (max-width: 767px) { .principles { grid-template-columns: 1fr; } }
 </style>

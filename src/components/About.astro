@@ -3,7 +3,7 @@ import Media from './Media.astro';
 import SectionHead from './SectionHead.astro';
 import { copy } from '../i18n/copy';
 import type { Lang } from '../i18n/utils';
-import foto from '../assets/photo2.jpeg';
+import foto from '../assets/photo2-freigestellt.png';
 
 interface Props { lang: Lang }
 const { lang } = Astro.props;
@@ -36,7 +36,7 @@ const a = copy[lang].about;
   .about-photo :global(.about-media) { display: block; height: auto; aspect-ratio: 1 / 1.1; object-position: bottom; transform: scaleX(-1); }
   .about-body { grid-column: 7 / 13; display: flex; flex-direction: column; gap: 48px; }
   .about-body :global(.section-head) { margin-bottom: 0; }
-  .intro { font-size: var(--fs-sub); font-weight: var(--fw-sub); line-height: var(--lh-lead); }
+  .intro { font-size: var(--fs-lead); font-weight: var(--fw-sub); line-height: var(--lh-lead); }
   .lists { display: flex; flex-direction: column; gap: 24px; }
-  h3 { font-size: var(--fs-body); margin-bottom: 12px; }
+  h3 { font-size: var(--fs-label); margin-bottom: 12px; }
 </style>

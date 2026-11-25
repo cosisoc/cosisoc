@@ -24,11 +24,12 @@ cta:
 
 import LiveEmbed from '../../../components/LiveEmbed.astro';
 import uebersicht from './uebersicht.png';
-import recherche from './recherche.png';
 import interaktionspunkte from './interaktionspunkte.png';
 import ablauf from './ablauf.png';
 import gestaltung from './gestaltung.png';
 import technik from './technik.png';
+
+<Part title="Starting Point" />
 
 <Chapter title="Overview" teaser="How do you explain brains without overwhelming people?" statement image={uebersicht} fit="contain" label="Ant and child, illustration">
 
@@ -38,7 +39,7 @@ The difficulty: neuroscience is full of jargon and data. So our guiding question
 
 </Chapter>
 
-<Chapter title="Research" teaser="A tiny brain, an intelligence in the collective." image={recherche} fit="contain" label="Brains of different species compared">
+<Chapter title="Research" teaser="A tiny brain, an intelligence in the collective." wide>
 
 We decided to compare the brains of different species.
 
@@ -47,6 +48,8 @@ We placed the human brain next to those of the bee, ant, elephant, octopus, fish
 We chose the ant: a tiny brain organised in a completely different way, and an intelligence that lies not in the individual but in the colony. The comparison is told through three topics: habitat, intelligence and emotions.
 
 </Chapter>
+
+<Part title="Concept" />
 
 <Chapter title="Interaction Concept" teaser="First marvel, then compare, then go deeper." wide image={interaktionspunkte} fit="contain" label="The five interaction points on the table">
 
@@ -85,6 +88,8 @@ We chose the friendly, simple typeface Pacaembu. Storyboards turned into the scr
 
 </Chapter>
 
+<Part title="Implementation" />
+
 <Chapter title="Technology" teaser="NFC recognises the figure, rotary encoders measure the rotation." image={technik} label="Figure on an octagonal base">
 
 Each figure stands on an octagonal base that slides onto a point from any direction. Underneath sit an NFC reader that recognises the figure by its chip (“A” for ant, “H” for human) and a rotary encoder that measures the rotation. An Arduino (ESP32-S3) sends the state of all five points to the computer as a short string.
@@ -100,6 +105,8 @@ The brain models come from Sketchfab. I separated the individual brain regions b
 The biggest challenge was the data itself: the encoders and NFC readers sometimes delivered very imprecise values. My code still had to turn them into a calm, understandable picture.
 
 </Chapter>
+
+<Part title="Result" />
 
 <Chapter title="Try It Yourself" teaser="The table also works in your browser." id="anatomy-live">
 

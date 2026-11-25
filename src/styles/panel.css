@@ -1,4 +1,4 @@
-/* Projektseite: Vollbild-Overlay, fährt von rechts herein */
+/* Projektseite: Vollbild-Overlay, fährt von rechts herein. Kapitel und Teile: chapters.css */
 .panel {
   position: fixed;
   inset: 0;
@@ -39,6 +39,7 @@
   align-items: center;
   height: var(--pill-h);
   padding: 0 16px;
+  font-size: var(--fs-label);
   font-weight: 700;
   text-decoration: none;
   color: var(--c-text);
@@ -52,118 +53,43 @@
 }
 .panel-bar .lang { justify-self: end; height: var(--pill-h); display: flex; align-items: center; }
 
-/* Kopf: Label y=128, Titel y=160, Titel → Inhalt 48 px; Text 4 Spalten, Bild 8 Spalten in voller Größe (Figma 448 | 944 × 660) */
-.panel-head { row-gap: var(--head-gap); padding: calc(var(--section-top) - var(--nav-h)) 0 96px; }
-.head-title { grid-column: 1 / -1; }
-/* Zurück-Pfeil vor dem Abschnitts-Label: schließt das Projekt (wie „Hauptprojekte“ in der Leiste) */
-.head-back { display: block; width: fit-content; text-decoration: none; }
-.head-title h2 { font-size: var(--fs-display); text-transform: uppercase; margin-top: 16px; }
-.head-text { grid-column: 1 / 5; display: flex; flex-direction: column; gap: 48px; max-width: 560px; }
-.head-short { font-size: var(--fs-sub); font-weight: var(--fw-sub); line-height: var(--lh-lead); }
-.head-intro { margin-top: -24px; font-size: var(--fs-body); line-height: var(--lh-body); } /* rückt näher an den Kurztext (gap 48px) */
-.head-facts { display: flex; flex-direction: column; gap: 4px; }
-.head-facts dt { font-weight: 700; }
+/* Kopf (Figma 1512 px): Zurück-Label, Titel 72 über beide Spalten; darunter Text in der Label-Spalte (340),
+   Key Visual in der Inhaltsspalte (852 × 596, höchstens 640 hoch) */
+.panel-head { row-gap: 32px; align-items: start; padding: calc(var(--section-top) - var(--nav-h)) 0 96px; }
+.head-title { grid-column: 1; }
+/* Desktop: Key Visual beginnt neben dem Titel, damit hohe Videos ganz ins Bild passen */
+@media (min-width: 768px) { .head-media { grid-column: 2; grid-row: 2 / span 2; } }
+/* Zurück-Pfeil vor dem Abschnitts-Label: schließt das Projekt (wie „Hauptprojekte“ in der Leiste).
+   Eigene Zeile über beiden Spalten; -8 px gleicht row-gap 32 auf 24 px Abstand zum Titel aus */
+.head-back { grid-column: 1 / -1; display: block; width: fit-content; margin-bottom: -8px; font-weight: 400; text-decoration: none; }
+/* Lange Wörter („Datenvisualisierung“) in der schmalen Spalte trennen statt überlaufen */
+.head-title h2 { font-size: var(--fs-title); hyphens: auto; overflow-wrap: break-word; }
+.head-text { display: flex; flex-direction: column; gap: 24px; }
+.head-short { font-size: var(--fs-lead); font-weight: var(--fw-sub); line-height: var(--lh-lead); }
+.head-intro { font-size: var(--fs-label); line-height: var(--lh-body); }
 /* Knopf im Kopf (z. B. „Prototyp ausprobieren →“), springt zu einem Kapitel */
-.head-cta { align-self: flex-start; margin-top: -16px; padding: 14px 24px; border-radius: 999px; background: var(--c-text); color: var(--c-bg); font-weight: 500; text-decoration: none; transition: background var(--dur) ease; }
+.head-cta { align-self: flex-start; padding: 12px 22px; border-radius: 999px; background: var(--c-text); color: var(--c-bg); font-size: var(--fs-label); font-weight: 500; text-decoration: none; transition: background var(--dur) ease; }
 .head-cta:hover { background: var(--c-accent); }
-.head-facts dt, .head-facts dd { display: inline; }
-.head-media { grid-column: 5 / 13; }
-/* Key Visual passt immer auf den ersten Bildschirm: nie höher als der Platz bis zum unteren Rand
-   (Oberkante ca. 289 px + 48 px Luft), sonst proportional schmaler und rechtsbündig. Cluttr (3D) hat eigene Regeln. */
-@media (min-width: 768px) {
-  .panel-head:not(.has-model) .head-media { width: min(100%, calc((100svh - 337px) * 944 / 660)); justify-self: end; }
-  .panel-head .head-media:has(.bob-wrap) { width: min(100%, calc((100svh - 337px) * 4 / 3)); } /* Bob-Bühne ist höher (4:3) */
-}
+/* Projektdaten als Tabelle: Label 92 px grau, Wert daneben, Linie über jeder Zeile */
+.head-facts { font-size: var(--fs-meta); line-height: var(--lh-body); }
+.head-facts > div { display: grid; grid-template-columns: 92px minmax(0, 1fr); gap: 16px; padding: 12px 0; border-top: 1px solid var(--c-line); }
+.head-facts dt { color: var(--c-text-muted); }
+.head-media { min-width: 0; }
 /* height: auto, sonst setzt die Höhenangabe echter Bilder das Seitenverhältnis außer Kraft */
-.panel-head .head-media .head-hero { aspect-ratio: 944 / 660; height: auto; border-radius: var(--radius); }
+.panel-head .head-media .head-hero { width: 100%; height: auto; aspect-ratio: 852 / 596; max-height: 640px; border-radius: var(--radius); }
 /* Videos im Titelbild nie beschneiden: immer ganz, in ihrem eigenen Format */
 .panel-head .head-media video.head-hero { aspect-ratio: auto; object-fit: contain; }
 .panel-head .head-media .head-hero.is-contain { object-fit: contain; }
+/* 3D-Modell (Cluttr) im Querformat wie die übrigen Key Visuals */
+.panel-head .head-media .model { aspect-ratio: 4 / 3; }
 
-/* Mit 3D-Modell: das Fenster (4:3) steht rechts neben Titel und Text, oben bündig mit dem Titelblock */
-@media (min-width: 768px) {
-  .has-model { grid-template-rows: auto 1fr; }
-  .has-model .head-title { grid-column: 1 / 6; grid-row: 1; }
-  .has-model .head-text { grid-row: 2; }
-  .has-model .head-media { grid-column: 1 / -1; grid-row: 1 / span 2; justify-self: end; width: calc(61% * var(--media-scale)); margin-right: calc(61% * (1 - var(--media-scale)) / 2); margin-top: -78px; }
-}
-
-/* Kapitel (Figma-Vorlage), immer offen: Linie, Kopf mit Nummer + Titel (Spalte 1–3) und Kernsatz (Spalte 4–10),
-   darunter Text 5 Spalten links, Bild 6 Spalten rechts (4:3) – bei jedem zweiten Kapitel gespiegelt */
-.chapters { counter-reset: chapter; border-bottom: 1px solid var(--c-line); }
-.chapter { counter-increment: chapter; border-top: 1px solid var(--c-line); padding: 32px 0 96px; scroll-margin-top: var(--nav-h); }
-.chapter-head { row-gap: 16px; }
-/* tint: Kapitel auf beigem Grund über die volle Breite (Figma: Prototyping) */
-.chapter.is-tinted { background: var(--c-sand); box-shadow: 0 0 0 100vmax var(--c-sand); clip-path: inset(0 -100vmax); border-top-color: transparent; }
-.chapter-more blockquote { margin: 0 0 24px; font-size: var(--fs-sub); font-style: italic; line-height: var(--lh-lead); }
-.chapter-side { grid-column: 1 / 4; display: flex; flex-direction: column; gap: 4px; font-size: var(--fs-body); line-height: var(--lh-lead); letter-spacing: 0; }
-.chapter-num { font-weight: 400; color: var(--c-text-muted); }
-.chapter-num::before { content: counter(chapter, decimal-leading-zero); }
-.chapter-main { grid-column: 4 / 11; display: flex; flex-direction: column; gap: 20px; }
-.chapter-body { row-gap: 32px; padding-top: 32px; }
-.chapter-text { grid-column: 1 / 6; display: flex; flex-direction: column; gap: 24px; max-width: 560px; }
-.chapter-teaser { font-size: var(--fs-sub); font-weight: var(--fw-sub); line-height: var(--lh-lead); }
-.chapter.is-statement .chapter-teaser { font-size: var(--fs-display); font-weight: 700; line-height: var(--lh-display); }
-.chapter-more { font-size: var(--fs-body); line-height: var(--lh-body); }
-.chapter-more p + p { margin-top: 24px; }
-.chapters .chapter-body .chapter-media { grid-column: 7 / 13; aspect-ratio: 4 / 3; height: auto; border-radius: var(--radius); }
-.chapters .chapter-body .chapter-media.is-contain { object-fit: contain; }
-.chapters .chapter-body video.chapter-media { aspect-ratio: auto; } /* Videos im eigenen Format statt auf 4:3 beschnitten */
-/* Abwechselnd: gerade Kapitel mit Bild links (6 Spalten), Text rechts (5 Spalten) */
-.chapter:nth-of-type(even) .chapter-text { grid-column: 8 / 13; order: 2; }
-.chapters .chapter:nth-of-type(even) .chapter-body .chapter-media { grid-column: 1 / 7; }
-.chapters .chapter-body .chapter-custom { grid-column: 7 / 13; display: flex; flex-wrap: wrap; justify-content: center; row-gap: 32px; }
-.chapters .chapter:nth-of-type(even) .chapter-body .chapter-custom { grid-column: 1 / 7; }
-/* Live-Demo braucht Platz: volle Breite unter dem Text */
-.chapters .chapter .chapter-body .chapter-custom:has(.live) { grid-column: 1 / -1; order: 3; }
-/* wide: Medium über die volle Breite, Bilder und Videos in 16:9 */
-.chapters .chapter.is-wide .chapter-body .chapter-media,
-.chapters .chapter.is-wide .chapter-body .chapter-custom { grid-column: 1 / -1; }
-.chapters .chapter.is-wide .chapter-body .chapter-media { aspect-ratio: 16 / 9; }
-.chapters .chapter .chapter-body .chapter-custom:has(.live[data-narrow]) { grid-column: 4 / -1; } /* schmale Demo: bündig mit dem Kernsatz */
-/* Medien einheitlich um --media-scale verkleinern (tokens.css), damit ein Kapitel auf einen Bildschirm passt.
-   Sie bleiben mittig in ihren Spalten; Karussell (läuft über den Rand) und schmale Demo ausgenommen. */
-.chapters .chapter-body .chapter-media { width: calc(100% * var(--media-scale)); justify-self: center; }
-.chapters .chapter-custom > :not(.carousel, .live[data-narrow]) { width: calc(100% * var(--media-scale)); flex: none; }
-/* split: Text (440) und Medium (580) nebeneinander unter dem Kernsatz, zusammen Spalte 4–12 */
-.chapter.is-split .chapter-main { grid-column: 4 / -1; }
-.chapter.is-split .chapter-teaser { max-width: 77%; } /* Kernsatz bleibt so breit wie sonst (825 von 1068 px) */
-.chapter-split { display: grid; grid-template-columns: 440fr 580fr; gap: 48px; align-items: start; }
-.chapter-split .chapter-custom > * { width: 100%; }
-/* inset: Medium bündig mit dem Text statt über die volle Breite */
-.chapters .chapter.is-wide.is-inset .chapter-body .chapter-custom { grid-column: 4 / -1; }
-/* pair: zwei Medien nebeneinander, je 6 Spalten */
-.chapters .chapter.is-pair .chapter-body .chapter-custom { display: grid; grid-template-columns: 1fr 1fr; gap: 32px var(--col-gap); align-items: center; }
-@media (max-width: 767px) {
-  .chapter-split, .chapters .chapter.is-pair .chapter-body .chapter-custom { grid-template-columns: 1fr; }
-}
-/* beside (Figma 08 Ergebnis): Nummer, Titel, Kernsatz und Text untereinander links (559 px),
-   Medium daneben (474 px) mittig und oben bündig mit der Nummer, rechts Freiraum; unter 1024 px untereinander */
-.chapter.is-beside .chapter-head { grid-template-columns: 559fr 474fr 399fr; grid-template-rows: auto auto auto 1fr; column-gap: 0; row-gap: 4px; }
-.chapter.is-beside .chapter-main { display: contents; }
-.chapter.is-beside .chapter-head > .chapter-side,
-.chapter.is-beside .chapter-main > :not(.chapter-custom) { grid-column: 1; max-width: 536px; }
-.chapter.is-beside .chapter-main > .chapter-custom { grid-column: 2; grid-row: 1 / -1; display: flex; justify-content: center; }
-.chapters .chapter .chapter-custom > .proto-phone { width: 292px; max-width: 100%; } /* gegen die allgemeine Breitenregel oben */
-@media (max-width: 1023px) {
-  .chapter.is-beside .chapter-head { grid-template-columns: minmax(0, 1fr); grid-template-rows: none; row-gap: 16px; }
-  .chapter.is-beside .chapter-main > .chapter-custom { grid-column: 1; grid-row: auto; margin-top: 12px; }
-}
-
-/* Nächstes Projekt: Label und Titel linksbündig auf einer Linie mit dem Rand */
-.panel-next {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  padding-top: 80px;
-  text-decoration: none;
-  color: var(--c-text);
-}
-.next-label { color: var(--c-text-muted); font-weight: 700; }
+/* Nächstes Projekt: Label in der Label-Spalte, Titel 44 in der Inhaltsspalte */
+.panel-next { align-items: baseline; padding-top: 80px; text-decoration: none; color: var(--c-text); }
+.next-label { font-size: var(--fs-label); font-weight: 700; color: var(--c-text-muted); }
 .next-title { font-size: var(--fs-display); font-weight: 700; line-height: var(--lh-display); }
 .panel-next:hover .next-title { color: var(--c-accent); }
 
 @media (max-width: 767px) {
   .bar-crumbs .bar-item:first-child { display: none; }
-  .chapter:nth-of-type(even) .chapter-text { order: 0; } /* Handy: Text immer zuerst */
+  .panel-head { padding-bottom: 56px; }
 }

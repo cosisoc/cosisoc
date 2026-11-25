@@ -1,0 +1,57 @@
+/* Kapitel der Projektseiten (Figma „Vorschlag Layout“): links Nummer + Titel in der Label-Spalte,
+   rechts Kernsatz, Text (max. 640 px) und Medium in der Inhaltsspalte. Nichts läuft über die volle Breite. */
+.chapters { counter-reset: chapter; border-bottom: 1px solid var(--c-line); }
+.chapter {
+  counter-increment: chapter;
+  align-items: start;
+  padding: 56px 0;
+  border-top: 1px solid var(--c-line);
+  scroll-margin-top: var(--nav-h);
+}
+/* tint: Kapitel auf beigem Grund, die Fläche läuft über die volle Breite, der Inhalt bleibt in den Spalten */
+.chapter.is-tinted { background: var(--c-sand); box-shadow: 0 0 0 100vmax var(--c-sand); clip-path: inset(0 -100vmax); border-top-color: transparent; }
+
+.chapter-side { display: flex; flex-direction: column; gap: 4px; font-size: var(--fs-label); line-height: var(--lh-lead); letter-spacing: 0; }
+.chapter-num { font-size: var(--fs-meta); font-weight: 400; color: var(--c-text-muted); }
+.chapter-num::before { content: counter(chapter, decimal-leading-zero); }
+
+.chapter-main { min-width: 0; display: flex; flex-direction: column; gap: 16px; }
+.chapter-teaser { font-size: var(--fs-sub); font-weight: var(--fw-sub); line-height: var(--lh-lead); }
+.chapter.is-statement .chapter-teaser { font-size: var(--fs-display); font-weight: 700; line-height: var(--lh-display); }
+.chapter-more { max-width: var(--text-max); font-size: var(--fs-body); line-height: var(--lh-body); }
+.chapter-more p + p { margin-top: 16px; }
+.chapter-more blockquote { margin: 0 0 16px; font-size: var(--fs-sub); font-style: italic; line-height: var(--lh-lead); }
+.chapter-more ol { margin: 4px 0 0; padding-left: 1.3em; }
+.chapter-more ol + p { margin-top: 16px; }
+.chapter-more li::marker { font-weight: 700; }
+
+/* Medium unter dem Text: Einzelbild in seinem Format, so breit wie die Inhaltsspalte, Höhe begrenzt */
+.chapter-main > :is(.chapter-media, .chapter-custom) { margin-top: 16px; }
+.chapter-media { width: auto; max-width: 100%; height: auto; max-height: var(--media-max-h); border-radius: var(--radius); }
+.chapter-media.media-placeholder { width: 100%; aspect-ratio: 16 / 9; }
+.chapter-custom { width: 100%; display: flex; flex-direction: column; align-items: flex-start; gap: 32px; }
+.chapter-custom > :not(.carousel) { max-width: 100%; } /* Karussell läuft rechts aus der Seite */
+/* Zwei Spalten: links ein großes Bild, rechts Bilder untereinander (WarnWetter „Farbe als Sprache“) */
+.figures-split { width: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
+.figures-split > div { display: flex; flex-direction: column; gap: 24px; }
+
+/* Hochformat: Text (~400 px) links, Medium rechts daneben, beide in der Inhaltsspalte */
+@media (min-width: 768px) {
+  .chapter.is-portrait .chapter-main { display: grid; grid-template-columns: minmax(0, 400fr) minmax(0, 452fr); grid-template-rows: auto 1fr; gap: 16px 32px; }
+  .chapter.is-portrait .chapter-main > :is(.chapter-media, .chapter-custom) { grid-column: 2; grid-row: 1 / -1; margin-top: 0; justify-self: center; }
+  .chapter.is-portrait .chapter-custom { align-items: center; }
+}
+
+/* Teile der Hauptprojekte: Linie über die ganze Breite, grüner Titel in der Inhaltsspalte.
+   Darin keine Linien zwischen den Kapiteln; das erste Kapitel rückt näher an den Titel. */
+.part { margin-top: 120px; padding-top: 28px; border-top: 1px solid var(--c-line); }
+.part-title { font-size: clamp(28px, 2.65vw, 40px); font-weight: 700; color: var(--c-accent); }
+.chapters:has(.part) { border-bottom: 0; }
+.chapters:has(.part) .chapter { border-top-color: transparent; }
+.part + .chapter { padding-top: 40px; }
+
+@media (max-width: 767px) {
+  .chapter { padding: 40px 0; }
+  .figures-split { grid-template-columns: 1fr; }
+  .part { margin-top: 64px; }
+}

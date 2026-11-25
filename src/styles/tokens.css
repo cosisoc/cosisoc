@@ -17,28 +17,39 @@
   --c-card: #FFFFFF;
   --c-sand: #F4F1EA; /* beiger Hintergrund für Band und hervorgehobene Kapitel */
 
-  /* Schrift: Satoshi. Drei Stufen (bei 1512 px Breite): Überschrift 64 Bold / Zwischenüberschrift 28 Medium / Text 20 Regular.
-     Hero 112 nur auf der Landing. Labels = Text in Bold, Nebeninfos = Text in --c-text-muted. */
+  /* Schrift: Satoshi, Clash Display nur für die Landing-Headline. Werte bei 1512 px Breite:
+     Hero 80 / Projekttitel 72 / Überschrift 44 Bold / Kernsatz 24 Medium / Lead 20 / Text 17 /
+     Label 15 Bold / Meta 13 grau (Nummern, Bildunterschriften, Projektdaten, Tags, Footer) / Notiz 12. */
   --f-sans: 'Satoshi', system-ui, sans-serif;
   --f-hero: 'Clash Display', var(--f-sans); /* nur Landing-Headline */
-  --fs-hero: clamp(32px, 7.4vw, 112px); /* Landing-Headline */
-  --fs-display: clamp(40px, 4.25vw, 64px); /* Überschrift */
-  --fs-sub: clamp(22px, 1.85vw, 28px); /* Zwischenüberschrift */
-  --fs-body: clamp(18px, 1.33vw, 20px); /* Text */
+  --fs-hero: clamp(32px, 5.3vw, 80px); /* Landing-Headline */
+  --fs-title: clamp(40px, 4.76vw, 72px); /* Projekttitel */
+  --fs-display: clamp(30px, 2.9vw, 44px); /* Überschrift, Kernsatz als Statement, Teil-Titel (40) */
+  --fs-sub: clamp(20px, 1.6vw, 24px); /* Kernsatz, Projektname, Mail */
+  --fs-lead: clamp(18px, 1.32vw, 20px); /* Kurztexte im Hero, Intro */
+  --fs-body: clamp(16px, 1.12vw, 17px); /* Text */
+  --fs-label: 15px; /* Labels, Navigation, Kapitelnamen, Karten */
+  --fs-meta: 13px; /* Nebeninfos in --c-text-muted */
+  --fs-note: 12px;
   --fw-sub: 500;
-  --lh-display: 1.05;
+  --lh-display: 1.1;
   --lh-lead: 1.3;
-  --lh-body: 1.5;
+  --lh-body: 1.55;
 
-  /* Layout: 12-Spalten-Raster, 40 px Rand, 24 px Spaltenabstand */
-  --gutter: clamp(20px, 2.65vw, 40px);
+  /* Layout: 120 px Rand. Zwei Achsen: Label-Spalte 340 | 80 Abstand | Inhaltsspalte 852 (bei 1512 px Breite).
+     Fließtext höchstens 640 px breit, Medien höchstens 600 px bzw. 70 % der Bildschirmhöhe hoch. */
+  --gutter: clamp(20px, 8vw, 120px);
   --col-gap: clamp(16px, 1.6vw, 24px);
+  --axis-label: 340fr;
+  --axis-content: 852fr;
+  --axis-gap: clamp(32px, 5.3vw, 80px);
+  --text-max: 640px;
+  --media-max-h: min(600px, 70vh);
   --nav-h: 80px; /* Header-Höhe */
   --pill-h: 54px; /* Höhe der Nav-Pill */
   --section-top: 128px; /* Label bei y=128, Titel bei y=160 */
   --head-gap: 48px; /* Titel → Inhalt */
   --radius: 14px;
-  --media-scale: 1; /* alle Bilder/Videos/Demos auf Projektseiten: 1 = volle Rasterbreite, kleiner = kleiner */
   --radius-tab: 30px;
 
   /* Bewegung */

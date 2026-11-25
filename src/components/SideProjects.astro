@@ -65,8 +65,8 @@ const style = (i: number) => {
   .side-card :global(.side-media) { aspect-ratio: 4 / 3; border-radius: 0; }
   /* Videos nie beschneiden: ganz, im eigenen Format */
   .side-card :global(video.side-media) { aspect-ratio: auto; object-fit: contain; }
-  h3 { font-size: var(--fs-body); }
-  p { line-height: var(--lh-body); }
+  h3 { font-size: var(--fs-label); }
+  p { font-size: var(--fs-label); line-height: var(--lh-body); }
 
   /* Gepinnt: Bühne füllt den Bildschirm, Karten wandern vom Stapel an ihre Plätze */
   /* Animation endet genau, wenn der Abschnitt weiterscrollt (keine Leerstrecke danach) */

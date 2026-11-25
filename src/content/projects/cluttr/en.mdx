@@ -35,10 +35,12 @@ import rueckseite from './detail-rueckseite.jpg';
 import roboterFahren from './roboter-fahren.jpg';
 import roboterGreifarm from './roboter-greifarm.jpg';
 import formstudien from './formstudien.jpg';
-import varianten from './varianten.jpg';
-import usertest from './usertest-klasse.jpg';
-import skizzen from './entstehung-1-skizzen.jpg';
+import varianten from './formfindung-farben.png';
+import usertest from './usertest-klasse-2.jpg';
+import skizzen from './formfindung-skizzen.png';
 import knete from './entstehung-2-knete.jpg';
+
+<Part title="Starting Point" />
 
 <Chapter title="Overview" teaser="An unloved chore should become a game." wide statement>
 
@@ -57,6 +59,8 @@ We found children especially interesting as a target group, precisely because a 
 
 </Chapter>
 
+<Part title="Concept" />
+
 <Chapter title="Finding the Form" teaser="First sketches of the shape and layout of the controls." wide>
 
 Children already know controllers from games. So we based the controls on familiar gamepads instead of inventing our own logic.
@@ -64,8 +68,8 @@ Children already know controllers from games. So we based the controls on famili
 In our first design, steering the robot through space played a bigger role than controlling the gripper arm.
 
   <Figures slot="media" images={[
-    { image: skizzen, label: 'Shape studies for the grip', span: 8, ratio: '947 / 620', fit: 'contain' },
-    { image: varianten, label: 'Colour split left and right', span: 4, ratio: '461 / 620' },
+    { image: skizzen, label: 'Shape studies for the grip', ratio: '556 / 364' },
+    { image: varianten, label: 'Colour split left and right', ratio: '271 / 364' },
   ]} />
 
 </Chapter>
@@ -79,6 +83,8 @@ We ran our first user tests with students at the HfG. Key learnings: we had orie
 Our idea of operating the gripper by closing your hand worked well. However, we reversed the direction so that closing your hand, i.e. pressing the limit switch, opened the gripper, and releasing it closed it again automatically. Some participants also struggled with the robot's speed on tasks that needed precision.
 
 </Chapter>
+
+<Part title="Iteration" />
 
 <Chapter title="Iteration and Solution" teaser="Drive on the left, grab on the right." wide>
 
@@ -127,15 +133,17 @@ Right: squeezing the grip opens the gripper. A dial under the thumb extends and 
 We rendered all the controls in Blender. The back has a line texture.
 
   <Figures slot="media" images={[
-    { image: joystick, label: 'Joystick', span: 2, ratio: '219 / 270' },
-    { image: crabwalk, label: 'Crab-walk button', span: 2, ratio: '219 / 270' },
-    { image: slow, label: 'Slow switch', span: 2, ratio: '219 / 270' },
-    { image: greifhebel, label: 'Grip lever', span: 2, ratio: '219 / 270' },
-    { image: drehrad, label: 'Dial', span: 2, ratio: '219 / 270' },
-    { image: rueckseite, label: 'Back', span: 2, ratio: '219 / 270' },
+    { image: joystick, label: 'Joystick', ratio: '219 / 270' },
+    { image: crabwalk, label: 'Crab-walk button', ratio: '219 / 270' },
+    { image: slow, label: 'Slow switch', ratio: '219 / 270' },
+    { image: greifhebel, label: 'Grip lever', ratio: '219 / 270' },
+    { image: drehrad, label: 'Dial', ratio: '219 / 270' },
+    { image: rueckseite, label: 'Back', ratio: '219 / 270' },
   ]} />
 
 </Chapter>
+
+<Part title="Result" />
 
 <Chapter title="Result" teaser="A controller children use without explanation." wide>
 

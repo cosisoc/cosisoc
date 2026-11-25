@@ -30,10 +30,11 @@ const openLabel = (num: string, title: string) =>
 <div class="section work">
   <div class="work-body grid" data-wheel-root tabindex="0" aria-roledescription="carousel" aria-label={copy[lang].work.title}>
     <div class="work-info">
-      {items.map(({ d, num }, i) => (
+      {items.map(({ p, d, num }, i) => (
         <div class="work-detail" data-info hidden={i !== 0}>
-          <p class="work-name"><span>{num}</span> {d.title}</p>
-          <p class="work-short">{d.short}</p>
+          <!-- Name und Kurztext öffnen das Projekt wie das Bild; der Kurztext ist ein zweiter Klickbereich, nicht per Tab erreichbar -->
+          <a class="work-name" href={projectUrl(lang, p.slug)} data-panel-open={p.slug}><span>{num}</span> {d.title}</a>
+          <a class="work-short" href={projectUrl(lang, p.slug)} data-panel-open={p.slug} tabindex="-1" aria-hidden="true">{d.short}</a>
           <dl class="work-specs">
             <!-- Nur das Semester („SoSe 26“), ohne Kurs; Dauer und Team stehen auf der Projektseite -->
             <div><dt>{t('project.when')}</dt><dd>{d.semester.split(' · ')[0]}</dd></div>

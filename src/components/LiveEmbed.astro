@@ -2,15 +2,14 @@
 // Live-Demo (eigene HTML-Seite aus public/) im iframe, auf die Breite skaliert.
 // Die Seite ist für eine feste Größe gebaut (width × height). Auf dem Handy steht statt der Demo ein Hinweis.
 // In der MDX-Datei: <LiveEmbed slot="media" src="/projects/…/index.html" width={1512} height={945} label="Titel" hint="Am Desktop ausprobieren" />
-// Mit narrow steht die Demo nur über Spalte 4–12 (bündig mit dem Kernsatz) statt über die volle Breite.
 // Mit button="Spiel starten" lädt die Demo erst nach Klick auf den Knopf (für schwere Demos wie das Unity-Spiel).
 // poster = Vorschaubild hinter dem Knopf, solange die Demo nicht geladen ist.
 import type { ImageMetadata } from 'astro';
 import { Image } from 'astro:assets';
-interface Props { src: string; width: number; height: number; label: string; hint: string; button?: string; narrow?: boolean; poster?: ImageMetadata }
-const { src, width, height, label, hint, button, narrow, poster } = Astro.props;
+interface Props { src: string; width: number; height: number; label: string; hint: string; button?: string; poster?: ImageMetadata }
+const { src, width, height, label, hint, button, poster } = Astro.props;
 ---
-<div class="live" data-live-embed data-narrow={narrow ? '' : undefined} style={`--w:${width}; --h:${height}`}>
+<div class="live" data-live-embed style={`--w:${width}; --h:${height}`}>
   <div class="live-frame">
     <iframe data-src={src} title={label} width={width} height={height} allow="fullscreen"></iframe>
     {button && poster && <Image class="live-poster" src={poster} alt="" widths={[900, 1400, 1920]} sizes="(min-width: 768px) 1200px, 100vw" />}

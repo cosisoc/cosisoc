@@ -24,11 +24,12 @@ cta:
 
 import LiveEmbed from '../../../components/LiveEmbed.astro';
 import uebersicht from './uebersicht.png';
-import recherche from './recherche.png';
 import interaktionspunkte from './interaktionspunkte.png';
 import ablauf from './ablauf.png';
 import gestaltung from './gestaltung.png';
 import technik from './technik.png';
+
+<Part title="Ausgangslage" />
 
 <Chapter title="Übersicht" teaser="Wie erklärt man Gehirne, ohne zu überfordern?" statement image={uebersicht} fit="contain" label="Ameise und Kind, Illustration">
 
@@ -38,7 +39,7 @@ Die Schwierigkeit: Neurowissenschaft steckt voller Fachbegriffe und Daten. Unser
 
 </Chapter>
 
-<Chapter title="Recherche" teaser="Ein winziges Gehirn, eine Intelligenz im Kollektiv." image={recherche} fit="contain" label="Gehirne verschiedener Arten im Vergleich">
+<Chapter title="Recherche" teaser="Ein winziges Gehirn, eine Intelligenz im Kollektiv." wide>
 
 Entschieden haben wir uns für den Vergleich von Gehirnen verschiedener Arten.
 
@@ -47,6 +48,8 @@ Wir haben das menschliche Gehirn neben die von Biene, Ameise, Elefant, Oktopus, 
 Die Wahl fiel auf die Ameise: ein winziges, ganz anders aufgebautes Gehirn und eine Intelligenz, die nicht im einzelnen Tier liegt, sondern in der Kolonie. Erzählt wird der Vergleich entlang von drei Themen: Lebensraum, Intelligenz und Emotionen.
 
 </Chapter>
+
+<Part title="Konzept" />
 
 <Chapter title="Interaktionskonzept" teaser="Erst staunen, dann vergleichen, dann vertiefen." wide image={interaktionspunkte} fit="contain" label="Die fünf Interaktionspunkte auf dem Tisch">
 
@@ -85,6 +88,8 @@ Als Schrift haben wir die freundliche, einfache Pacaembu gewählt. Aus Storyboar
 
 </Chapter>
 
+<Part title="Umsetzung" />
+
 <Chapter title="Technik" teaser="NFC erkennt die Figur, Drehgeber messen die Drehung." image={technik} label="Figur mit achteckigem Sockel">
 
 Jede Figur steht auf einem achteckigen Sockel, der sich aus jeder Richtung auf einen Punkt schieben lässt. Darunter sitzen ein NFC-Reader, der die Figur am Chip erkennt („A“ für Ameise, „H“ für Mensch), und ein Drehgeber, der die Drehung misst. Ein Arduino (ESP32-S3) schickt den Zustand aller fünf Punkte als kurze Zeichenkette an den Rechner.
@@ -100,6 +105,8 @@ Die Gehirnmodelle stammen von Sketchfab. Die einzelnen Hirnregionen habe ich far
 Die größte Herausforderung waren die Daten selbst: Drehgeber und NFC-Reader lieferten teils sehr ungenaue Werte. Mein Code musste daraus trotzdem ein ruhiges, verständliches Bild machen.
 
 </Chapter>
+
+<Part title="Ergebnis" />
 
 <Chapter title="Selbst ausprobieren" teaser="Den Tisch gibt es auch im Browser." id="anatomy-live">
 

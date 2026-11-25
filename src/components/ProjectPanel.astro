@@ -2,6 +2,7 @@
 import { render } from 'astro:content';
 import Media from './Media.astro';
 import Chapter from './Chapter.astro';
+import Part from './Part.astro';
 import Model3D from './Model3D.astro';
 import BobViewer from './BobViewer.astro';
 import LangSwitch from './LangSwitch.astro';
@@ -9,6 +10,7 @@ import { projectUrl, otherLang, routes, useT, type Lang } from '../i18n/utils';
 import type { Project } from '../lib/projects';
 import { copy } from '../i18n/copy';
 import '../styles/panel.css';
+import '../styles/chapters.css';
 
 // Projektseite: Vollbild-Overlay mit eigener Leiste (COSI · Hauptprojekte · [Projekt] · DE/EN).
 interface Props { lang: Lang; project: Project; next: Project; open: boolean }
@@ -51,17 +53,17 @@ const facts = [
       <LangSwitch lang={lang} alternate={projectUrl(otherLang(lang), p.slug)} />
     </header>
 
-    <section class:list={['panel-head', 'grid', { 'has-model': d.model }]}>
+    <section class="panel-head axes">
+      <a class="section-label head-back" href={back.href} data-panel-close><span aria-hidden="true">←</span> {back.section}</a>
       <div class="head-title">
-        <a class="section-label head-back" href={back.href} data-panel-close><span aria-hidden="true">←</span> {back.section}</a>
-        <h2 id={`panel-title-${p.slug}`}>{d.title}</h2>
+        <h2 id={`panel-title-${p.slug}`}>{d.title}.</h2>
       </div>
       <div class="head-text">
         <p class="head-short">{d.short}</p>
         {d.intro && <p class="head-intro">{d.intro}</p>}
         {d.cta && <a class="head-cta" href={d.cta.href}>{d.cta.label}</a>}
         <dl class="head-facts">
-          {facts.map(([k, v]) => <div><dt>{k}:</dt> <dd>{v}</dd></div>)}
+          {facts.map(([k, v]) => <div><dt>{k}</dt> <dd>{v}</dd></div>)}
         </dl>
       </div>
       <div class="head-media">
@@ -74,10 +76,10 @@ const facts = [
     </section>
 
     <div class="chapters">
-      <Content components={{ Chapter }} />
+      <Content components={{ Chapter, Part }} />
     </div>
 
-    <a class="panel-next" href={projectUrl(lang, next.slug)} data-panel-open={next.slug}>
+    <a class="panel-next axes" href={projectUrl(lang, next.slug)} data-panel-open={next.slug}>
       <span class="next-label">{t('project.next')} →</span>
       <span class="next-title">{next.data.title}</span>
     </a>
