@@ -86,8 +86,17 @@ document.addEventListener('click', (e) => {
   }
 });
 
+// ESC, das nur den Vollbildmodus (z. B. des Spiels) beendet, soll nicht auch das Projekt schließen
+let fullscreenChangedAt = 0;
+for (const type of ['fullscreenchange', 'webkitfullscreenchange']) {
+  document.addEventListener(type, () => { fullscreenChangedAt = performance.now(); });
+}
+
 document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape') close();
+  if (e.key !== 'Escape') return;
+  if (document.fullscreenElement || document.webkitFullscreenElement) return;
+  if (performance.now() - fullscreenChangedAt < 500) return;
+  close();
 });
 
 window.addEventListener('popstate', () => {

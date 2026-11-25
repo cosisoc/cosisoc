@@ -1,15 +1,14 @@
 // Spielt Bobs Animationen von allein: kurz Idle, dann eine zufällige Aktion, wieder Idle …
-// Ohne Optionen (Hero): am Anfang grau ohne Seele, ab der ersten Aktion bei jeder Aktion eine neue Farbe.
+// Ohne Optionen (Hero): startet gleich farbig mit leuchtender Seele, bei jeder Aktion eine neue Farbe.
 // Mit Optionen (Kapitel): feste Körperfarbe, nur ausgewählte Aktionen, Seele und Gesicht zeigen die Emotion (moods.js).
 import { AnimationMixer, LoopRepeat, LoopOnce, Color, SRGBColorSpace } from 'three';
 import { MOODS } from './moods.js';
 
-// Farben aus BlobPalette.cs (Pastell) und Bobs Original-Grau, als sRGB wie in Unity
+// Farben aus BlobPalette.cs (Pastell), als sRGB wie in Unity
 const PALETTE = [
   [0.94, 0.47, 0.45], [0.98, 0.67, 0.45], [0.98, 0.87, 0.55], [0.60, 0.82, 0.62],
   [0.62, 0.81, 0.95], [0.46, 0.53, 0.85], [0.74, 0.62, 0.91], [0.97, 0.68, 0.81],
 ].map((c) => new Color().setRGB(...c, SRGBColorSpace));
-const GREY = new Color().setRGB(0.40, 0.40, 0.42, SRGBColorSpace);
 
 // Aktion = Folge von [Clip, Wiederholungen]; face = Gesichtsausdruck währenddessen; id = Name für BobViewer acts
 const ACTS = [
@@ -39,10 +38,10 @@ export class Director {
     this.body = body; this.face = face; this.soul = soul;
     this.acts = acts ? ACTS.filter((a) => acts.includes(a.id)) : ACTS;
     this.fixedColor = !!color;
-    const start = color || GREY;
+    const start = color || pick(PALETTE);
     this.color = start.clone(); this.fromColor = start.clone(); this.toColor = start.clone();
     this.mood = mood ? MOODS[mood] : null;
-    this.glow = 0; this.toGlow = 0; this.colorT = 1;
+    this.glow = color ? 0 : 1; this.toGlow = this.glow; this.colorT = 1;
     this.faceKey = null; this.faceW = {}; this.blinkIn = 2; this.blinkT = -1;
     this.mixer.addEventListener('finished', (e) => e.action === this.current && this.next());
     this.current = null; this.act = null; this.step = 0; this.idleLeft = 2.5;

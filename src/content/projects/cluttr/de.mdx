@@ -1,11 +1,11 @@
 ---
 title: "Cluttr"
-short: "Ein Controller, mit dem Kinder einen Roboter steuern – und Aufräumen zum Spiel wird. Getestet mit einer ganzen Schulklasse."
+short: "Ein Controller speziell für Kinder. Getrennt nach Funktionen ermöglicht er eine einfache, intuitive Steuerung. Fürs Spielen und Aufräumen."
 kind: main
 order: 2
 role: "Entwurf, Skizzen, Prototyping, Usertests, 3D-Modellierung"
 team: "Paula Grimm, Yannik Stegmaier, Cosima Bühler"
-duration: "1 Semester"
+duration: "1 Semester · WiSe 24/25, Interface Design"
 semester: "WiSe 24/25 · Interface Design"
 tools: ["Blender", "Skizzen", "Lasercutter", "3D-Druck", "Arduino"]
 tags: ["Interface Design", "Hardware", "Usertesting", "Prototyping"]
@@ -23,8 +23,6 @@ model:
 import concept from './concept.png';
 import interaction from './interaction.png';
 import prototype from './prototype.png';
-import wiring from './wiring.png';
-import Band from '../../../components/Band.astro';
 import Figures from '../../../components/Figures.astro';
 import renderLinks from './render-links.jpg';
 import renderRechts from './render-rechts.jpg';
@@ -41,25 +39,10 @@ import varianten from './varianten.jpg';
 import usertest from './usertest-klasse.jpg';
 import skizzen from './entstehung-1-skizzen.jpg';
 import knete from './entstehung-2-knete.jpg';
-import holz from './entstehung-3-holz.jpg';
-import blender from './entstehung-4-blender.jpg';
-import test from './entstehung-5-test.jpg';
 
-<Band title="Wie Cluttr entstanden ist">
-  <Figures images={[
-    { image: skizzen, label: '1  Formskizzen' },
-    { image: knete, label: '2  Knetmodell' },
-    { image: holz, label: '3  Holzprototyp' },
-    { image: blender, label: '4  Blender' },
-    { image: test, label: '5  Test mit Kindern' },
-  ]} />
-</Band>
+<Chapter title="Übersicht" teaser="Aus einer ungeliebten Aufgabe soll ein Spiel werden." wide statement>
 
-<Chapter title="Übersicht" teaser="Aus einer ungeliebten Aufgabe soll ein Spiel werden." wide>
-
-Der Roboter aus dem Kurs Interface Design war gesetzt: Mecanum-Räder, mit denen er in alle Richtungen fährt – auch seitwärts –, und ein Greifarm, der sich öffnen, schließen und in der Höhe verstellen lässt. Frei waren Einsatzbereich und Zielgruppe.
-
-Wir haben uns für Kinder zwischen 8 und 11 Jahren entschieden, die mit dem Roboter ihr Zimmer aufräumen. Der Fokus lag bewusst auf dem Controller selbst, nicht auf einer App oder Spielmechanik drumherum.
+Im Kurs Interface Design 1 im 2. Semester war unsere Aufgabe, einen Controller für einen vorgegebenen Roboter zu entwickeln. Der Roboter war gesetzt: Mecanum-Räder, mit denen er in alle Richtungen fährt (auch seitwärts), und ein Greifarm, der sich öffnen, schließen und in der Höhe verstellen lässt. Einsatzbereich und Zielgruppe konnten wir selbst bestimmen. Im Fokus stand ein Controller, mit dem sich der Roboter mit all seinen Funktionen intuitiv bedienen lässt.
 
   <Figures slot="media" ratio="5 / 3" images={[
     { image: roboterFahren, label: 'Der vorgegebene Roboter fährt in alle Richtungen' },
@@ -68,45 +51,70 @@ Wir haben uns für Kinder zwischen 8 und 11 Jahren entschieden, die mit dem Robo
 
 </Chapter>
 
-<Chapter title="Konzeption" teaser="Links fahren, rechts greifen – die Aufteilung der Funktionen bestimmt Form und Farbe." wide>
+<Chapter title="Zielgruppe & Konzept" teaser="Kinder von 8 bis 12 Jahren." wide>
 
-Ausgangspunkt waren Controller, die Kinder schon kennen – Joy-Cons der Nintendo Switch, das Spielzeug Bop It – und viele Formskizzen. Daraus entstand eine klare Zweiteilung: Die linke Hand steuert den Roboter, die rechte den Greifarm. Diese Trennung zeigt sich auch farblich.
+Die Zielgruppe Kinder fanden wir besonders interessant, gerade weil ein Roboter thematisch sehr gut dazu passt. Unsere Idee war ein Controller, der natürlich zum Spielen, aber durch den Spaß auch zum Aufräumen anregt.
 
-*Weitergedacht, aber nicht gebaut:* ein Display in der Mitte, das das Kamerabild des Roboters zeigt.
+</Chapter>
+
+<Chapter title="Formfindung" teaser="Erste Skizzen der Form und Anordnung der Bedienelemente." wide>
+
+Kinder kennen Controller schon aus Spielen. Deshalb haben wir die Bedienung an bekannte Gamepads angelehnt, statt eine eigene Logik zu erfinden.
+
+In unserem ersten Entwurf spielte die räumliche Steuerung des Roboters eine größere Rolle als die Steuerung des Greifarms.
 
   <Figures slot="media" images={[
-    { image: formstudien, label: 'Formstudien für den Griff', span: 8, ratio: '947 / 620' },
-    { image: varianten, label: 'Varianten nebeneinander', span: 4, ratio: '461 / 620' },
+    { image: skizzen, label: 'Formstudien für den Griff', span: 8, ratio: '947 / 620', fit: 'contain' },
+    { image: varianten, label: 'Farbaufteilung links und rechts', span: 4, ratio: '461 / 620' },
   ]} />
 
 </Chapter>
 
-<Chapter title="Prototyping" teaser="Vom gelaserten Holzbrett über ein Knetmodell zum Designprototyp in Blender." wide tint>
+<Chapter title="Erster Prototyp & Usertests 1" teaser="Erst testen, ob die Bedienung funktioniert, dann gestalten." image={prototype} label="Funktionsprototyp aus Holz" tint>
 
-Der erste Funktionsprototyp bestand aus zwei gelaserten Holzplatten mit Abstandshaltern, die Form vorher an die Größe der Bauteile angepasst. Parallel haben wir mit einem Knetmodell getestet, wie der Controller in der Hand liegt.
+Der erste Prototyp aus gelasertem Holz steuert den echten Roboter per Funk. Er sollte nur eine Frage beantworten: Liegen alle Funktionen gut erreichbar in zwei Händen? Ist das Mapping der Funktionen natürlich?
 
-Der Funktionsprototyp steuert den echten Roboter per Funk. Verbaut sind ein Joystick, zwei Tasten für den Crabwalk in einem 3D-gedruckten Gehäuse, ein Schalter für den Slow-Modus, ein Limit-Switch für die Greifbewegung und ein Potentiometer mit 3D-gedrucktem Drehrad – verbunden über einen Arduino und einen gemeinsamen Strom-Hub, der Kabel spart.
+Unsere ersten Usertests haben wir mit Studierenden an der HfG durchgeführt. Wichtige Learnings waren: Wir hatten den Joy-Con falsch ausgerichtet. Die räumliche Bewegung des Controllers funktionierte gut, allerdings wurde das Ein- und Ausfahren des Greifarms mithilfe des Drehrads auf der Rückseite des Controllers kaum erkannt. Die Positionierung des Crabwalks gab der Funktion zu viel Bedeutung dafür, dass sie nicht besonders oft verwendet wurde und außerdem nicht gleichzeitig mit dem Joystick.
 
-Nach den Tests wanderten alle Bedienelemente auf die Vorderseite. Das finale Design entstand in Blender – inklusive verschiedener Farbvarianten.
+Unsere Idee, die Greifzange mit dem Schließen der Hand zu bedienen, funktionierte gut. Allerdings änderten wir die Ausrichtung, sodass das Schließen bzw. Drücken des Limit-Switchs die Greifzange öffnete und sie sich nach dem Loslassen automatisch wieder schloss. Außerdem hatten manche Proband:innen Probleme mit der Geschwindigkeit des Roboters bei Aufgaben, die Genauigkeit erforderten.
+
+</Chapter>
+
+<Chapter title="Iteration und Lösung" teaser="Links fahren, rechts greifen." wide>
+
+Unsere Grundidee basierte darauf, die Funktionen des Roboters in zwei Bereiche aufzuteilen: die Steuerung des Roboters und die Steuerung des Greifarms.
+
+Für eine einfache Steuerung entschieden wir uns, die Funktionen auf die beiden Griffe des Controllers aufzuteilen. Die linke Hand steuert den Roboter, die rechte den Greifarm, farblich klar getrennt. So wurde das Drehrad, das in der vorherigen Version einfach übersehen wurde, präsenter. Außerdem fügten wir einen Slow-Modus hinzu.
 
   <Figures slot="media" images={[
-    { image: prototype, label: 'Erster Funktionsprototyp aus gelasertem Holz', span: 8, ratio: '947 / 620' },
-    { image: wiring, label: 'Verkabelung im Inneren', span: 4, ratio: '461 / 620' },
+    { image: interaction, label: 'Links: fahren – Joystick, Crabwalk, Slow-Modus', fit: 'contain' },
+    { image: concept, label: 'Rechts: greifen – Greifhebel und Drehrad', fit: 'contain' },
   ]} />
 
 </Chapter>
 
-<Chapter title="Usertesting" teaser="Zwei Testrunden: erst mit Studierenden, dann mit einer ganzen fünften Klasse.">
+<Chapter title="Formfindung" teaser="Ergonomische Form." wide>
 
-Mit Studierenden der HfG zeigte sich: Der schräg gestellte Joystick und das Drehrad auf der Rückseite funktionierten nicht – die ergonomische Form und die Trennung der Funktionen dagegen schon.
+Von Skizzen zu einem Formprototyp aus Ton: Wie muss ein Controller für Kinderhände geformt sein?
 
-Danach haben wir mit einer fünften Klasse getestet, also mit Personen ohne Bezug zu Design. Das liefert andere Ergebnisse als Interviews im eigenen Umfeld an der HfG. Die Aufgabe: den Roboter steuern, eine Flasche aufheben und in einem Kreis ablegen.
+  <Figures slot="media" images={[
+    { image: formstudien, label: 'Formstudien für den Griff', fit: 'contain' },
+    { image: knete, label: 'Tonmodell mit Farbaufteilung links und rechts' },
+  ]} />
 
-Kinder mit Controller-Erfahrung, etwa von einer Nintendo Switch, lösten die Aufgabe deutlich schneller. Unser Controller folgt also Konventionen, die sie schon kannten.
+</Chapter>
 
-Zwei Änderungen ergaben sich aus den Tests: Der Crab-Walk-Button wurde nicht wie erwartet verstanden und bekam eine Beschriftung. Der Speed-Button bekam zusätzlich ein Icon.
+<Chapter title="Usertests 2" teaser="Zweite Usertests: erst Studierende, dann eine fünfte Klasse." image={usertest} label="User-Tests mit einer 5. Klasse">
 
-  <Figures slot="media" images={[{ image: usertest, label: 'User-Tests mit einer 5. Klasse' }]} />
+Mit Studierenden hatten wir die Ergonomie geprüft. Danach haben wir mit Kindern, unserer echten Zielgruppe, getestet.
+
+Die Aufgabe: eine Flasche aufheben und in einem Kreis ablegen.
+
+Was Kinder schon kennen, verstehen sie sofort. Kinder mit Controller-Erfahrung lösten die Aufgabe deutlich schneller. Das hat unsere Entscheidung für bekannte Muster bestätigt.
+
+Nur der Crab-Walk war neu und wurde nicht verstanden. Er bekam eine Beschriftung, der Speed-Button ein Icon. Alle Bedienelemente wanderten auf die Vorderseite.
+
+Bei der Steuerung des Greifarms wurde uns während des Tests auch bewusst, wie wichtig es ist, Bedienelemente im Endprodukt durch Beleuchtung und Farbe hervorzuheben. Mit unserem Technik-Prototyp war das allerdings nicht möglich.
 
 </Chapter>
 
@@ -114,13 +122,11 @@ Zwei Änderungen ergaben sich aus den Tests: Der Crab-Walk-Button wurde nicht wi
 
 Links: Der Joystick fährt, eine Taste lässt den Roboter seitwärts fahren (Crabwalk), ein Schalter aktiviert den Slow-Modus für präzises Arbeiten.
 
-Rechts: Wer den Griff zudrückt, schließt den Greifarm – die natürliche Greifbewegung der Hand wird direkt übertragen. Ein Drehrad unter dem Daumen verstellt die Höhe.
+Rechts: Wer den Griff zudrückt, öffnet die Greifzange. Ein Drehrad unter dem Daumen fährt den Greifarm aus und ein.
 
 Alle Bedienelemente haben wir in Blender gerendert. Auf der Rückseite liegt eine Linienstruktur.
 
   <Figures slot="media" images={[
-    { image: interaction, label: 'Links: fahren – Joystick, Crabwalk, Slow-Modus', span: 6, fit: 'contain' },
-    { image: concept, label: 'Rechts: greifen – Greifhebel und Drehrad', span: 6, fit: 'contain' },
     { image: joystick, label: 'Joystick', span: 2, ratio: '219 / 270' },
     { image: crabwalk, label: 'Crabwalk-Taste', span: 2, ratio: '219 / 270' },
     { image: slow, label: 'Slow-Schalter', span: 2, ratio: '219 / 270' },
@@ -131,9 +137,9 @@ Alle Bedienelemente haben wir in Blender gerendert. Auf der Rückseite liegt ein
 
 </Chapter>
 
-<Chapter title="Ergebnis" teaser="Ein ergonomischer Controller, den Kinder ohne lange Erklärung bedienen konnten." wide>
+<Chapter title="Ergebnis" teaser="Ein Controller, den Kinder ohne Erklärung bedienen." wide>
 
-Am Ende standen ein Funktionsprototyp, der den Roboter steuert, ein Formprototyp und ein Designprototyp in Blender. Das Kamera-Display blieb Konzept.
+Am Ende standen ein Funktionsprototyp, der den Roboter steuert, und ein Designprototyp in Blender.
 
   <Figures slot="media" images={[
     { image: renderLinks, label: 'Von links, Rendering', fit: 'contain' },
@@ -142,12 +148,8 @@ Am Ende standen ein Funktionsprototyp, der den Roboter steuert, ein Formprototyp
 
 </Chapter>
 
-<Chapter title="Meine Rolle" teaser="Entwurf, Skizzen, Prototyping, Usertests und das 3D-Modell in Blender." wide>
+<Chapter title="Meine Rolle" teaser="Form, Prototypen und Usertests." wide>
 
-> „Die Kinder haben anders reagiert als Studierende – direkter, spielerischer.“
-
-Ich habe die Form mit entworfen und skizziert, an den Prototypen gebaut, die Usertests mit durchgeführt und den Designprototyp in Blender modelliert.
-
-Am meisten mitgenommen habe ich, wie viel ein Test mit der echten Zielgruppe bringt. Die Kinder haben uns gleichzeitig neue Ideen für die Gestaltung geliefert.
+Ich habe die Form entworfen und skizziert, an den Prototypen gebaut, die Tests mit Kindern geleitet und den Designprototyp in Blender modelliert.
 
 </Chapter>

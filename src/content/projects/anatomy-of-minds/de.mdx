@@ -1,53 +1,109 @@
 ---
 title: "Anatomy of Minds"
-short: "Ein interaktiver Tisch, an dem NFC-Figuren die Gehirne von Mensch und Ameise vergleichen."
+short: "Eine Museumsstation, an der man die Gehirne von Mensch und Ameise vergleicht. Man setzt Figuren auf einen Tisch, dreht sie und sieht das passende Gehirn als 3D-Modell."
 kind: main
 order: 3
-role: "Interaktionskonzept, Programmierung der Webseite"
+role: "Interaktionskonzept, Website, 3D-Gehirne"
 team: "María Jesús Fonseca, Yannik Stegmaier, Cosima Bühler"
-duration: "1 Semester"
+supervision: "Martin Wehl"
+duration: "1 Semester · WiSe 25/26, Interaktive Kommunikationssysteme"
 semester: "WiSe 25/26 · Interaktive Kommunikationssysteme"
-tools: ["JavaScript", "Web Serial API", "Sketchfab", "Arduino", "NFC", "3D-Druck"]
+tools: ["JavaScript", "Web Serial API", "Sketchfab", "Arduino ESP32-S3", "NFC"]
 tags: ["Tangible Interface", "Projektion", "Creative Coding"]
 preview:
   label: "Anatomy of Minds: interaktiver Tisch mit Projektion"
   image: ./cover.png
 hero:
   label: "Anatomy of Minds: interaktiver Tisch mit Projektion"
-  image: ./cover.png
+  video: "/projects/anatomy-of-minds/benutzung.mp4"
+  poster: ./cover.png
+cta:
+  label: "Im Browser ausprobieren →"
+  href: "#anatomy-live"
 ---
 
 import LiveEmbed from '../../../components/LiveEmbed.astro';
+import uebersicht from './uebersicht.png';
+import recherche from './recherche.png';
+import interaktionspunkte from './interaktionspunkte.png';
+import ablauf from './ablauf.png';
+import gestaltung from './gestaltung.png';
+import technik from './technik.png';
 
-<Chapter title="Übersicht" teaser="Wie definiert man Intelligenz über Artgrenzen hinweg? Ein Ausstellungstisch, der die Gehirne von Ameise und Mensch spielerisch vergleichbar macht.">
+<Chapter title="Übersicht" teaser="Wie erklärt man Gehirne, ohne zu überfordern?" statement image={uebersicht} fit="contain" label="Ameise und Kind, Illustration">
 
-Zur Wahl standen zwei Themen: Überschalljets und der menschliche Kopf. Wir haben uns für den Kopf entschieden – er bot mehr Möglichkeiten für ein interaktives Erlebnis, von den Sinnen über Emotionen bis zum Gehirn selbst.
+Im Kurs Interaktive Kommunikationssysteme befasste sich unsere Gruppe mit dem Thema Gehirn.
 
-Die Schwierigkeit: Neurowissenschaft steckt voller Fachbegriffe und Daten. Unsere Leitfrage war deshalb, wie eine Museumsstation Unterschiede und Gemeinsamkeiten von Gehirnen so vermittelt, dass Kinder wie Erwachsene etwas mitnehmen – ohne überfordert zu werden.
-
-</Chapter>
-
-<Chapter title="Recherche" teaser="Neun Arten, vier Kriterien – und am Ende die Ameise als stärkster Kontrast zum Menschen." label="[Bild: 3D-gedruckte Gehirnmodelle oder Mindmap]">
-
-Zuerst stand die Frage im Raum: Gehirn und Emotionen – oder Gehirne verschiedener Arten im Vergleich? Für den Vergleich gab es deutlich mehr verlässliche Quellen, und Emotionen ließen sich als ein Teilaspekt mitnehmen.
-
-Wir haben das menschliche Gehirn neben die von Biene, Ameise, Elefant, Oktopus, Fisch, Vogel, Maus und Schwein gestellt, entlang von Evolution, Umwelt, Intelligenz und Emotionen. 3D-gedruckte Gehirnmodelle und Mindmaps zeigten, welche Arten sich am stärksten unterscheiden.
-
-Die Wahl fiel auf die Ameise: ein winziges, ganz anders aufgebautes Gehirn – und eine Intelligenz, die nicht im einzelnen Tier liegt, sondern in der Kolonie. Erzählt wird der Vergleich entlang von drei Themen: Umwelt, Intelligenz und Emotionen.
+Die Schwierigkeit: Neurowissenschaft steckt voller Fachbegriffe und Daten. Unsere Leitfrage war deshalb, wie eine Museumsstation Unterschiede und Gemeinsamkeiten von Gehirnen so vermittelt, dass Kinder wie Erwachsene etwas mitnehmen, ohne überfordert zu werden.
 
 </Chapter>
 
-<Chapter title="Interaktionskonzept" teaser="Figur aufsetzen, Figur drehen – wie bei einem Brettspiel." label="[Video: Figur aufsetzen und drehen, die Projektion reagiert]">
+<Chapter title="Recherche" teaser="Ein winziges Gehirn, eine Intelligenz im Kollektiv." image={recherche} fit="contain" label="Gehirne verschiedener Arten im Vergleich">
 
-Im Museum bleiben Besucher:innen nur wenige Minuten an einer Station und springen zwischen den Exponaten. Darum funktioniert unser Tisch wie ein Brettspiel: 3D-gedruckte Figuren von Ameise und Mensch werden auf Punkte gesetzt, die Inhalte werden von oben direkt auf den Tisch projiziert.
+Entschieden haben wir uns für den Vergleich von Gehirnen verschiedener Arten.
 
-Es gibt fünf Punkte. Auf den zwei Hauptpunkten erscheint das Gehirn der Figur als 3D-Modell – dreht man die Figur, dreht sich das Gehirn mit. Drei weitere Punkte stehen für Umwelt, Intelligenz und Emotionen. Dort zeigt jede Vierteldrehung eine neue Information, und die beteiligten Hirnregionen leuchten auf.
+Wir haben das menschliche Gehirn neben die von Biene, Ameise, Elefant, Oktopus, Fisch, Vogel, Maus und Schwein gestellt.
+
+Die Wahl fiel auf die Ameise: ein winziges, ganz anders aufgebautes Gehirn und eine Intelligenz, die nicht im einzelnen Tier liegt, sondern in der Kolonie. Erzählt wird der Vergleich entlang von drei Themen: Lebensraum, Intelligenz und Emotionen.
 
 </Chapter>
 
-<Chapter title="Selbst ausprobieren" teaser="Den Tisch gibt es hier auch im Browser: Figur auf einen Kreis ziehen, am Griff drehen.">
+<Chapter title="Interaktionskonzept" teaser="Erst staunen, dann vergleichen, dann vertiefen." wide image={interaktionspunkte} fit="contain" label="Die fünf Interaktionspunkte auf dem Tisch">
 
-Statt echter Figuren zieht man hier runde Figuren mit der Maus, der Griff ersetzt das Drehen. Die Abläufe und Inhalte sind dieselben wie am Tisch. Die Screens sind auf Englisch.
+Im Museum bleiben Besucher:innen nur wenige Minuten an einer Station und springen zwischen den Exponaten. Darum funktioniert unser Tisch wie ein Brettspiel: 3D-gedruckte Figuren werden auf Punkte gesetzt, die Inhalte werden von oben direkt auf den Tisch projiziert. Figuren kann man anfassen, vergleichen und frei platzieren, ohne eine Anleitung zu lesen. Gehirnmodelle in Originalgröße haben wir verworfen, weil es nicht für alle Arten passende 3D-Modelle gab.
+
+Die Inhalte sind in Ebenen aufgebaut. Zuerst sieht man nur das Gehirn, groß und drehbar. Wer mehr wissen will, wählt ein Thema. So nimmt jede:r etwas mit, und wer bleibt, kann tiefer einsteigen.
+
+Der Tisch hat fünf Punkte: zwei Hauptpunkte für die Gehirne und drei Themenpunkte für Umwelt, Intelligenz und Emotionen. Im Prototyp gab es zwei Figuren, Ameise und Mensch. Es sind also höchstens zwei Punkte belegt, und es ist immer nur ein Thema aktiv. Das hält die Projektion übersichtlich.
+
+</Chapter>
+
+<Chapter title="Ablauf" teaser="Fünf Schritte vom ersten Blick bis ins Detail." image={ablauf} fit="contain" label="Storyboard des Ablaufs">
+
+**1  Figur platzieren**<br />
+Auf einem Hauptpunkt erscheint das Gehirn der Art groß in der Mitte. Dreht man die Figur, dreht sich das Gehirn mit.
+
+**2  Vergleichen**<br />
+Eine zweite Figur auf dem zweiten Hauptpunkt teilt die Projektion. Beide Gehirne stehen nebeneinander, etwa Ameise und Mensch.
+
+**3  Thema wählen**<br />
+Eine Figur auf einem Themenpunkt startet Umwelt, Intelligenz oder Emotionen.
+
+**4  Einleitung**<br />
+Ein kurzer Übergangs-Screen im Stil des Themas zeigt sofort, worum es geht, etwa Wüste und Stadt bei Umwelt oder ein Ameisenbau bei Intelligenz. Danach folgt automatisch ein kurzer Text.
+
+**5  Vertiefen**<br />
+Dreht man die Figur, erscheint das Gehirn erneut. Die für das Thema wichtigen Regionen sind hervorgehoben, die übrigen leicht transparent, dazu eine kurze Erklärung. Durch Drehen wechselt man zwischen Text und Gehirnansicht.
+
+</Chapter>
+
+<Chapter title="Gestaltung" teaser="Vom abstrakten Farbverlauf zum freundlichen Cartoon-Stil." image={gestaltung} fit="contain" label="Illustrationen von Ameisen und Kindern">
+
+Die Illustrationen tragen die Inhalte, deshalb haben wir mit Moodboards begonnen, für die Tiere und für die interaktiven Elemente. Dabei merkten wir, dass zwei Bildsprachen nebeneinander liefen. Die abstrakten Farbverläufe mochten wir, sind aber zugunsten eines verständlicheren Cartoon-Stils mit warmen, kräftigen Farben davon abgerückt.
+
+Als Schrift haben wir die freundliche, einfache Pacaembu gewählt. Aus Storyboards entstanden die Screens: Einstieg, Themenauswahl, Infoseiten und die Ansicht der Gehirne.
+
+</Chapter>
+
+<Chapter title="Technik" teaser="NFC erkennt die Figur, Drehgeber messen die Drehung." image={technik} label="Figur mit achteckigem Sockel">
+
+Jede Figur steht auf einem achteckigen Sockel, der sich aus jeder Richtung auf einen Punkt schieben lässt. Darunter sitzen ein NFC-Reader, der die Figur am Chip erkennt („A“ für Ameise, „H“ für Mensch), und ein Drehgeber, der die Drehung misst. Ein Arduino (ESP32-S3) schickt den Zustand aller fünf Punkte als kurze Zeichenkette an den Rechner.
+
+</Chapter>
+
+<Chapter title="Website & 3D-Gehirne" teaser="Bauen des Prototypen" video="/projects/anatomy-of-minds/gehirne-drehen.mp4" fit="contain" label="Video: Gehirne drehen und Regionen einfärben">
+
+Meine Website liest die Daten des Arduino über die Web Serial API und setzt sie in Bilder um. Sie dreht die 3D-Gehirne auf den Grad genau und wechselt an den Themenpunkten die Inhalte.
+
+Die Gehirnmodelle stammen von Sketchfab. Die einzelnen Hirnregionen habe ich farblich voneinander getrennt und beschriftet, andere Teile je nach Thema transparenter gemacht. So leuchten genau die Regionen auf, um die es gerade geht.
+
+Die größte Herausforderung waren die Daten selbst: Drehgeber und NFC-Reader lieferten teils sehr ungenaue Werte. Mein Code musste daraus trotzdem ein ruhiges, verständliches Bild machen.
+
+</Chapter>
+
+<Chapter title="Selbst ausprobieren" teaser="Den Tisch gibt es auch im Browser." id="anatomy-live">
+
+Statt echter Figuren zieht man hier runde Figuren mit der Maus auf einen Kreis, ein Griff ersetzt das Drehen. Abläufe und Inhalte sind dieselben wie am Tisch, die Screens sind auf Englisch.
 
 3D-Modelle (Farben verändert), CC BY 4.0: [„Brain Project“](https://sketchfab.com/3d-models/brain-project-24ec03412dd8432bb0d3e750a72608e0) von Dean Lavery, [„Male Clonal Raider Ant Brain“](https://sketchfab.com/3d-models/male-clonal-raider-ant-brain-f1f79d8ce83c4f8381b6096f7a4a3c98) von smckenzie, [„Scarlet Macaw endocast MOBILE – OUVC 10633“](https://sketchfab.com/3d-models/scarlet-macaw-endocast-mobile-ouvc-10633-4e0afebd1eb045b0b3eab231d66d71e6) von WitmerLab at Ohio University. [Lizenz](http://creativecommons.org/licenses/by/4.0/)
 
@@ -55,32 +111,10 @@ Statt echter Figuren zieht man hier runde Figuren mit der Maus, der Griff ersetz
 
 </Chapter>
 
-<Chapter title="Gestaltung" teaser="Vom abstrakten Farbverlauf zum freundlichen Cartoon-Stil." label="[Bild: Illustrationen und Screens]">
+<Chapter title="Meine Rolle" teaser="Interaktionskonzept und die komplette Website.">
 
-Die Illustrationen tragen die Inhalte, deshalb haben wir mit Moodboards begonnen – für die Tiere und für die interaktiven Elemente. Dabei merkten wir, dass zwei Bildsprachen nebeneinander liefen. Die abstrakten Farbverläufe mochten wir, sind aber zugunsten eines verständlicheren Cartoon-Stils mit warmen, kräftigen Farben davon abgerückt.
+Ich habe das Interaktionskonzept im Team mitentwickelt und die gesamte Website umgesetzt: die Screens, die Einbindung und Bearbeitung der 3D-Gehirne und die Verbindung zu den Daten des Arduino. Hardware, Arduino-Code und visuelles Design lagen bei meinem Team.
 
-Als Schrift haben wir die freundliche, einfache Pacaembu gewählt. Aus Storyboards entstanden die Screens: Einstieg, Themenauswahl, Infoseiten und die Ansicht der Gehirne.
-
-</Chapter>
-
-<Chapter title="technische Umsetzung" teaser="NFC erkennt die Figur, Drehgeber messen die Drehung, Web Serial bringt beides in den Browser." label="[Bild: Figur mit Sockel und Technik unter dem Tisch]">
-
-Jede Figur steht auf einem achteckigen Sockel, der sich aus jeder Richtung auf einen Punkt schieben lässt. Darunter sitzen ein NFC-Reader, der die Figur am Chip erkennt („A“ für Ameise, „H“ für Mensch), und ein Drehgeber, der die Drehung misst. Ein Arduino (ESP32-S3) schickt den Zustand aller fünf Punkte als kurze Zeichenkette an den Rechner.
-
-Meine Webseite liest diese Daten über die Web Serial API und setzt sie in Bilder um: Sie dreht die 3D-Gehirne (Modelle von Sketchfab) auf den Grad genau und wechselt an den Themenpunkten die Inhalte. Die größte Herausforderung waren die Daten selbst – Drehgeber und NFC-Reader lieferten teils sehr ungenaue Werte. Mein Code musste daraus trotzdem ein ruhiges, verständliches Bild machen.
-
-</Chapter>
-
-<Chapter title="Ausstellung" teaser="Semesterausstellung an der HfG: zum ersten Mal live sehen, wie Menschen mit unserem Tisch umgehen." label="[Bild/Video: Besucher:innen am Tisch]">
-
-Bei der Semesterausstellung haben Besucher:innen jeden Alters den Tisch ausprobiert – Figuren aufgesetzt, gedreht, verglichen. Live zu sehen, wie fremde Menschen mit etwas umgehen, das man selbst gebaut hat, war für mich der beste Moment des Projekts.
-
-</Chapter>
-
-<Chapter title="meine Rolle" teaser="Interaktionskonzept mitentwickelt und die komplette Webseite programmiert.">
-
-Ich habe das Interaktionskonzept mitentwickelt und die gesamte Webseite umgesetzt: die Screens, die 3D-Gehirne und die Verbindung zu den Daten des Arduino. Hardware und visuelles Design lagen bei meinem Team.
-
-Es war mein erstes großes Code-Projekt, im zweiten Semester. Erfahrung mit KI-Werkzeugen hatte ich noch keine, und sie waren damals auch noch nicht so weit – vieles habe ich mir selbst erarbeitet. Im Rückblick hat das manchmal lange gedauert, aber genau dadurch habe ich unglaublich viel gelernt. Das Projekt hat mir richtig Spaß gemacht.
+Es war im zweiten Semester mein erstes großes Code-Projekt. Vieles, wie das Einbinden von 3D-Modellen oder das Auslesen serieller Daten im Browser, habe ich mir dabei zum ersten Mal selbst erarbeitet. Das hat Zeit gekostet, aber genau dadurch habe ich sehr viel gelernt.
 
 </Chapter>

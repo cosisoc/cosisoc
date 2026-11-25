@@ -1,53 +1,109 @@
 ---
 title: "Anatomy of Minds"
-short: "An interactive table where NFC figures compare the brains of humans and ants."
+short: "A museum exhibit where you compare the brains of humans and ants. You place figures on a table, turn them and see the matching brain as a 3D model."
 kind: main
 order: 3
-role: "Interaction concept, programming the website"
+role: "Interaction concept, website, 3D brains"
 team: "María Jesús Fonseca, Yannik Stegmaier, Cosima Bühler"
-duration: "1 semester"
-semester: "WS 25/26 · Interactive Communication Systems"
-tools: ["JavaScript", "Web Serial API", "Sketchfab", "Arduino", "NFC", "3D printing"]
+supervision: "Martin Wehl"
+duration: "1 semester · Winter 25/26, Interactive Communication Systems"
+semester: "Winter 25/26 · Interactive Communication Systems"
+tools: ["JavaScript", "Web Serial API", "Sketchfab", "Arduino ESP32-S3", "NFC"]
 tags: ["Tangible Interface", "Projection", "Creative Coding"]
 preview:
   label: "Anatomy of Minds: interactive table with projection"
   image: ./cover.png
 hero:
   label: "Anatomy of Minds: interactive table with projection"
-  image: ./cover.png
+  video: "/projects/anatomy-of-minds/benutzung.mp4"
+  poster: ./cover.png
+cta:
+  label: "Try it in the browser →"
+  href: "#anatomy-live"
 ---
 
 import LiveEmbed from '../../../components/LiveEmbed.astro';
+import uebersicht from './uebersicht.png';
+import recherche from './recherche.png';
+import interaktionspunkte from './interaktionspunkte.png';
+import ablauf from './ablauf.png';
+import gestaltung from './gestaltung.png';
+import technik from './technik.png';
 
-<Chapter title="Overview" teaser="How do we define intelligence across species? An exhibition table that makes the brains of ants and humans playfully comparable.">
+<Chapter title="Overview" teaser="How do you explain brains without overwhelming people?" statement image={uebersicht} fit="contain" label="Ant and child, illustration">
 
-We could choose between two topics: supersonic jets and the human head. We chose the head – it offered more room for an interactive experience, from the senses to emotions to the brain itself.
+In the course Interactive Communication Systems, our group worked on the topic of the brain.
 
-The difficulty: neuroscience is full of jargon and data. So our guiding question was how a museum exhibit could convey the differences and similarities between brains in a way that children and adults alike take something away – without feeling overwhelmed.
-
-</Chapter>
-
-<Chapter title="Research" teaser="Nine species, four criteria – and in the end the ant as the strongest contrast to humans." label="[Image: 3D-printed brain models or mind map]">
-
-The first question was: the brain and emotions – or the brains of different species compared? For the comparison there were far more reliable sources, and emotions could be included as one aspect.
-
-We placed the human brain next to those of the bee, ant, elephant, octopus, fish, bird, mouse and pig, along evolution, environment, intelligence and emotions. 3D-printed brain models and mind maps showed which species differ most.
-
-We chose the ant: a tiny brain organised in a completely different way – and an intelligence that lies not in the individual but in the colony. The comparison is told through three topics: environment, intelligence and emotions.
+The difficulty: neuroscience is full of jargon and data. So our guiding question was how a museum exhibit could convey the differences and similarities between brains in a way that children and adults alike take something away, without feeling overwhelmed.
 
 </Chapter>
 
-<Chapter title="Interaction Concept" teaser="Place a figure, turn a figure – like a board game." label="[Video: placing and turning a figure, the projection responds]">
+<Chapter title="Research" teaser="A tiny brain, an intelligence in the collective." image={recherche} fit="contain" label="Brains of different species compared">
 
-In a museum, visitors spend only a few minutes at an exhibit and move between displays freely. That's why our table works like a board game: 3D-printed figures of an ant and a human are placed on points, and the content is projected onto the table from above.
+We decided to compare the brains of different species.
 
-There are five points. On the two main points, the figure's brain appears as a 3D model – turn the figure and the brain turns with it. Three more points stand for environment, intelligence and emotions. There, every quarter turn shows a new piece of information, and the brain regions involved light up.
+We placed the human brain next to those of the bee, ant, elephant, octopus, fish, bird, mouse and pig.
+
+We chose the ant: a tiny brain organised in a completely different way, and an intelligence that lies not in the individual but in the colony. The comparison is told through three topics: habitat, intelligence and emotions.
 
 </Chapter>
 
-<Chapter title="Try It Yourself" teaser="The table also works in your browser: drag a figure onto a circle, turn it with the handle.">
+<Chapter title="Interaction Concept" teaser="First marvel, then compare, then go deeper." wide image={interaktionspunkte} fit="contain" label="The five interaction points on the table">
 
-Instead of physical figures, you drag round figures with your mouse, and the handle replaces turning them by hand. The flow and content are the same as on the table.
+In a museum, visitors spend only a few minutes at an exhibit and move between displays. That's why our table works like a board game: 3D-printed figures are placed on points, and the content is projected onto the table from above. You can touch, compare and freely place the figures without reading any instructions. We dropped life-size brain models because suitable 3D models didn't exist for every species.
+
+The content is built in layers. At first you only see the brain, large and rotatable. If you want to know more, you choose a topic. That way everyone takes something away, and those who stay can go deeper.
+
+The table has five points: two main points for the brains and three topic points for environment, intelligence and emotions. The prototype had two figures, ant and human. So at most two points are occupied, and only one topic is ever active. That keeps the projection clear.
+
+</Chapter>
+
+<Chapter title="Flow" teaser="Five steps from first glance to the details." image={ablauf} fit="contain" label="Storyboard of the flow">
+
+**1  Place a figure**<br />
+On a main point, the species' brain appears large in the centre. Turn the figure and the brain turns with it.
+
+**2  Compare**<br />
+A second figure on the second main point splits the projection. Both brains appear side by side, for example ant and human.
+
+**3  Choose a topic**<br />
+A figure on a topic point starts environment, intelligence or emotions.
+
+**4  Introduction**<br />
+A short transition screen in the style of the topic immediately shows what it's about, such as desert and city for environment or an anthill for intelligence. A short text follows automatically.
+
+**5  Go deeper**<br />
+Turning the figure brings the brain back. The regions relevant to the topic are highlighted, the rest slightly transparent, along with a short explanation. Turning switches between text and brain view.
+
+</Chapter>
+
+<Chapter title="Design" teaser="From abstract gradients to a friendly cartoon style." image={gestaltung} fit="contain" label="Illustrations of ants and children">
+
+The illustrations carry the content, so we started with moodboards, for the animals and for the interactive elements. Along the way we noticed two visual languages running side by side. We liked the abstract gradients, but moved away from them in favour of a clearer cartoon style with warm, vibrant colours.
+
+We chose the friendly, simple typeface Pacaembu. Storyboards turned into the screens: intro, topic selection, information pages and the brain view.
+
+</Chapter>
+
+<Chapter title="Technology" teaser="NFC recognises the figure, rotary encoders measure the rotation." image={technik} label="Figure on an octagonal base">
+
+Each figure stands on an octagonal base that slides onto a point from any direction. Underneath sit an NFC reader that recognises the figure by its chip (“A” for ant, “H” for human) and a rotary encoder that measures the rotation. An Arduino (ESP32-S3) sends the state of all five points to the computer as a short string.
+
+</Chapter>
+
+<Chapter title="Website & 3D Brains" teaser="Building the prototype" video="/projects/anatomy-of-minds/gehirne-drehen.mp4" fit="contain" label="Video: turning the brains and colouring the regions">
+
+My website reads the Arduino's data via the Web Serial API and turns it into visuals. It rotates the 3D brains to the exact degree and switches the content on the topic points.
+
+The brain models come from Sketchfab. I separated the individual brain regions by colour and labelled them, and made other parts more transparent depending on the topic. That way exactly the regions that matter right now light up.
+
+The biggest challenge was the data itself: the encoders and NFC readers sometimes delivered very imprecise values. My code still had to turn them into a calm, understandable picture.
+
+</Chapter>
+
+<Chapter title="Try It Yourself" teaser="The table also works in your browser." id="anatomy-live">
+
+Instead of physical figures, you drag round figures onto a circle with your mouse, and a handle replaces turning them. The flow and content are the same as on the table, and the screens are in English.
 
 3D models (colours changed), CC BY 4.0: ["Brain Project"](https://sketchfab.com/3d-models/brain-project-24ec03412dd8432bb0d3e750a72608e0) by Dean Lavery, ["Male Clonal Raider Ant Brain"](https://sketchfab.com/3d-models/male-clonal-raider-ant-brain-f1f79d8ce83c4f8381b6096f7a4a3c98) by smckenzie, ["Scarlet Macaw endocast MOBILE – OUVC 10633"](https://sketchfab.com/3d-models/scarlet-macaw-endocast-mobile-ouvc-10633-4e0afebd1eb045b0b3eab231d66d71e6) by WitmerLab at Ohio University. [License](http://creativecommons.org/licenses/by/4.0/)
 
@@ -55,32 +111,10 @@ Instead of physical figures, you drag round figures with your mouse, and the han
 
 </Chapter>
 
-<Chapter title="Design" teaser="From abstract gradients to a friendly cartoon style." label="[Image: illustrations and screens]">
+<Chapter title="My Role" teaser="The interaction concept and the entire website.">
 
-The illustrations carry the content, so we started with moodboards – for the animals and for the interactive elements. Along the way we noticed two visual languages running side by side. We liked the abstract gradients, but moved away from them in favour of a clearer cartoon style with warm, vibrant colours.
+I co-developed the interaction concept in the team and built the entire website: the screens, integrating and editing the 3D brains, and the connection to the Arduino's data. Hardware, Arduino code and visual design were done by my team.
 
-We chose the friendly, simple typeface Pacaembu. Storyboards turned into the screens: intro, topic selection, information pages and the brain view.
-
-</Chapter>
-
-<Chapter title="Technical Implementation" teaser="NFC recognises the figure, rotary encoders measure the rotation, Web Serial brings both into the browser." label="[Image: figure with base and the electronics under the table]">
-
-Each figure stands on an octagonal base that slides onto a point from any direction. Underneath sit an NFC reader that recognises the figure by its chip (“A” for ant, “H” for human) and a rotary encoder that measures the rotation. An Arduino (ESP32-S3) sends the state of all five points to the computer as a short string.
-
-My website reads this data via the Web Serial API and turns it into visuals: it rotates the 3D brains (models from Sketchfab) to the exact degree and switches the content on the topic points. The biggest challenge was the data itself – the encoders and NFC readers sometimes delivered very imprecise values. My code still had to turn them into a calm, understandable picture.
-
-</Chapter>
-
-<Chapter title="Exhibition" teaser="Semester exhibition at the HfG: seeing live, for the first time, how people use our table." label="[Image/video: visitors at the table]">
-
-At the semester exhibition, visitors of all ages tried out the table – placing figures, turning them, comparing. Watching strangers use something you built yourself, live, was the best moment of the project for me.
-
-</Chapter>
-
-<Chapter title="My Role" teaser="Co-developed the interaction concept and programmed the entire website.">
-
-I co-developed the interaction concept and built the entire website: the screens, the 3D brains and the connection to the Arduino's data. Hardware and visual design were done by my team.
-
-It was my first big coding project, in my second semester. I had no experience with AI tools yet, and they weren't as far along back then – I worked out a lot on my own. Looking back, some things took a long time, but that's exactly how I learned an incredible amount. I really enjoyed the project.
+It was my first big coding project, in my second semester. Many things, like embedding 3D models or reading serial data in the browser, I worked out on my own for the first time. That took time, but it's exactly how I learned a great deal.
 
 </Chapter>

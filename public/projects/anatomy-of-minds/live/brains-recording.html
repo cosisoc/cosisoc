@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Gehirne – Recording</title>
+    <style>
+        html, body { margin: 0; height: 100%; background: #FFFFFF; overflow: hidden; }
+        #stage { width: 100vw; height: 100vh; display: flex; align-items: center; justify-content: center; }
+        #frame { width: min(100vw, calc(100vh * 16 / 9)); aspect-ratio: 16 / 9; display: flex; }
+        .brain { flex: 1; }
+        canvas { display: block; }
+    </style>
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "./src/vendor/three/build/three.module.js",
+            "three/examples/jsm/": "./src/vendor/three/examples/jsm/"
+        }
+    }
+    </script>
+</head>
+<body>
+    <div id="stage"><div id="frame">
+        <div class="brain" id="human"></div>
+        <div class="brain" id="ant"></div>
+    </div></div>
+
+    <script type="module">
+        import * as THREE from 'three';
+        import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
+
+        const BASE = new THREE.Color('#D9D9D9');   // --c-placeholder
+        const ACCENT = new THREE.Color('#1D9D55'); // --c-accent
+        const INTERVAL = 2000, FADE = 500, SPIN = 0.25; // ms, ms, rad/s
+        const BASE_OPACITY = 0.35; // Deckkraft der grauen Teile
+
+        // Bereiche, die nacheinander aufleuchten (Treffer per Teilstring im Mesh-Namen)
+        const BRAINS = {
+            human: {
+                path: './assets/models/human_brain/scene.gltf',
+                groups: [['Part_06'], ['Part_04'], ['Part_02'], ['Part_05'], ['Part_03'], ['Part_01']],
+            },
+            ant: {
+                path: './assets/models/ant_brain/scene.gltf',
+                groups: [
+                    ['ALO', 'ALT', 'AMMC'],                   // Antennenloben
+                    ['Calyx', 'Ped', 'labelsML', 'labelsVL'], // Pilzkörper
+                    ['Lamina', 'Medula', 'Lobula'],           // Sehloben
+                    ['labelsEB', 'labelsFB', 'labelsPB', 'Noduli'], // Zentralkomplex
+                ],
+            },
+        };
+
+        const views = [];
+
+        function createView(id, { path, groups }) {
+            const el = document.getElementById(id);
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(35, 1, 0.01, 1000);
+            const renderer = new THREE.WebGLRenderer({ antialias: true });
+            renderer.setPixelRatio(window.devicePixelRatio);
+            renderer.setClearColor(0xffffff, 1);
+            el.appendChild(renderer.domElement);
+
+            scene.add(new THREE.AmbientLight(0xffffff, 0.7));
+            const key = new THREE.DirectionalLight(0xffffff, 0.9);
+            key.position.set(3, 4, 5);
+            scene.add(key);
+            const fill = new THREE.DirectionalLight(0xffffff, 0.35);
+            fill.position.set(-4, -2, -3);
+            scene.add(fill);
+
+            const view = { el, scene, camera, renderer, pivot: new THREE.Group(), groups: [] };
+            scene.add(view.pivot);
+            views.push(view);
+
+            new GLTFLoader().load(path, (gltf) => {
+                const model = gltf.scene;
+                const box = new THREE.Box3().setFromObject(model);
+                model.scale.setScalar(3 / Math.max(...box.getSize(new THREE.Vector3()).toArray()));
+                model.position.sub(new THREE.Box3().setFromObject(model).getCenter(new THREE.Vector3()));
+                view.pivot.add(model);
+
+                const meshes = [];
+                model.traverse((c) => {
+                    if (!c.isMesh) return;
+                    c.material = new THREE.MeshStandardMaterial({ color: BASE.clone(), roughness: 0.7, side: THREE.DoubleSide, transparent: true, opacity: BASE_OPACITY, depthWrite: false });
+                    meshes.push(c);
+                });
+                view.groups = groups.map((keys) => meshes.filter((m) => keys.some((k) => m.name.includes(k))));
+                camera.position.set(0, 0.4, 6);
+                camera.lookAt(0, 0, 0);
+                resize();
+            });
+        }
+
+        function resize() {
+            for (const v of views) {
+                const { clientWidth: w, clientHeight: h } = v.el;
+                v.renderer.setSize(w, h);
+                v.camera.aspect = w / h;
+                v.camera.updateProjectionMatrix();
+            }
+        }
+
+        // Fade: jedes Mesh läuft weich auf seine Zielfarbe zu
+        function updateColors(view, step, t) {
+            const active = view.groups.length ? step % view.groups.length : -1;
+            const k = Math.min(1, t / FADE);
+            view.groups.forEach((meshes, i) => {
+                const on = i === active;
+                const targetOpacity = on ? 1 : BASE_OPACITY;
+                meshes.forEach((m) => {
+                    m.material.color.lerp(on ? ACCENT : BASE, k);
+                    m.material.opacity += (targetOpacity - m.material.opacity) * k;
+                    m.material.depthWrite = m.material.opacity > 0.95; // opake Teile verdecken korrekt
+                    m.renderOrder = on ? 0 : 1; // grün zuerst, transparente danach
+                });
+            });
+        }
+
+        createView('human', BRAINS.human);
+        createView('ant', BRAINS.ant);
+        window.addEventListener('resize', resize);
+
+        let last = performance.now();
+        renderer_loop(last);
+        function renderer_loop(now) {
+            const dt = (now - last) / 1000;
+            last = now;
+            const step = Math.floor(now / INTERVAL);
+            const sinceSwitch = now % INTERVAL;
+            for (const v of views) {
+                v.pivot.rotation.y += SPIN * dt;
+                updateColors(v, step, sinceSwitch);
+                v.renderer.render(v.scene, v.camera);
+            }
+            requestAnimationFrame(renderer_loop);
+        }
+    </script>
+</body>
+</html>

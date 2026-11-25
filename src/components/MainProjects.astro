@@ -35,9 +35,8 @@ const openLabel = (num: string, title: string) =>
           <p class="work-name"><span>{num}</span> {d.title}</p>
           <p class="work-short">{d.short}</p>
           <dl class="work-specs">
-            <div><dt>{t('project.when')}</dt><dd>{d.semester}</dd></div>
-            <div><dt>{t('project.duration')}</dt><dd>{d.duration}</dd></div>
-            <div><dt>{t('project.team')}</dt><dd>{d.team}</dd></div>
+            <!-- Nur das Semester („SoSe 26“), ohne Kurs; Dauer und Team stehen auf der Projektseite -->
+            <div><dt>{t('project.when')}</dt><dd>{d.semester.split(' · ')[0]}</dd></div>
           </dl>
           <ul class="tags">{d.tags.map((tag) => <li class="tag">{tag}</li>)}</ul>
         </div>
