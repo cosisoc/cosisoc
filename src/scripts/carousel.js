@@ -1,6 +1,7 @@
-// Karussell (Carousel.astro): mit der Maus ziehen wie Wischen; ohne Eingabe alle 3 s ein Bild weiter, am Ende zurück zum Anfang.
-// Jede Bedienung pausiert das Weiterlaufen für 5 s. Nicht bei „Bewegung reduzieren“, nur solange das Karussell zu sehen ist.
-const STEP = 3000;
+// Karussell (Carousel.astro): mit der Maus ziehen wie Wischen; ohne Eingabe läuft es langsam und gleichmäßig durch.
+// Die Bilder stehen dafür zweimal hintereinander (Kopie für Screenreader versteckt), so geht es am Ende nahtlos weiter.
+// Jede Bedienung pausiert das Laufen für 5 s. Nicht bei „Bewegung reduzieren“, nur solange das Karussell zu sehen ist.
+const SPEED = 40; // px pro Sekunde
 const REST = 5000;
 const autoplay = !matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -27,18 +28,37 @@ for (const track of document.querySelectorAll('[data-carousel]')) {
   const drop = () => {
     if (dragX === null) return;
     dragX = null;
-    track.classList.remove('is-dragging'); // Einrasten wieder an: springt zum nächsten Bild
+    track.classList.remove('is-dragging'); // bleibt genau dort stehen, wo man losgelassen hat (kein Einrasten)
   };
   track.addEventListener('pointerup', drop);
   track.addEventListener('pointercancel', drop);
 
   if (!autoplay) continue;
+  const count = track.children.length;
+  for (const item of [...track.children]) {
+    const copy = item.cloneNode(true);
+    copy.setAttribute('aria-hidden', 'true');
+    copy.inert = true;
+    track.append(copy);
+  }
+  // Breite einer Runde: Abstand vom ersten Bild zu seiner Kopie
+  const loop = () => track.children[count].getBoundingClientRect().left - track.children[0].getBoundingClientRect().left;
   let visible = false;
   new IntersectionObserver(([e]) => { visible = e.isIntersecting; }).observe(track);
-  setInterval(() => {
-    if (!visible || document.hidden || dragX !== null || Date.now() < restUntil) return;
-    const step = track.children[0].offsetWidth + parseFloat(getComputedStyle(track).columnGap);
-    const atEnd = track.scrollLeft + track.clientWidth >= track.scrollWidth - 2;
-    track.scrollTo({ left: atEnd ? 0 : track.scrollLeft + step, behavior: 'smooth' });
-  }, STEP);
+  let pos = null; // eigene Position mit Nachkommastellen, scrollLeft rundet auf ganze Pixel
+  let last = performance.now();
+  const tick = (now) => {
+    const dt = Math.min(now - last, 100) / 1000;
+    last = now;
+    const running = visible && !document.hidden && dragX === null && Date.now() >= restUntil;
+    if (!running) pos = null;
+    else {
+      if (pos === null) pos = track.scrollLeft;
+      pos += SPEED * dt;
+      if (pos >= loop()) pos -= loop();
+      track.scrollLeft = pos;
+    }
+    requestAnimationFrame(tick);
+  };
+  requestAnimationFrame(tick);
 }

@@ -44,7 +44,7 @@
   --axis-content: 852fr;
   --axis-gap: clamp(32px, 5.3vw, 80px);
   --text-max: 640px;
-  --media-max-h: min(600px, 70vh);
+  --media-max-h: min(640px, 70vh);
   --nav-h: 80px; /* Header-Höhe */
   --pill-h: 54px; /* Höhe der Nav-Pill */
   --section-top: 128px; /* Label bei y=128, Titel bei y=160 */

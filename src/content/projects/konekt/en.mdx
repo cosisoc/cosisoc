@@ -18,16 +18,16 @@ hero:
 ---
 
 import Figures from '../../../components/Figures.astro';
-import storyboardVorschlag from './storyboard-eventvorschlag.png';
-import storyboardEigenes from './storyboard-eigenes-event.png';
+import Carousel from '../../../components/Carousel.astro';
+import Steps from '../../../components/Steps.astro';
+import storyboard from './storyboard-uebersicht.png';
 import walter from './persona-walter.png';
 import erna from './persona-erna.png';
 import helmut from './persona-helmut.png';
 import sandra from './persona-sandra.png';
 import platzieren from './stein-platzieren.png';
 import verschieben from './stein-verschieben.png';
-import druecken from './stein-druecken.png';
-import kaius from './kaius.png';
+import druecken from './stein-druecken-gross.png';
 import ansatz1 from './ansatz1-aufbau.png';
 import ansatz2 from './ansatz2-spannungsteiler.png';
 import ansatz3 from './ansatz3-reedsensoren.png';
@@ -37,8 +37,7 @@ import steinSeite from './stein-seitenansicht.jpg';
 import steinUmsetzung from './stein-umsetzung.png';
 import piArduino from './raspberry-pi-arduino.jpg';
 import stationStein from './station-mit-stein.jpg';
-import systemarchitektur from './systemarchitektur.png';
-import kaiusFigur from './kaius-figur.png';
+import systemarchitektur from './systemarchitektur-text.png';
 import skizzen from './skizzen-station.png';
 import schaummodelle from './schaummodelle-stein.png';
 import formStation from './form-station.png';
@@ -51,6 +50,12 @@ import nachricht from './screen-nachricht.png';
 import designprototyp from './designprototyp-haende.jpg';
 import protoPoster from './funktionsprototyp.jpg';
 
+<Chapter title="In Short" teaser="How can we connect, if not through the smartphone?" wide intro>
+
+Konekt is a home station that shows what is happening nearby and makes it easier to take the step to get there. It is operated with a stone instead of touch, so it also works without any smartphone skills. We developed it for people who are just retiring.
+
+</Chapter>
+
 <Part title="Starting Point" />
 
 <Chapter title="Overview" teaser="People are rarely lonely for lack of opportunities, but because the first step is hard." wide statement>
@@ -61,26 +66,17 @@ People move far more often today than they used to. Whoever moves has to build a
 
 New technology should also tackle problems that technology has helped create. Instead of yet another app that follows you everywhere, we wanted to develop a physical product for the home.
 
-  <Figures slot="media" ratio="704 / 422" images={[
-    { image: storyboardVorschlag, label: 'Storyboard: Konekt suggests a meetup that suits the weather' },
-    { image: storyboardEigenes, label: 'Storyboard: creating your own meetup by voice' },
+  <Figures slot="media" height={384} ratio="640 / 384" images={[
+    { image: storyboard, label: 'Storyboard: Konekt suggests a meetup that suits the weather' },
   ]} />
-
-</Chapter>
-
-<Chapter title="Research" teaser="Existing products replace contacts instead of enabling new ones." wide>
-
-First we analysed what already exists for older people: KOMP, Familink, ElliQ and GrandPad. All of them simplify technology, but none addresses the actual problem. They rely on existing family contacts or simulate company, like the robot ElliQ.
-
-This led to our guiding question: what barriers keep retirees from taking part in social life, and how can taking part be made as easy as possible?
 
 </Chapter>
 
 <Chapter title="Target Group & Personas" teaser="Entering retirement, a big change in social life." wide>
 
-Loneliness affects many stages of life. So we looked at several groups, including teenagers. We were most interested in the start of retirement, because hardly any other transition changes social life as much. Several anchors fall away at once: work and with it colleagues, routine and everyday life. In return, there is suddenly a lot of free time waiting to be filled.
+Loneliness affects many stages of life. So we looked at several groups, including teenagers. We were most interested in the start of retirement, because hardly any other transition changes social life as much. Several anchors fall away at once: work and with it colleagues, routine and everyday life. In return, there is suddenly a lot of free time waiting to be filled. A look at existing products showed that nothing comparable existed yet.
 
-So our target group is people between 65 and 95. In 2024 that was around 19 million people in Germany, and about one in three of them lives alone. We excluded people with advanced dementia or severe visual impairments. People with unsteady fine motor skills, for example because of a tremor, are explicitly included. That strongly shaped the interaction.
+So our target group is people between 65 and 95. In 2024 that was around 19 million people in Germany, and about one in three of them lives alone. We deliberately wanted people with unsteady fine motor skills, for example because of a tremor, to be able to use the device well too. That strongly shaped the interaction.
 
   <Figures slot="media" ratio="340 / 300" images={[
     { image: walter, label: 'Walter: often alone since his wife died' },
@@ -107,79 +103,99 @@ Konekt is a central point of contact that anyone can use. It shows older people 
 
 Our goal was to bring digital content into the tangible world: the device should be operated by placing something. Ideation rounds such as Crazy 8s produced many, sometimes very wild ideas. An early idea with several bowls quickly became too complicated. What remained was the simplest: a single stone that you put down and guide along the edge of a round display. The circular movement is intuitive, and just three gestures control everything.
 
-**Place:** The stone clicks into one of eight magnetic points on the edge that you can feel. The element in front of it is highlighted, like a hover.<br />
-**Slide:** Moving along the edge scrolls through lists, messages or days.<br />
-**Press:** Pressing the stone confirms the selection, like a click. Originally, simply leaving the stone in place was meant to confirm. Tests showed, however, that a fixed waiting time doesn't suit everyone, because some people need longer to read, and that it doesn't feel like a real decision. A deliberate gesture was needed.
+<Steps items={[
+  { title: 'Place', text: 'The stone clicks into one of eight magnetic points on the edge that you can feel. The element in front of it is highlighted, like a hover.', image: platzieren, label: 'Placing the stone' },
+  { title: 'Slide', text: 'Moving along the edge scrolls through lists, messages or days.', image: verschieben, label: 'Sliding the stone' },
+  { title: 'Press', text: 'Pressing the stone confirms the selection, like a click. At first, simply leaving the stone in place was meant to confirm. But a fixed waiting time doesn’t suit everyone, because some people read for longer, and it doesn’t feel like a real decision.', image: druecken, label: 'Pressing the stone' },
+]} />
 
-  <Figures slot="media" ratio="340 / 300" images={[
-    { image: platzieren, label: 'Placing the stone' },
-    { image: verschieben, label: 'Sliding the stone' },
-    { image: druecken, label: 'Pressing the stone' },
-    { image: kaius, label: 'Kaius shows when the device is listening' },
+**Mood instead of search**<br />
+Konekt asks what you feel like right now, such as nature or company, and highlights matching meetups. You don’t need to know what you are looking for.
+
+**Time as a spiral**<br />
+The suggestions start at the present and lead further into the future as you move the stone. What happens soon is closest.
+
+</Chapter>
+
+<Chapter title="Kaius" teaser="How can we take away the fear of interaction?" wide aside>
+
+Konekt can also be operated by voice. Older people in particular are often unsure about this, because they aren’t used to talking to a device, and it isn’t clear when it is even listening. That’s why there is Kaius, a small figure with eyes and a mouth. Kaius appears whenever you can say something or the device itself is speaking. He listens and answers. When idle, he sleeps.
+
+At the same time, Kaius takes away the inhibition of speaking into a device. You are still talking to a machine, but not into the void: you can see that your input arrives. The human features are deliberately only hinted at.
+
+  <Figures slot="media" images={[
+    { video: '/projects/konekt/kaius.mp4', label: 'Kaius in motion', ratio: '300 / 245', fit: 'contain' },
   ]} />
+
+</Chapter>
+
+<Chapter title="Pendant" teaser="You connect at the meetup, not on the screen." wide aside>
+
+The concept includes a pendant for your key ring. If you get to know someone at a meetup, you briefly hold your pendants together, for example via NFC, and are connected from then on. If you meet Ingrid at a crochet class, you then see that she goes hiking, and maybe you join her.
+
+There are deliberately no suggestions for people nearby, no following and no friend requests on the device. This protects against misuse and keeps Konekt from becoming yet another typical social network. You can only connect if you have really met.
+
+  <Figures slot="media" images={[
+    { video: '/projects/konekt/anhaenger.mp4', label: 'Holding pendants together to connect', ratio: '300 / 225' },
+  ]} />
+
+</Chapter>
+
+<Chapter title="Messages" teaser="Planning along without looking at your phone." wide>
+
+Your own phone can be connected to Konekt, but you don’t have to use it. Messages appear on the station, and a local AI model briefly summarises long ones.
+
+This turns group chats into a short briefing: the family is planning a barbecue, has two dates in mind, decides who brings what and asks whether you’ll take care of dessert. People who can’t or don’t want to take part digitally anymore often only learn the date at the very end, by phone. This way you plan along actively instead of being left out.
 
 </Chapter>
 
 <Part title="Implementation" />
 
-<Chapter title="First Functional Prototype" teaser="A first makeshift build with a rectangular display, before we got a round one earlier than planned." image={ansatz1} label="Build of the first functional prototype: display, wooden board, acrylic and rail">
-</Chapter>
+<Chapter title="Functional Prototype" teaser="From analogue to digital: 8 reed sensors instead of a voltage divider." wide>
 
-<Chapter title="Iteration and Solution" teaser="From analogue to digital: 8 reed sensors instead of a voltage divider." wide>
+We built the first functional prototype as a makeshift setup with a rectangular display, before we got a round one earlier than planned.
 
-Our first approach worked like a giant potentiometer: a rail around the display was built as a large voltage divider. Depending on the stone's position, a different voltage resulted, from which we calculated the position. This basically worked, but the values fluctuated too much to rely on.
+Our first approach worked like a giant potentiometer: a rail around the display was built as a large voltage divider. Depending on the stone’s position, a different voltage resulted, from which we calculated the position. This basically worked, but the values fluctuated too much to rely on.
 
 So we switched to fixed positions. Eight reed sensors in the edge of the housing react to a magnet in the stone and report clearly via an Arduino where the stone is. This was stable and precise and covered two of the three gestures: placing and sliding.
 
 For pressing, we built an ESP32-C6 with a button and battery into the 3D-printed stone. It sends the confirmation wirelessly over Wi-Fi to the system. Position detection and confirmation stay cleanly separated, and the click happens exactly where the stone is.
 
-  <Figures slot="media" ratio="704 / 261" images={[
-    { image: ansatz2, label: 'Before: voltage divider on a 3D-printed edge' },
-    { image: ansatz3, label: 'After: reed sensors in the edge of the housing' },
-  ]} />
-
-</Chapter>
-
-<Chapter title="Build" teaser="We built the housing, sensors and stone ourselves." wide>
-
 A Raspberry Pi drives the round display and sets up its own Wi-Fi network, which the stone uses to communicate. An Arduino reads the reed sensors.
 
-  <Figures slot="media" ratio="219 / 270" images={[
-    { image: steinAufbau, label: 'Stone layout' },
-    { image: steinSeite, label: 'Stone, side view' },
-    { image: steinUmsetzung, label: 'Stone build' },
-    { image: piArduino, label: 'Raspberry Pi and Arduino' },
-    { image: loeten, label: 'Inside the station' },
-    { image: stationStein, label: 'Station with stone' },
+  <Carousel slot="media" full images={[
+    { image: ansatz1, label: 'First build with a rectangular display', size: [432, 300] },
+    { image: ansatz2, label: 'Voltage divider on a 3D-printed edge', size: [520, 193] },
+    { image: ansatz3, label: 'Reed sensors in the edge of the housing', size: [520, 193] },
+    { image: loeten, label: 'Soldering the sensors', size: [243, 300] },
+    { image: steinAufbau, label: 'Stone: layout', size: [243, 300] },
+    { image: steinUmsetzung, label: 'Stone: build', size: [243, 300] },
+    { image: steinSeite, label: 'Stone: side view', size: [243, 300] },
+    { image: piArduino, label: 'Raspberry Pi and Arduino', size: [243, 300] },
+    { image: stationStein, label: 'Station with stone', size: [243, 300] },
   ]} />
 
 </Chapter>
 
 <Chapter title="Web App & System Architecture" teaser="A web app that brings all inputs together.">
 
-The interface runs as a web app in the browser on the Raspberry Pi. All inputs come together in one place: the position from the reed sensors, the click from the stone and, for testing, the keyboard.
+The interface runs as a web app in the browser on the Raspberry Pi. All inputs come together in one place: the position from the reed sensors, the click from the stone and, for testing, the keyboard. Konekt collects events from online sources, newspapers and notice boards and filters them by location.
 
-In the prototype, events, profiles, weather and messages are test data. The events are regenerated every day from 22 templates, so the prototype looks current in every presentation. In the finished product, Konekt would collect events from online sources, newspapers and notice boards and filter them by location.
+As soon as the app was running, fellow students tried out the prototype. Especially those who used it quickly and carelessly uncovered bugs that we were then able to fix.
 
-As soon as the app was running, fellow students tried out the prototype. Especially those who used it quickly and carelessly uncovered bugs that we were then able to fix. I programmed with Claude Code in VS Code. That delivered results quickly, but only worked with a well-thought-out system architecture.
+With AI, in our case Claude Code, we were able to build much more. It was important to us to use AI as a tool and to plan in a structured way so as not to lose control.
 
-  <Figures slot="media" ratio="704 / 528" images={[
+  <Figures slot="media" width={640} ratio="826 / 462" images={[
     { image: systemarchitektur, label: 'System architecture: sensors, stone and web app' },
   ]} />
 
 </Chapter>
 
-<Chapter title="Kaius" teaser="How can we take away the fear of interaction?" image={kaiusFigur} fit="contain" label="Kaius, a small figure with eyes and a mouth">
-
-In the concept, the device can also be operated by voice. But older people in particular often find it hard to talk to a device, and it isn't clear when it is even listening. That's why we developed Kaius, a small figure with eyes and a mouth. When Kaius is visible, the device is listening and waiting for input. When he isn't, it isn't listening either.
-
-At the same time, Kaius takes away the inhibition of speaking into a device. You aren't talking to a machine, but to someone who listens. The human features are deliberately only hinted at.
-
-</Chapter>
-
 <Chapter title="Form Finding" teaser="A piece of home furnishing, not an assistive device." wide>
 
-Konekt should not stigmatise, but fit calmly into the home and deliberately not look like a smartphone. The moodboard draws on a Zen garden: matte plastic, light textile, wood and a few metallic details. The round display was a deliberate decision, because only then can the stone be guided along a rail all the way around the screen. The rail recalls the ripples that appear when a stone falls into water.
+Konekt should not be a device your grandchildren set up for you because you can’t manage otherwise. Many existing products for older people mother their users or treat them almost like children. Instead, Konekt should come across respectfully, be a beautiful object and evoke a good feeling rather than rejection. This aim shaped many design decisions.
+
+Konekt fits calmly into the home and deliberately doesn’t look like a smartphone. The moodboard draws on a Zen garden: matte plastic, light textile, wood and a few metallic details. The round display was a deliberate decision, because only then can the stone be guided along a rail all the way around the screen. The rail recalls the ripples that appear when a stone falls into water.
 
 For the stone we built and tested foam models, and an ellipse sat best in the hand.
 
@@ -193,13 +209,13 @@ For the stone we built and tested foam models, and an ellipse sat best in the ha
 
 <Chapter title="Screen Design" teaser="A round display, few elements, large type." wide>
 
-Little space and unfamiliar layout patterns made the round display the biggest design challenge. Over many iterations, the main question was what really matters and what can go. The centre shows only the essentials, and texts have to be short and concrete. The suggestions sit on a spiral that starts at the present. Sliding the stone moves you further into the future, and meetups that match the chosen mood are highlighted.
+Little space and unfamiliar layout patterns made the round display the biggest design challenge. Over many iterations, the main question was what really matters and what can go. Suggestions sit on a spiral that starts at the present. Sliding the stone moves you further into the future, and meetups that match the chosen mood are highlighted.
 
 The interface picks up the shape of the display: soft shadows, muted greens and violets. Recurring elements such as confirm, decline and the placement arrow make the interaction predictable.
 
 The screen design was mainly done by Paula. I helped design it and implemented the screens in code.
 
-  <Figures slot="media" ratio="219 / 235" images={[
+  <Figures slot="media" width={640} ratio="219 / 235" images={[
     { image: ruhemodus, label: 'Sleep mode' },
     { image: begruessung, label: 'Greeting with weather' },
     { image: vorschlaege, label: 'Suggestions' },
@@ -212,13 +228,11 @@ The screen design was mainly done by Paula. I helped design it and implemented t
 
 <Part title="Result" />
 
-<Chapter title="Result" teaser="Two days of exhibition where visitors used Konekt themselves." wide>
+<Chapter title="Result" teaser="Many people tried Konekt, including people of retirement age." wide>
 
-In the end we had a functional prototype, a design prototype, a stop-motion video, a presentation and documentation.
+In the end we had a fully worked-out concept, a functional prototype and a design prototype.
 
-At the two-day semester exhibition, older visitors also used the functional prototype. Although it did not yet match the design prototype in form and usability, we received a lot of positive feedback on our concept. We also presented Konekt together with three other projects on older people at an event organised by the city, among others to staff from care facilities. This feedback was informal and does not replace structured tests, but it shows that the idea meets a real need.
-
-Thought further, but not built: AI summaries of group chats, and a key ring pendant that lets two people add each other as friends when they meet.
+With the result, we tested Konekt with many people, several of them of retirement age. Some spent ten minutes or longer with the station and talked to us about the idea. That was a particularly lovely moment in the project for us. The feedback from the older testers was very positive: several said they would like to have Konekt and asked when they could buy it.
 
   <Figures slot="media" ratio="704 / 528" images={[
     { image: designprototyp, label: 'Konekt design prototype' },
@@ -227,14 +241,16 @@ Thought further, but not built: AI summaries of group chats, and a key ring pend
 
 </Chapter>
 
-<Chapter title="Reflection" teaser="Better one part in depth than everything on the surface." wide>
+<Chapter title="Outlook" teaser="Konekt reaches beyond retirement." wide>
 
-Prototyping the whole concept at once was not possible, so we focused on the device, the stone and their interaction. Looking back, I would decide earlier what really needs to be built for the vision. I enjoyed going deep and refining details. That time could have made more of the concept visible elsewhere. The most important next step would be structured tests with people who are just retiring. The principle reaches beyond retirement, though: many younger people also find their phone use stressful.
+The next step would be structured tests with people who are just retiring. But the principle reaches beyond this first target group. Many younger people also find their phone use stressful and want to reduce it without losing touch. Because Konekt summarises relevant messages, you stay connected even when your phone is put away.
+
+People who move or simply want to try something new can find local connections more easily through Konekt. That’s why we see a lot of potential in the device, including for very different user groups.
 
 </Chapter>
 
 <Chapter title="My Role" teaser="Idea, concept, information architecture and the web app of the functional prototype." wide>
 
-The core idea was mine. I co-developed the concept, information architecture and interaction principle in the team, and helped build the research and the AI personas. I organised the process and assigned tasks. On the technical side, I implemented the web app and the system architecture and helped with the wiring. Product design: [Name]. Screen design mainly: [Name]. Wiring mainly: [Name]. Above all, I learned how to approach a large team project in a structured way.
+The core idea was mine. I co-developed the concept, information architecture and interaction principle in the team, and helped build the research and the AI personas. I organised the process and assigned tasks. On the technical side, I implemented the web app and the system architecture and helped with the wiring. Above all, I learned how to approach a large team project in a structured way.
 
 </Chapter>

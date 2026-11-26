@@ -24,21 +24,19 @@ import concept from './concept.png';
 import interaction from './interaction.png';
 import prototype from './prototype.png';
 import Figures from '../../../components/Figures.astro';
-import renderLinks from './render-links.jpg';
-import renderRechts from './render-rechts.jpg';
+import funktionsprototyp from './funktionsprototyp-haende.jpg';
 import joystick from './detail-joystick.jpg';
 import crabwalk from './detail-crabwalk.jpg';
 import slow from './detail-slow.jpg';
 import greifhebel from './detail-greifhebel.jpg';
 import drehrad from './detail-drehrad.jpg';
-import rueckseite from './detail-rueckseite.jpg';
 import roboterFahren from './roboter-fahren.jpg';
 import roboterGreifarm from './roboter-greifarm.jpg';
-import formstudien from './formstudien.jpg';
+import formstudien from './formfindung-griff.png';
 import varianten from './formfindung-farben.png';
-import usertest from './usertest-klasse-2.jpg';
+import usertest from './usertest-klasse-zensiert.jpg';
 import skizzen from './formfindung-skizzen.png';
-import knete from './entstehung-2-knete.jpg';
+import knete from './tonmodell.jpg';
 
 <Part title="Ausgangslage" />
 
@@ -74,9 +72,9 @@ In unserem ersten Entwurf spielte die räumliche Steuerung des Roboters eine gr�
 
 </Chapter>
 
-<Chapter title="Erster Prototyp & Usertests 1" teaser="Erst testen, ob die Bedienung funktioniert, dann gestalten." image={prototype} label="Funktionsprototyp aus Holz" tint>
+<Chapter title="Erster Prototyp & Usertests 1" teaser="Erst testen, ob die Bedienung funktioniert, dann gestalten." image={prototype} label="Funktionsprototyp aus Holz" ratio="852 / 558">
 
-Der erste Prototyp aus gelasertem Holz steuert den echten Roboter per Funk. Er sollte nur eine Frage beantworten: Liegen alle Funktionen gut erreichbar in zwei Händen? Ist das Mapping der Funktionen natürlich?
+Der erste Prototyp aus gelasertem Holz steuert den echten Roboter per Funk.
 
 Unsere ersten Usertests haben wir mit Studierenden an der HfG durchgeführt. Wichtige Learnings waren: Wir hatten den Joy-Con falsch ausgerichtet. Die räumliche Bewegung des Controllers funktionierte gut, allerdings wurde das Ein- und Ausfahren des Greifarms mithilfe des Drehrads auf der Rückseite des Controllers kaum erkannt. Die Positionierung des Crabwalks gab der Funktion zu viel Bedeutung dafür, dass sie nicht besonders oft verwendet wurde und außerdem nicht gleichzeitig mit dem Joystick.
 
@@ -92,7 +90,7 @@ Unsere Grundidee basierte darauf, die Funktionen des Roboters in zwei Bereiche a
 
 Für eine einfache Steuerung entschieden wir uns, die Funktionen auf die beiden Griffe des Controllers aufzuteilen. Die linke Hand steuert den Roboter, die rechte den Greifarm, farblich klar getrennt. So wurde das Drehrad, das in der vorherigen Version einfach übersehen wurde, präsenter. Außerdem fügten wir einen Slow-Modus hinzu.
 
-  <Figures slot="media" images={[
+  <Figures slot="media" ratio="413 / 248" images={[
     { image: interaction, label: 'Links: fahren – Joystick, Crabwalk, Slow-Modus', fit: 'contain' },
     { image: concept, label: 'Rechts: greifen – Greifhebel und Drehrad', fit: 'contain' },
   ]} />
@@ -104,13 +102,13 @@ Für eine einfache Steuerung entschieden wir uns, die Funktionen auf die beiden 
 Von Skizzen zu einem Formprototyp aus Ton: Wie muss ein Controller für Kinderhände geformt sein?
 
   <Figures slot="media" images={[
-    { image: formstudien, label: 'Formstudien für den Griff', fit: 'contain' },
+    { image: formstudien, label: 'Formstudien für den Griff' },
     { image: knete, label: 'Tonmodell mit Farbaufteilung links und rechts' },
   ]} />
 
 </Chapter>
 
-<Chapter title="Usertests 2" teaser="Zweite Usertests: erst Studierende, dann eine fünfte Klasse." image={usertest} label="User-Tests mit einer 5. Klasse">
+<Chapter title="Usertests 2" teaser="Zweite Usertests: erst Studierende, dann eine fünfte Klasse." image={usertest} label="User-Tests mit einer 5. Klasse" width={800}>
 
 Mit Studierenden hatten wir die Ergonomie geprüft. Danach haben wir mit Kindern, unserer echten Zielgruppe, getestet.
 
@@ -133,12 +131,11 @@ Rechts: Wer den Griff zudrückt, öffnet die Greifzange. Ein Drehrad unter dem D
 Alle Bedienelemente haben wir in Blender gerendert. Auf der Rückseite liegt eine Linienstruktur.
 
   <Figures slot="media" images={[
-    { image: joystick, label: 'Joystick', ratio: '219 / 270' },
-    { image: crabwalk, label: 'Crabwalk-Taste', ratio: '219 / 270' },
-    { image: slow, label: 'Slow-Schalter', ratio: '219 / 270' },
-    { image: greifhebel, label: 'Greifhebel', ratio: '219 / 270' },
-    { image: drehrad, label: 'Drehrad', ratio: '219 / 270' },
-    { image: rueckseite, label: 'Rückseite', ratio: '219 / 270' },
+    { image: greifhebel, label: 'Greifhebel', ratio: '268 / 331' },
+    { image: drehrad, label: 'Drehrad', ratio: '268 / 331' },
+    { image: joystick, label: 'Joystick', ratio: '268 / 331' },
+    { image: crabwalk, label: 'Crabwalk-Taste', ratio: '268 / 331' },
+    { image: slow, label: 'Slow-Schalter', ratio: '268 / 331' },
   ]} />
 
 </Chapter>
@@ -149,9 +146,8 @@ Alle Bedienelemente haben wir in Blender gerendert. Auf der Rückseite liegt ein
 
 Am Ende standen ein Funktionsprototyp, der den Roboter steuert, und ein Designprototyp in Blender.
 
-  <Figures slot="media" images={[
-    { image: renderLinks, label: 'Von links, Rendering', fit: 'contain' },
-    { image: renderRechts, label: 'Von rechts, Rendering', fit: 'contain' },
+  <Figures slot="media" height={390} ratio="413 / 390" images={[
+    { video: '/projects/cluttr/funktionsprototyp.mp4', poster: funktionsprototyp, label: 'Funktionsprototyp' },
   ]} />
 
 </Chapter>

@@ -1,42 +1,84 @@
 ---
-import Media from './Media.astro';
+import { Image } from 'astro:assets';
 import SectionHead from './SectionHead.astro';
 import { copy } from '../i18n/copy';
-import type { Lang } from '../i18n/utils';
-import foto from '../assets/photo2-freigestellt.png';
+import { useT, type Lang } from '../i18n/utils';
+import foto from '../assets/about-portrait.png';
 
 interface Props { lang: Lang }
 const { lang } = Astro.props;
 const a = copy[lang].about;
+const c = copy[lang].contact;
+const t = useT(lang);
+const [lead, ...rest] = a.text;
 ---
 <section class="section about grid" id="about" data-nav-section="about">
+  <!-- Freigestelltes Foto bleibt beim Lesen des langen Texts stehen (sticky), gespiegelt wie in Figma -->
   <div class="about-photo" data-reveal>
-    <Media media={{ label: copy[lang].photo, image: foto }} class="about-media" sizes="(min-width: 768px) 40vw, 100vw" />
+    <Image class="about-media" src={foto} alt={copy[lang].photo} widths={[480, 900, 1263]} sizes="(min-width: 768px) 40vw, 100vw" />
   </div>
   <div class="about-body">
     <SectionHead label={a.label} title={a.title} />
-    <p class="intro" data-reveal>{a.intro}</p>
-    <div class="lists" data-reveal style="--i:1">
-      <div>
-        <h3>{a.skillsTitle}</h3>
-        <ul class="tags">{a.skills.map((s) => <li class="tag">{s}</li>)}</ul>
-      </div>
-      <div>
-        <h3>{a.toolsTitle}</h3>
-        <ul class="tags">{a.tools.map((s) => <li class="tag">{s}</li>)}</ul>
-      </div>
+    <div class="about-text" data-reveal>
+      <p class="lead">{lead}</p>
+      {rest.map((p) => <p>{p}</p>)}
+    </div>
+    <!-- Kontakt direkt unter dem Text: Mail zum Kopieren (Icon wird kurz zum Häkchen) und LinkedIn -->
+    <div class="contact-row" data-reveal style="--i:1">
+      <span class="mail-row">
+        <a class="mail" href={`mailto:${c.mail}`}>{c.mail}</a>
+        <button class="mail-copy" type="button" aria-label={t('contact.copy')} data-copy={c.mail}>
+          <svg class="icon-copy" viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2" /><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2" /></svg>
+          <svg class="icon-check" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg>
+        </button>
+      </span>
+      {c.linkedin && <a class="linkedin" href={c.linkedin} target="_blank" rel="noopener">LinkedIn</a>}
     </div>
   </div>
 </section>
 
+<script>
+  document.querySelectorAll<HTMLButtonElement>('[data-copy]').forEach((btn) => {
+    let timer: number;
+    btn.addEventListener('click', async () => {
+      await navigator.clipboard.writeText(btn.dataset.copy!);
+      btn.classList.add('is-copied');
+      clearTimeout(timer);
+      timer = setTimeout(() => btn.classList.remove('is-copied'), 2000);
+    });
+  });
+</script>
+
 <style>
-  .about { min-height: 50vh; align-items: start; row-gap: 48px; }
-  /* Das Foto hat oben viel leeren Hintergrund: der Zuschnitt behält die Unterkante, gespiegelt wird nur das Bild selbst */
-  .about-photo { grid-column: 1 / 6; }
-  .about-photo :global(.about-media) { display: block; height: auto; aspect-ratio: 1 / 1.1; object-position: bottom; transform: scaleX(-1); }
+  .about { align-items: start; row-gap: 48px; }
+  .about-photo { grid-column: 1 / 6; position: sticky; top: calc(var(--nav-h) + 24px); }
+  .about-media { display: block; width: 100%; height: auto; max-height: calc(100svh - var(--nav-h) - 48px); object-fit: contain; object-position: bottom center; transform: scaleX(-1); }
   .about-body { grid-column: 7 / 13; display: flex; flex-direction: column; gap: 48px; }
   .about-body :global(.section-head) { margin-bottom: 0; }
-  .intro { font-size: var(--fs-lead); font-weight: var(--fw-sub); line-height: var(--lh-lead); }
-  .lists { display: flex; flex-direction: column; gap: 24px; }
-  h3 { font-size: var(--fs-label); margin-bottom: 12px; }
+  /* Einstieg groß (Figma: 20 Medium), der Rest als Fließtext, damit der lange Text lesbar bleibt */
+  .about-text { max-width: 560px; display: flex; flex-direction: column; gap: 16px; font-size: var(--fs-body); line-height: var(--lh-body); }
+  .lead { font-size: var(--fs-lead); font-weight: var(--fw-sub); line-height: var(--lh-lead); }
+  .contact-row { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 24px; }
+  .mail-row { display: flex; align-items: center; gap: 12px; }
+  .mail { font-size: var(--fs-sub); font-weight: var(--fw-sub); width: fit-content; }
+  .mail-copy {
+    display: grid;
+    padding: 4px;
+    border: 0;
+    background: none;
+    color: var(--c-text-muted);
+    cursor: pointer;
+    transition: color var(--dur) ease;
+  }
+  .mail-copy:hover, .mail-copy.is-copied { color: var(--c-accent); }
+  .mail-copy svg { grid-area: 1 / 1; width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .icon-check, .is-copied .icon-copy { visibility: hidden; }
+  .is-copied .icon-check { visibility: visible; }
+  .linkedin { font-size: var(--fs-sub); font-weight: var(--fw-sub); }
+  .linkedin:hover, .mail:hover { color: var(--c-accent); }
+
+  @media (max-width: 767px) {
+    .about-photo { position: static; }
+    .about-media { max-height: none; width: 72%; margin: 0 auto; } /* Handy: kleiner, mittig */
+  }
 </style>

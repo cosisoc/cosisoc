@@ -2,7 +2,7 @@
 import Media from './Media.astro';
 import { copy } from '../i18n/copy';
 import type { Lang } from '../i18n/utils';
-import foto from '../assets/foto.png';
+import foto from '../assets/foto-wb.png';
 
 interface Props { lang: Lang }
 const { lang } = Astro.props;
@@ -51,6 +51,7 @@ const c = copy[lang];
     .landing { padding-top: calc(var(--nav-h) + 24px); row-gap: 40px; grid-template-rows: auto 1fr; }
     .intro, .photo { grid-row: auto; }
     .photo { padding-left: 0; margin-top: 0; align-self: end; }
-    .photo :global(.photo-media) { position: static; height: auto; }
+    /* Handy: Foto nicht über die volle Breite, sondern etwa drei Viertel, rechtsbündig */
+    .photo :global(.photo-media) { position: static; height: auto; width: 72%; margin-left: auto; }
   }
 </style>

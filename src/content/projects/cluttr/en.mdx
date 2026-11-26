@@ -24,21 +24,19 @@ import concept from './concept.png';
 import interaction from './interaction.png';
 import prototype from './prototype.png';
 import Figures from '../../../components/Figures.astro';
-import renderLinks from './render-links.jpg';
-import renderRechts from './render-rechts.jpg';
+import funktionsprototyp from './funktionsprototyp-haende.jpg';
 import joystick from './detail-joystick.jpg';
 import crabwalk from './detail-crabwalk.jpg';
 import slow from './detail-slow.jpg';
 import greifhebel from './detail-greifhebel.jpg';
 import drehrad from './detail-drehrad.jpg';
-import rueckseite from './detail-rueckseite.jpg';
 import roboterFahren from './roboter-fahren.jpg';
 import roboterGreifarm from './roboter-greifarm.jpg';
-import formstudien from './formstudien.jpg';
+import formstudien from './formfindung-griff.png';
 import varianten from './formfindung-farben.png';
-import usertest from './usertest-klasse-2.jpg';
+import usertest from './usertest-klasse-zensiert.jpg';
 import skizzen from './formfindung-skizzen.png';
-import knete from './entstehung-2-knete.jpg';
+import knete from './tonmodell.jpg';
 
 <Part title="Starting Point" />
 
@@ -74,9 +72,9 @@ In our first design, steering the robot through space played a bigger role than 
 
 </Chapter>
 
-<Chapter title="First Prototype & User Tests 1" teaser="First test whether the controls work, then design." image={prototype} label="Functional prototype made of wood" tint>
+<Chapter title="First Prototype & User Tests 1" teaser="First test whether the controls work, then design." image={prototype} label="Functional prototype made of wood" ratio="852 / 558">
 
-The first prototype, made of laser-cut wood, steers the real robot wirelessly. It only had to answer one question: are all functions within easy reach of two hands? Does the mapping of the functions feel natural?
+The first prototype, made of laser-cut wood, steers the real robot wirelessly.
 
 We ran our first user tests with students at the HfG. Key learnings: we had oriented the Joy-Con the wrong way. Moving the robot through space worked well, but extending and retracting the gripper arm with the dial on the back of the controller was barely noticed. The position of the crab walk gave the function too much weight, given that it wasn't used very often and couldn't be used at the same time as the joystick.
 
@@ -92,7 +90,7 @@ Our core idea was to split the robot's functions into two areas: steering the ro
 
 For simple controls, we decided to divide the functions between the controller's two grips. The left hand steers the robot, the right hand the gripper arm, clearly separated by colour. This made the dial, which had simply been overlooked in the previous version, more prominent. We also added a slow mode.
 
-  <Figures slot="media" images={[
+  <Figures slot="media" ratio="413 / 248" images={[
     { image: interaction, label: 'Left: driving – joystick, crab walk, slow mode', fit: 'contain' },
     { image: concept, label: 'Right: gripping – grip lever and dial', fit: 'contain' },
   ]} />
@@ -104,13 +102,13 @@ For simple controls, we decided to divide the functions between the controller's
 From sketches to a form prototype made of clay: how does a controller need to be shaped for children's hands?
 
   <Figures slot="media" images={[
-    { image: formstudien, label: 'Shape studies for the grip', fit: 'contain' },
+    { image: formstudien, label: 'Shape studies for the grip' },
     { image: knete, label: 'Clay model with colour split left and right' },
   ]} />
 
 </Chapter>
 
-<Chapter title="User Tests 2" teaser="Second user tests: first students, then a fifth-grade class." image={usertest} label="User tests with a fifth-grade class">
+<Chapter title="User Tests 2" teaser="Second user tests: first students, then a fifth-grade class." image={usertest} label="User tests with a fifth-grade class" width={800}>
 
 With students we had checked the ergonomics. After that we tested with children, our actual target group.
 
@@ -133,12 +131,11 @@ Right: squeezing the grip opens the gripper. A dial under the thumb extends and 
 We rendered all the controls in Blender. The back has a line texture.
 
   <Figures slot="media" images={[
-    { image: joystick, label: 'Joystick', ratio: '219 / 270' },
-    { image: crabwalk, label: 'Crab-walk button', ratio: '219 / 270' },
-    { image: slow, label: 'Slow switch', ratio: '219 / 270' },
-    { image: greifhebel, label: 'Grip lever', ratio: '219 / 270' },
-    { image: drehrad, label: 'Dial', ratio: '219 / 270' },
-    { image: rueckseite, label: 'Back', ratio: '219 / 270' },
+    { image: greifhebel, label: 'Grip lever', ratio: '268 / 331' },
+    { image: drehrad, label: 'Dial', ratio: '268 / 331' },
+    { image: joystick, label: 'Joystick', ratio: '268 / 331' },
+    { image: crabwalk, label: 'Crab-walk button', ratio: '268 / 331' },
+    { image: slow, label: 'Slow switch', ratio: '268 / 331' },
   ]} />
 
 </Chapter>
@@ -149,9 +146,8 @@ We rendered all the controls in Blender. The back has a line texture.
 
 In the end we had a functional prototype that steers the robot and a design prototype in Blender.
 
-  <Figures slot="media" images={[
-    { image: renderLinks, label: 'From the left, rendering', fit: 'contain' },
-    { image: renderRechts, label: 'From the right, rendering', fit: 'contain' },
+  <Figures slot="media" height={390} ratio="413 / 390" images={[
+    { video: '/projects/cluttr/funktionsprototyp.mp4', poster: funktionsprototyp, label: 'Functional prototype' },
   ]} />
 
 </Chapter>

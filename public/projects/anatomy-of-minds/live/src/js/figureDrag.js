@@ -8,6 +8,7 @@
  */
 
 import { updateHint } from './hints.js';
+import { DragHint } from './dragHint.js';
 
 export class FigureDrag {
     constructor(tangibleInterface) {
@@ -21,8 +22,12 @@ export class FigureDrag {
         this.parked = [...document.querySelectorAll('.figure.is-disabled')].map((el) => ({ el, animal: el.dataset.animal }));
         this.hasTurned = false;
         this.figures.forEach((f) => this.bind(f));
-        new ResizeObserver(() => this.layout()).observe(this.table);
-        this.layout();
+        // Beim Laden und bei Größenänderungen stehen die Figuren sofort an ihrem Platz, statt hineinzufliegen
+        new ResizeObserver(() => this.layout(true)).observe(this.table);
+        this.layout(true);
+        // Hand zeigt einmal vor, wie man die Menschenfigur auf ihren Kreis zieht; stoppt beim ersten eigenen Anfassen
+        const human = this.figures.find((f) => f.animal === 'mensch');
+        this.dragHint = new DragHint(this.table, (el) => this.center(el), human.el, document.querySelector('.spot[data-only="mensch"]'));
         this.updateSpots();
         updateHint(this.hint, this.figures, this.hasTurned);
     }
@@ -43,10 +48,15 @@ export class FigureDrag {
         f.el.style.setProperty('--y', `${pos.y}px`);
     }
 
-    layout() {
+    // instant = ohne Bewegungs-Animation (figures.css: #table.is-snapping)
+    layout(instant = false) {
+        if (instant) this.table.classList.add('is-snapping');
         [...this.figures, ...this.parked].forEach((f) => {
             if (!f.dragging) this.moveTo(f, f.spot ? this.center(f.spot) : this.homeOf(f));
         });
+        if (!instant) return;
+        this.table.offsetWidth; // neue Position übernehmen, solange die Animation aus ist
+        requestAnimationFrame(() => this.table.classList.remove('is-snapping'));
     }
 
     // --- Regeln ---
@@ -125,6 +135,7 @@ export class FigureDrag {
         f.el.addEventListener('pointerdown', (e) => {
             if (e.button !== 0) return;
             e.preventDefault();
+            this.dragHint.stop();
             f.el.setPointerCapture(e.pointerId);
             if (f.point && e.target.closest('.ring')) this.turn(f, e);
             else this.drag(f, e);

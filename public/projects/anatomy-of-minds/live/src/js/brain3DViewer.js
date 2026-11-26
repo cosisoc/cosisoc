@@ -212,6 +212,8 @@ export class Brain3DViewer {
         this.controls.dampingFactor = 0.05;
         this.controls.enableZoom = true;
         this.controls.autoRotate = false;
+        // Web-Version: Gehirne nur über die Figuren steuern, nicht mit der Maus drehen, zoomen oder verschieben
+        this.controls.enabled = false;
 
         // Continuous rotation state
         this._lastReceivedRotation = null;

@@ -56,7 +56,7 @@ const t = useT((Astro.currentLocale ?? 'de') as Lang);
   .bob:global(.is-ready) :global(canvas) { opacity: 1; }
   .bob-wrap { width: 100%; }
   /* Ohne Bühne: so hoch, dass Kapitel-Überschrift, Bob und Buttons zusammen auf den Bildschirm passen */
-  .bob:not(.bob-stage) { aspect-ratio: auto; height: clamp(200px, calc(100svh - 440px), 380px); }
+  .bob:not(.bob-stage) { aspect-ratio: auto; height: clamp(200px, calc(100svh - 440px), 460px); }
   .bob-group { margin-top: 16px; }
   .bob-label { margin-bottom: 8px; font-weight: 700; color: var(--c-text-muted); }
   .bob-group .tag { background: none; color: var(--c-text); font: inherit; font-weight: 700; transition: background var(--dur) ease, color var(--dur) ease, border-color var(--dur) ease; }

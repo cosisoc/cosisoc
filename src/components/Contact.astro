@@ -1,69 +1,20 @@
 ---
-import SectionHead from './SectionHead.astro';
 import { copy } from '../i18n/copy';
 import { routes, useT, type Lang } from '../i18n/utils';
 
-// Kontakt ersetzt den Footer: Mail + Impressum und Datenschutz.
+// Seitenende: nur noch Impressum und Datenschutz (Mail + LinkedIn stehen im Über-mich-Abschnitt).
 interface Props { lang: Lang }
 const { lang } = Astro.props;
 const t = useT(lang);
-const c = copy[lang].contact;
 ---
-<section class="section dotted contact" id="contact" data-nav-section="contact">
-  <SectionHead label={c.label} title={c.title} />
-  <div class="mail-row" data-reveal>
-    <a class="mail" href={`mailto:${c.mail}`}>{c.mail}</a>
-    <!-- Kopiert die Mail; das Icon wird kurz zum Häkchen -->
-    <button class="mail-copy" type="button" aria-label={t('contact.copy')} data-copy={c.mail}>
-      <svg class="icon-copy" viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2" /><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2" /></svg>
-      <svg class="icon-check" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg>
-    </button>
-  </div>
-  <footer class="legal">
-    <a href={routes.imprint[lang]}>{t('footer.imprint')}</a>
-    <a href={routes.privacy[lang]}>{t('footer.privacy')}</a>
-    <span class="copy">© {new Date().getFullYear()} {copy[lang].name}</span>
-  </footer>
-</section>
-
-<script>
-  document.querySelectorAll<HTMLButtonElement>('[data-copy]').forEach((btn) => {
-    let timer: number;
-    btn.addEventListener('click', async () => {
-      await navigator.clipboard.writeText(btn.dataset.copy!);
-      btn.classList.add('is-copied');
-      clearTimeout(timer);
-      timer = setTimeout(() => btn.classList.remove('is-copied'), 2000);
-    });
-  });
-</script>
+<footer class="legal">
+  <a href={routes.imprint[lang]}>{t('footer.imprint')}</a>
+  <a href={routes.privacy[lang]}>{t('footer.privacy')}</a>
+  <span class="copy">© {new Date().getFullYear()} {copy[lang].name}</span>
+</footer>
 
 <style>
-  /* Unten ist das Seitenende: Punkte nur oben weich einblenden */
-  .contact::before { mask-image: linear-gradient(transparent 120px, #000 120px); }
-  .contact::after { mask-image: linear-gradient(rgb(0 0 0 / 0.3), #000 120px, transparent 120px); }
-  .contact {
-    min-height: 50vh;
-    display: flex;
-    flex-direction: column;
-    padding-bottom: 32px;
-  }
-  .mail-row { display: flex; align-items: center; gap: 12px; }
-  .mail { font-size: var(--fs-sub); font-weight: var(--fw-sub); width: fit-content; }
-  .mail-copy {
-    display: grid;
-    padding: 4px;
-    border: 0;
-    background: none;
-    color: var(--c-text-muted);
-    cursor: pointer;
-    transition: color var(--dur) ease;
-  }
-  .mail-copy:hover, .mail-copy.is-copied { color: var(--c-accent); }
-  .mail-copy svg { grid-area: 1 / 1; width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-  .icon-check, .is-copied .icon-copy { visibility: hidden; }
-  .is-copied .icon-check { visibility: visible; }
-  .legal { margin-top: auto; display: flex; flex-wrap: wrap; gap: 8px 24px; font-size: var(--fs-meta); font-weight: 700; }
+  .legal { display: flex; flex-wrap: wrap; gap: 8px 24px; padding: 32px var(--gutter); font-size: var(--fs-meta); font-weight: 700; }
   .legal a { color: var(--c-text-muted); text-decoration: none; }
   .legal a:hover { color: var(--c-accent); }
   .copy { margin-left: auto; color: var(--c-text-muted); }

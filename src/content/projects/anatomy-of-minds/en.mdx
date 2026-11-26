@@ -31,7 +31,7 @@ import technik from './technik.png';
 
 <Part title="Starting Point" />
 
-<Chapter title="Overview" teaser="How do you explain brains without overwhelming people?" statement image={uebersicht} fit="contain" label="Ant and child, illustration">
+<Chapter title="Overview" teaser="How do you explain brains without overwhelming people?" statement image={uebersicht} fit="contain" label="Ant and child, illustration" width={442}>
 
 In the course Interactive Communication Systems, our group worked on the topic of the brain.
 
@@ -61,7 +61,7 @@ The table has five points: two main points for the brains and three topic points
 
 </Chapter>
 
-<Chapter title="Flow" teaser="Five steps from first glance to the details." image={ablauf} fit="contain" label="Storyboard of the flow">
+<Chapter title="Flow" teaser="Five steps from first glance to the details." image={ablauf} fit="contain" label="Storyboard of the flow" width={420}>
 
 **1  Place a figure**<br />
 On a main point, the species' brain appears large in the centre. Turn the figure and the brain turns with it.
@@ -80,7 +80,7 @@ Turning the figure brings the brain back. The regions relevant to the topic are 
 
 </Chapter>
 
-<Chapter title="Design" teaser="From abstract gradients to a friendly cartoon style." image={gestaltung} fit="contain" label="Illustrations of ants and children">
+<Chapter title="Design" teaser="From abstract gradients to a friendly cartoon style." image={gestaltung} fit="contain" label="Illustrations of ants and children" width={568}>
 
 The illustrations carry the content, so we started with moodboards, for the animals and for the interactive elements. Along the way we noticed two visual languages running side by side. We liked the abstract gradients, but moved away from them in favour of a clearer cartoon style with warm, vibrant colours.
 
@@ -90,7 +90,7 @@ We chose the friendly, simple typeface Pacaembu. Storyboards turned into the scr
 
 <Part title="Implementation" />
 
-<Chapter title="Technology" teaser="NFC recognises the figure, rotary encoders measure the rotation." image={technik} label="Figure on an octagonal base">
+<Chapter title="Technology" teaser="NFC recognises the figure, rotary encoders measure the rotation." image={technik} label="Figure on an octagonal base" width={660} ratio="660 / 392">
 
 Each figure stands on an octagonal base that slides onto a point from any direction. Underneath sit an NFC reader that recognises the figure by its chip (“A” for ant, “H” for human) and a rotary encoder that measures the rotation. An Arduino (ESP32-S3) sends the state of all five points to the computer as a short string.
 
@@ -118,7 +118,7 @@ Instead of physical figures, you drag round figures onto a circle with your mous
 
 </Chapter>
 
-<Chapter title="My Role" teaser="The interaction concept and the entire website.">
+<Chapter title="My Role" teaser="The interaction concept and the entire website." wide>
 
 I co-developed the interaction concept in the team and built the entire website: the screens, integrating and editing the 3D brains, and the connection to the Arduino's data. Hardware, Arduino code and visual design were done by my team.
 

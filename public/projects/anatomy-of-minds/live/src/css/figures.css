@@ -14,6 +14,28 @@
     touch-action: none;
 }
 .figure.is-dragging { z-index: 50; transition: none; cursor: grabbing; }
+/* Beim Laden/Größenändern (figureDrag.js layout(true)): Figuren springen an ihren Platz statt hineinzufliegen */
+#table.is-snapping .figure { transition: none; }
+
+/* Handlungsaufforderung (dragHint.js): Hand zieht eine Kopie der Menschenfigur auf ihren Kreis, der Kreis pulsiert */
+.drag-ghost, .drag-hand { position: absolute; left: 0; top: 0; pointer-events: none; opacity: 0; }
+.drag-ghost {
+    z-index: 45;
+    width: var(--fig);
+    aspect-ratio: 1;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: var(--cream);
+    border: 0.3cqw solid #fff;
+    box-shadow: 0 1.4cqw 2cqw rgb(80 40 20 / 0.3);
+}
+.drag-ghost img { width: 72%; height: 72%; object-fit: contain; }
+.drag-hand { z-index: 60; height: auto; filter: drop-shadow(0 2px 4px rgb(0 0 0 / 0.25)); }
+.spot.is-hint { animation: spot-hint 900ms ease-in-out 2; }
+@keyframes spot-hint {
+    50% { transform: translate(-50%, -50%) scale(1.15); border-color: var(--accent); background: rgb(201 111 74 / 0.25); }
+}
 .face {
     position: absolute;
     inset: 0;

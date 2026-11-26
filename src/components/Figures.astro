@@ -3,16 +3,19 @@ import type { ImageMetadata } from 'astro';
 import { Image } from 'astro:assets';
 
 // Bildgruppe mit Bildunterschriften in der Inhaltsspalte.
-// Bis 4 Bilder: eine Reihe, alle gleich hoch, jedes so breit wie sein Seitenverhältnis. 5 und mehr: 3er-Raster.
+// Bis 4 Bilder: eine Reihe, alle gleich hoch, jedes so breit wie sein Seitenverhältnis. 5 und mehr: 3er-Raster;
+// geht es nicht auf (z. B. 5), steht die kürzere Reihe oben und mittig (Figma Cluttr „Interaktion“).
 // ratio = Seitenverhältnis (für die ganze Gruppe oder pro Bild), sonst das des Bildes selbst; fit="contain" zeigt Grafiken ganz.
 // video = Pfad in public/ statt Bild (läuft stumm in Schleife); ohne image und video: grauer Platzhalter.
 // crop = Video im Rahmen zoomen/drehen wie in Figma: Breite/Höhe und Mittelpunkt in % des Rahmens, Drehung in Grad.
+// height = höchste Bildhöhe in px für diese Gruppe (Figma-Maß), sonst --media-max-h. width = höchste Breite der ganzen Gruppe in px (z. B. 640 = Textbreite).
 // In der MDX-Datei: <Figures slot="media" images={[{ image: a, label: 'Skizzen' }, …]} />
 interface Crop { width: number; height: number; x: number; y: number; rotate: number }
 interface Item { image?: ImageMetadata; video?: string; poster?: ImageMetadata; crop?: Crop; label: string; ratio?: string; fit?: 'cover' | 'contain' }
-interface Props { images: Item[]; ratio?: string }
-const { images, ratio } = Astro.props;
+interface Props { images: Item[]; ratio?: string; height?: number; width?: number }
+const { images, ratio, height, width } = Astro.props;
 const grid = images.length > 4;
+const offset = grid && images.length % 3 === 2;
 // „a / b“ → Zahl; ohne Angabe das Format des Bildes, sonst 4:3
 const toNumber = (r: string) => { const [a, b] = r.split('/').map(Number); return b ? a / b : a; };
 const ratioOf = ({ ratio: own, image, poster }: Item) => {
@@ -23,7 +26,7 @@ const ratioOf = ({ ratio: own, image, poster }: Item) => {
 };
 const widths = (image: ImageMetadata) => [...new Set([480, 960, 1600].map((w) => Math.min(w, image.width)))];
 ---
-<div class:list={['figures', { 'is-grid': grid }]}>
+<div class:list={['figures', { 'is-grid': grid, 'is-offset': offset }]} style={[height && `--media-max-h: ${height}px`, width && `max-width: ${width}px`].filter(Boolean).join('; ') || undefined}>
   {images.map((item) => {
     const { image, video, poster, crop, label, fit } = item;
     const r = ratioOf(item);
@@ -35,7 +38,7 @@ const widths = (image: ImageMetadata) => [...new Set([480, 960, 1600].map((w) =>
                 style={`width: ${crop.width}%; height: ${crop.height}%; left: ${crop.x}%; top: ${crop.y}%; transform: translate(-50%, -50%) rotate(${crop.rotate}deg);`} />
             </div>
           : video
-          ? <video class="figure-media" src={video} poster={poster?.src} aria-label={label} autoplay muted loop playsinline />
+          ? <video class:list={['figure-media', { 'is-contain': fit === 'contain' }]} src={video} poster={poster?.src} aria-label={label} autoplay muted loop playsinline />
           : image
           ? <Image class:list={['figure-media', { 'is-contain': fit === 'contain' }]} src={image} alt={label} widths={widths(image)} sizes="(min-width: 768px) 852px, 100vw" />
           : <div class="figure-media is-empty" role="img" aria-label={label}></div>}
@@ -49,8 +52,9 @@ const widths = (image: ImageMetadata) => [...new Set([480, 960, 1600].map((w) =>
   /* Reihe: flex-grow = Seitenverhältnis → alle Bilder gleich hoch. Höchstens so breit, dass die Höhe begrenzt bleibt. */
   .figures { width: 100%; display: flex; gap: 24px; }
   figure { margin: 0; min-width: 0; flex: var(--r) 1 0; max-width: calc(var(--media-max-h) * var(--r)); }
-  .figures.is-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px 24px; }
-  .is-grid figure { max-width: none; }
+  .figures.is-grid { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 32px 24px; }
+  .is-grid figure { max-width: none; grid-column: span 2; }
+  .is-offset figure:first-child { grid-column: 2 / span 2; }
   .figure-media { display: block; width: 100%; height: auto; aspect-ratio: var(--r); object-fit: cover; border-radius: var(--radius); }
   .figure-media.is-contain { object-fit: contain; }
   .figure-media.is-empty { background: var(--c-placeholder); }
@@ -61,6 +65,7 @@ const widths = (image: ImageMetadata) => [...new Set([480, 960, 1600].map((w) =>
   @media (max-width: 767px) {
     .figures, .figures.is-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px 16px; }
     figure { max-width: none; }
+    .is-grid figure, .is-offset figure:first-child { grid-column: auto; }
     .figures:not(.is-grid) figure:only-child, .figures figure:has(.is-contain) { grid-column: 1 / -1; }
   }
 </style>

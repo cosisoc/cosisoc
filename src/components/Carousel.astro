@@ -5,13 +5,15 @@ import { Image } from 'astro:assets';
 // Bildreihe zum Wischen: beginnt an der Inhaltsspalte und läuft rechts aus der Seite heraus; Bilder 461 px (bei 1512 px), mit Bildunterschrift.
 // Ohne Eingabe scrollt sie von allein weiter (carousel.js). In der MDX-Datei als Slot „media“ eines wide-Kapitels:
 // <Carousel slot="media" images={[{ image: bild, label: 'Bildunterschrift' }, …]} />
-interface Props { images: { image: ImageMetadata; label?: string }[] }
-const { images } = Astro.props;
+// full = beginnt schon am linken Seitenrand (Konekt „Funktionsprototyp“). size = [Breite, Höhe] des Bildes in Figma-px,
+// dann ist jedes Bild so groß wie in Figma (skaliert mit der Fensterbreite), alle unten bündig.
+interface Props { images: { image: ImageMetadata; label?: string; size?: [number, number] }[]; full?: boolean }
+const { images, full = false } = Astro.props;
 ---
-<div class="carousel">
+<div class:list={['carousel', { 'is-full': full }]}>
   <ul class="carousel-track" data-carousel>
-    {images.map(({ image, label }) => (
-      <li class="carousel-item">
+    {images.map(({ image, label, size }) => (
+      <li class:list={['carousel-item', { 'is-sized': size }]} style={size && `--w: ${size[0]}; --h: ${size[1]}`}>
         <Image src={image} alt={label ?? ''} sizes="(min-width: 768px) 480px, 80vw" widths={[480, 960]} draggable="false" />
         {label && <p class="carousel-label">{label}</p>}
       </li>
@@ -31,17 +33,24 @@ const { images } = Astro.props;
     list-style: none;
     overflow-x: auto;
     overscroll-behavior-x: contain;
-    scroll-snap-type: x mandatory;
     scrollbar-width: none;
     cursor: grab;
   }
   .carousel-track::-webkit-scrollbar { display: none; }
-  .carousel-track:global(.is-dragging) { scroll-snap-type: none; cursor: grabbing; }
-  .carousel-item { flex: 0 0 clamp(240px, 30.5vw, 461px); scroll-snap-align: start; }
+  .carousel-track:global(.is-dragging) { cursor: grabbing; }
+  .carousel-item { flex: 0 0 clamp(240px, 30.5vw, 461px) }
   .carousel-item img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; border-radius: var(--radius); user-select: none; }
   .carousel-label { margin-top: 8px; font-size: var(--fs-meta); color: var(--c-text-muted); }
+  /* Figma-Maße: 1 px bei 1512 px Fensterbreite, kleiner mit dem Fenster, aber nie unter 0,6 px */
+  .carousel:has(.is-sized) .carousel-track { align-items: flex-end; }
+  .carousel-item.is-sized { flex: 0 0 auto; width: calc(var(--w) * clamp(0.6px, 100vw / 1512, 1px)); }
+  .is-sized img { aspect-ratio: var(--w) / var(--h); }
 
+  /* full: über die Label-Spalte (340/852 der Inhaltsspalte) und den Spaltenabstand nach links bis zum Seitenrand */
+  @media (min-width: 768px) {
+    .carousel.is-full { width: calc(100% * 1192 / 852 + var(--axis-gap) + var(--gutter)); margin-left: calc(-100% * 340 / 852 - var(--axis-gap)); }
+  }
   @media (max-width: 767px) {
-    .carousel-item { flex-basis: 80vw; }
+    .carousel-item:not(.is-sized) { flex-basis: 80vw; }
   }
 </style>

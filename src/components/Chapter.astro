@@ -7,16 +7,18 @@ import Media from './Media.astro';
 // Hochformat (Bild höchstens 1,3-mal so breit wie hoch) oder beside: Text links, Medium rechts daneben.
 // In der MDX-Datei: <Chapter title="…" teaser="…" image={importiertesBild} label="Alt-Text">Details</Chapter>
 // wide = ohne Medium kein Platzhalter. Eigener Inhalt statt Bild (z. B. <Figures slot="media" …/>) kommt in den Slot „media“.
-// controls = Video mit Bedienleiste und Ton, poster = Vorschaubild des Videos. fit="contain" zeigt Grafiken ganz statt beschnitten.
+// controls = Video mit Bedienleiste und Ton. fit="contain" zeigt Grafiken ganz statt beschnitten.
 // tint = Kapitel auf beigem Grund über die volle Breite. statement = Kernsatz groß wie eine Überschrift.
-// id = Sprungziel, z. B. für den Knopf im Projektkopf.
-interface Props { title: string; teaser: string; image?: ImageMetadata; video?: string; poster?: ImageMetadata; label?: string; fit?: 'cover' | 'contain'; wide?: boolean; controls?: boolean; tint?: boolean; statement?: boolean; id?: string; beside?: boolean }
-const { title, teaser, image, video, poster, label, fit = 'cover', wide = false, controls, tint = false, statement = false, id, beside = false } = Astro.props;
+// id = Sprungziel, z. B. für den Knopf im Projektkopf. width (px) und ratio („660 / 392“) setzen die Bildgröße wie in Figma.
+// intro = Vorweg-Kapitel mit Nummer 00 (zählt nicht mit). aside = Kernsatz über die ganze Breite, darunter Text links, Medium rechts daneben.
+interface Props { title: string; teaser: string; image?: ImageMetadata; video?: string; label?: string; fit?: 'cover' | 'contain'; wide?: boolean; controls?: boolean; tint?: boolean; statement?: boolean; id?: string; beside?: boolean; width?: number; ratio?: string; intro?: boolean; aside?: boolean }
+const { title, teaser, image, video, label, fit = 'cover', wide = false, controls, tint = false, statement = false, id, beside = false, width, ratio, intro = false, aside = false } = Astro.props;
+const size = [width && `--media-w: ${width}px`, ratio && `--media-r: ${ratio}`].filter(Boolean).join('; ') || undefined;
 const custom = Astro.slots.has('media');
 const hasMedia = custom || image || video || label || !wide;
 const portrait = beside || (!!image && image.width / image.height <= 1.3);
 ---
-<section class:list={['chapter', 'axes', { 'is-tinted': tint, 'is-statement': statement, 'is-portrait': portrait && hasMedia }]} id={id}>
+<section class:list={['chapter', 'axes', { 'is-tinted': tint, 'is-statement': statement, 'is-portrait': portrait && hasMedia && !aside, 'is-intro': intro, 'is-aside': aside }]} id={id} style={size}>
   <h3 class="chapter-side">
     <span class="chapter-num" aria-hidden="true"></span>
     <span class="chapter-title">{title}</span>
@@ -26,6 +28,6 @@ const portrait = beside || (!!image && image.width / image.height <= 1.3);
     <div class="chapter-more"><slot /></div>
     {hasMedia && (custom
       ? <div class="chapter-custom"><slot name="media" /></div>
-      : <Media media={{ label: label ?? `[Bild/Video: ${title}]`, image, video, poster, controls }} class={`chapter-media is-${fit}`} />)}
+      : <Media media={{ label: label ?? `[Bild/Video: ${title}]`, image, video, controls }} class={`chapter-media is-${fit}`} />)}
   </div>
 </section>

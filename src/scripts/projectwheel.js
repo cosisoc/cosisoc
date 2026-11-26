@@ -13,21 +13,22 @@ for (const root of document.querySelectorAll('[data-wheel-root]')) {
   const live = root.querySelector('[data-live]');
   const n = thumbs.length;
   let active = 0;
-  // Position am Rad: -1 oben … 0 vorne … n-2 unten
-  const relOf = (i) => ((i - active + n + 1) % n) - 1;
-  const turns = thumbs.map((_, i) => relOf(i) * -GAP); // Winkel jeder Miniatur, positiv = im Uhrzeigersinn
+  // Das Rad läuft linear, nicht im Kreis: Plätze -1 oben (vorheriges) … 0 vorne … n-2 unten.
+  // Was oben hinausrutscht, verschwindet und kommt unten nicht wieder herein; was noch nicht dran ist,
+  // wartet unsichtbar einen Platz unter dem untersten und rutscht schnell herein.
+  const relOf = (i) => i - active;
+  const hiddenOf = (i) => relOf(i) < -1 || relOf(i) > n - 2;
+  const slotOf = (i) => Math.max(-2, Math.min(n - 1, relOf(i))); // Versteckte parken direkt über bzw. unter den Plätzen
 
-  // steps: Schritte in Drehrichtung, vorwärts im Uhrzeigersinn, rückwärts dagegen. Ohne Angabe der kürzere Weg über das Rad.
-  const show = (to, steps = relOf(to)) => {
-    active = (to + n) % n;
+  const show = (to) => {
+    active = Math.max(0, Math.min(n - 1, to));
     thumbs.forEach((thumb, i) => {
       const rel = relOf(i);
-      // Der Winkel läuft immer in Drehrichtung weiter: Wer oben hinausläuft, kommt auf dem Kreis von unten wieder herein
-      const ahead = (((rel * -GAP - turns[i]) % 360) + 360) % 360;
-      const delta = steps < 0 && ahead ? ahead - 360 : ahead;
-      turns[i] += delta;
-      thumb.style.setProperty('--turn', `${turns[i]}deg`);
-      thumb.classList.toggle('is-wrapping', Math.abs(delta) > GAP * Math.abs(steps));
+      const hide = hiddenOf(i);
+      thumb.style.setProperty('--turn', `${slotOf(i) * -GAP}deg`); // positiv = im Uhrzeigersinn
+      thumb.classList.toggle('is-entering', thumb.classList.contains('is-hidden') && !hide);
+      thumb.classList.toggle('is-hidden', hide);
+      thumb.tabIndex = hide ? -1 : 0;
       thumb.classList.toggle('is-active', rel === 0);
       thumb.setAttribute('aria-current', rel === 0 ? 'true' : 'false');
       // Die aktive Miniatur führt ins Projekt, also auch derselbe Cursor wie über der Bühne
@@ -106,7 +107,7 @@ for (const root of document.querySelectorAll('[data-wheel-root]')) {
     const p = -track.getBoundingClientRect().top / distance();
     const i = Math.min(n - 1, Math.max(0, Math.floor(p * n)));
     if (i === stepped) return;
-    show(i, i - stepped);
+    show(i);
     stepped = i;
   };
   addEventListener('scroll', onScroll, { passive: true });

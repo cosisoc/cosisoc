@@ -55,15 +55,20 @@
 
 /* Kopf (Figma 1512 px): Zurück-Label, Titel 72 über beide Spalten; darunter Text in der Label-Spalte (340),
    Key Visual in der Inhaltsspalte (852 × 596, höchstens 640 hoch) */
-.panel-head { row-gap: 32px; align-items: start; padding: calc(var(--section-top) - var(--nav-h)) 0 96px; }
+.panel-head { row-gap: 32px; align-items: start; padding: calc(var(--section-top) - var(--nav-h)) 0 120px; }
 .head-title { grid-column: 1; }
 /* Desktop: Key Visual beginnt neben dem Titel, damit hohe Videos ganz ins Bild passen */
-@media (min-width: 768px) { .head-media { grid-column: 2; grid-row: 2 / span 2; } }
+/* Ist das Key Visual höher als Titel + Text, wächst nur die Textzeile (1fr), der Text bleibt direkt unter dem Titel */
+@media (min-width: 768px) {
+  .panel-head { grid-template-rows: auto auto 1fr; }
+  .head-media { grid-column: 2; grid-row: 2 / span 2; }
+}
 /* Zurück-Pfeil vor dem Abschnitts-Label: schließt das Projekt (wie „Hauptprojekte“ in der Leiste).
-   Eigene Zeile über beiden Spalten; -8 px gleicht row-gap 32 auf 24 px Abstand zum Titel aus */
-.head-back { grid-column: 1 / -1; display: block; width: fit-content; margin-bottom: -8px; font-weight: 400; text-decoration: none; }
+   Eigene Zeile über beiden Spalten, 32 px Abstand zum Titel wie in Figma */
+.head-back { grid-column: 1 / -1; display: block; width: fit-content; font-weight: 400; text-decoration: none; }
 /* Lange Wörter („Datenvisualisierung“) in der schmalen Spalte trennen statt überlaufen */
 .head-title h2 { font-size: var(--fs-title); hyphens: auto; overflow-wrap: break-word; }
+.head-title .dot { color: var(--c-accent); } /* grüner Schlusspunkt wie in der Startseiten-Überschrift */
 .head-text { display: flex; flex-direction: column; gap: 24px; }
 .head-short { font-size: var(--fs-lead); font-weight: var(--fw-sub); line-height: var(--lh-lead); }
 .head-intro { font-size: var(--fs-label); line-height: var(--lh-body); }
@@ -82,9 +87,14 @@
 .panel-head .head-media .head-hero.is-contain { object-fit: contain; }
 /* 3D-Modell (Cluttr) im Querformat wie die übrigen Key Visuals */
 .panel-head .head-media .model { aspect-ratio: 4 / 3; }
+/* Ton-Notiz unter dem Film (Paper Pursuit): klein, grün, rechts auf Höhe der Bedienleiste, Pfeil zeigt nach oben */
+.sound-hint { display: flex; align-items: flex-end; gap: 2px; width: fit-content; margin: 6px 0 0 auto; padding: 0; border: 0; background: none; color: var(--c-accent); font: inherit; font-size: var(--fs-meta); font-weight: 500; cursor: pointer; }
+.sound-hint svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.sound-hint:hover { text-decoration: underline; }
+.sound-hint[hidden] { display: none; }
 
 /* Nächstes Projekt: Label in der Label-Spalte, Titel 44 in der Inhaltsspalte */
-.panel-next { align-items: baseline; padding-top: 80px; text-decoration: none; color: var(--c-text); }
+.panel-next { align-items: baseline; padding-top: 28px; text-decoration: none; color: var(--c-text); }
 .next-label { font-size: var(--fs-label); font-weight: 700; color: var(--c-text-muted); }
 .next-title { font-size: var(--fs-display); font-weight: 700; line-height: var(--lh-display); }
 .panel-next:hover .next-title { color: var(--c-accent); }

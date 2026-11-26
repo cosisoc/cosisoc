@@ -56,7 +56,7 @@ const facts = [
     <section class="panel-head axes">
       <a class="section-label head-back" href={back.href} data-panel-close><span aria-hidden="true">←</span> {back.section}</a>
       <div class="head-title">
-        <h2 id={`panel-title-${p.slug}`}>{d.title}.</h2>
+        <h2 id={`panel-title-${p.slug}`}>{d.title}<span class="dot">.</span></h2>
       </div>
       <div class="head-text">
         <p class="head-short">{d.short}</p>
@@ -72,6 +72,13 @@ const facts = [
           : d.bob
           ? <BobViewer stage label={d.bob.label} />
           : <Media media={d.hero} class={d.hero.fit === 'contain' ? 'head-hero is-contain' : 'head-hero'} />}
+        {/* Film mit Ton (Paper Pursuit): kleine grüne Notiz unter dem Video, Klick schaltet den Ton an */}
+        {d.hero.video && d.hero.controls && (
+          <button class="sound-hint" type="button" data-sound-hint>
+            {t('hero.sound')}
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 18c6 0 11-4 13-11" /><path d="M12.5 7.5L17 6.5l1.2 4.5" /></svg>
+          </button>
+        )}
       </div>
     </section>
 
@@ -85,3 +92,13 @@ const facts = [
     </a>
   </article>
 </div>
+
+<script>
+  // Ton-Notiz: Klick schaltet den Ton des Kopf-Videos an; sobald Ton läuft, verschwindet die Notiz
+  document.querySelectorAll<HTMLButtonElement>('[data-sound-hint]').forEach((hint) => {
+    const video = hint.closest('.head-media')?.querySelector('video');
+    if (!video) return;
+    hint.addEventListener('click', () => { video.muted = false; video.play().catch(() => {}); });
+    video.addEventListener('volumechange', () => { hint.hidden = !video.muted; });
+  });
+</script>

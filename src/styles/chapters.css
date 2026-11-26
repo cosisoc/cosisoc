@@ -1,15 +1,14 @@
 /* Kapitel der Projektseiten (Figma „Vorschlag Layout“): links Nummer + Titel in der Label-Spalte,
    rechts Kernsatz, Text (max. 640 px) und Medium in der Inhaltsspalte. Nichts läuft über die volle Breite. */
-.chapters { counter-reset: chapter; border-bottom: 1px solid var(--c-line); }
+.chapters { counter-reset: chapter; }
 .chapter {
   counter-increment: chapter;
   align-items: start;
   padding: 56px 0;
-  border-top: 1px solid var(--c-line);
   scroll-margin-top: var(--nav-h);
 }
 /* tint: Kapitel auf beigem Grund, die Fläche läuft über die volle Breite, der Inhalt bleibt in den Spalten */
-.chapter.is-tinted { background: var(--c-sand); box-shadow: 0 0 0 100vmax var(--c-sand); clip-path: inset(0 -100vmax); border-top-color: transparent; }
+.chapter.is-tinted { background: var(--c-sand); box-shadow: 0 0 0 100vmax var(--c-sand); clip-path: inset(0 -100vmax); }
 
 .chapter-side { display: flex; flex-direction: column; gap: 4px; font-size: var(--fs-label); line-height: var(--lh-lead); letter-spacing: 0; }
 .chapter-num { font-size: var(--fs-meta); font-weight: 400; color: var(--c-text-muted); }
@@ -28,6 +27,9 @@
 /* Medium unter dem Text: Einzelbild in seinem Format, so breit wie die Inhaltsspalte, Höhe begrenzt */
 .chapter-main > :is(.chapter-media, .chapter-custom) { margin-top: 16px; }
 .chapter-media { width: auto; max-width: 100%; height: auto; max-height: var(--media-max-h); border-radius: var(--radius); }
+/* width/ratio aus der MDX (Figma-Maß), nur wenn gesetzt; Selektor stärker als die Breite aus Media.astro */
+.chapter[style*="--media-w"] .chapter-main > .chapter-media { width: var(--media-w); }
+.chapter[style*="--media-r"] .chapter-main > .chapter-media { aspect-ratio: var(--media-r); }
 .chapter-media.media-placeholder { width: 100%; aspect-ratio: 16 / 9; }
 .chapter-custom { width: 100%; display: flex; flex-direction: column; align-items: flex-start; gap: 32px; }
 .chapter-custom > :not(.carousel) { max-width: 100%; } /* Karussell läuft rechts aus der Seite */
@@ -35,23 +37,33 @@
 .figures-split { width: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
 .figures-split > div { display: flex; flex-direction: column; gap: 24px; }
 
+/* Vorweg-Kapitel „00 Kurz gesagt“ (Konekt): zählt nicht mit, 40 px Abstand oben wie in Figma */
+.chapter.is-intro { counter-increment: none; padding-top: 40px; }
+.chapter.is-intro .chapter-num::before { content: '00'; }
+/* Schritte mit Bild daneben (Steps.astro) sind breiter als der Fließtext */
+.chapter-more:has(.steps) { max-width: none; }
+.chapter-more:has(.steps) > :not(.steps) { max-width: var(--text-max); }
+
 /* Hochformat: Text (~400 px) links, Medium rechts daneben, beide in der Inhaltsspalte */
 @media (min-width: 768px) {
+  /* aside (Konekt „Anhänger“): Kernsatz über die ganze Breite, darunter Text 500 px und Medium 300 px nebeneinander */
+  .chapter.is-aside .chapter-main { display: grid; grid-template-columns: minmax(0, 500px) minmax(0, 300px); gap: 16px 32px; }
+  .chapter.is-aside .chapter-teaser { grid-column: 1 / -1; }
+  .chapter.is-aside .chapter-main > .chapter-custom { grid-column: 2; grid-row: 2; margin-top: 0; }
   .chapter.is-portrait .chapter-main { display: grid; grid-template-columns: minmax(0, 400fr) minmax(0, 452fr); grid-template-rows: auto 1fr; gap: 16px 32px; }
   .chapter.is-portrait .chapter-main > :is(.chapter-media, .chapter-custom) { grid-column: 2; grid-row: 1 / -1; margin-top: 0; justify-self: center; }
   .chapter.is-portrait .chapter-custom { align-items: center; }
 }
 
-/* Teile der Hauptprojekte: Linie über die ganze Breite, grüner Titel in der Inhaltsspalte.
-   Darin keine Linien zwischen den Kapiteln; das erste Kapitel rückt näher an den Titel. */
-.part { margin-top: 120px; padding-top: 28px; border-top: 1px solid var(--c-line); }
+/* Teile der Hauptprojekte: grüner Titel in der Inhaltsspalte, ohne Trennlinien (wie Figma).
+   Das erste Kapitel rückt näher an den Titel. */
+/* Abstände wie Figma „Akt-Kopf“: 64 px über dem Titel, 16 px darunter (+ 40 px des ersten Kapitels) */
+.part { padding: 64px 0 16px; }
 .part-title { font-size: clamp(28px, 2.65vw, 40px); font-weight: 700; color: var(--c-accent); }
-.chapters:has(.part) { border-bottom: 0; }
-.chapters:has(.part) .chapter { border-top-color: transparent; }
 .part + .chapter { padding-top: 40px; }
 
 @media (max-width: 767px) {
   .chapter { padding: 40px 0; }
   .figures-split { grid-template-columns: 1fr; }
-  .part { margin-top: 64px; }
+  .part { padding-top: 40px; }
 }
